@@ -1,0 +1,56 @@
+$screen-sm-min:      768px;
+$screen-md-min:      992px;
+$layout-breakpoint-small:992px;
+$layout-breakpoint-md:991px;
+$layout-breakpoint-m-content:559px;
+$screen-lg-min:      1200px;
+$container-sm:       760px;    //TB區塊內容總寬
+$container-md:       960px;    //PC區塊內容總寬
+$container-lg:       1180px;   //PC大版區塊內容總寬
+$column-spacing:     16px;     //欄位間距
+$block-spacing:      40px;     //前後段落間距
+$mobile-min:         320px;    //mobile最小寬度
+
+$container-sm-padding:  46px;
+$container-md-padding:  2px;
+
+$content-width-tb: $container-sm - $container-sm-padding * 2;
+$content-width-pc: $container-md - $container-md-padding * 2;
+
+$pc: "only screen and (min-width: 992px)";
+$tb: "only screen and (max-width: 991px)";
+$m: "only screen and (max-width: 767px)";
+$m-content: "only screen and (max-width: 559px)";
+
+
+body {
+  font-family: $font-pc;
+  color: $black;
+  min-width: $screen-sm-min;
+}
+
+
+#wrapper {
+  position: relative;
+}
+
+#wrapper > .content {
+  margin-left: auto;
+  margin-right: auto;
+  width: $container-sm;
+  padding: 0 $container-sm-padding;
+}
+#wrapper > .fullWidth {
+  width: 100%;
+  padding: 0;
+}
+@media (min-width: $layout-breakpoint-small) {
+  body {
+    font-family: $font-pc;
+  }
+
+  #wrapper > .content {
+    width: $container-md;
+    padding: 0 $container-md-padding;
+  }
+}

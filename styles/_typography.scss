@@ -1,0 +1,25 @@
+/* Gudea */
+@import url(https://fonts.googleapis.com/css?family=Gudea:400,700);
+
+//字型-PC
+$font-pc: "Gudea", "Heiti", "微軟正黑體", "Microsoft JhengHei";
+//字型-TB
+$font-tb: "Gudea";
+//字型-PC-13px-不設中文字型
+$font-family: "Gudea";
+//字級大小-PC
+$H0: 22px; //_oldBrowserCheck.less有用到
+$H1: 24px;
+$H2: 20px;
+$H3: 18px;
+$H4: 15px;
+$H5: 13px;
+$H6: 13px;
+
+//字級大小-TB
+$h1: 24px;
+$h2: 20px;
+$h3: 18px;
+$h4: 16px;
+$h5: 15px;
+$h6: 14px;

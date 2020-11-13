@@ -1,0 +1,121 @@
+.ez-btn {
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  border-radius: 3px;
+  margin: 0;
+  word-break: keep-all;
+  overflow: hidden;
+  &:focus {
+    outline: none;
+  }
+  &:disabled {
+    cursor: not-allowed;
+  }
+  &.btn-primary {
+    color: $white-primary;
+    background-color: $green-primary;
+    &:hover,
+    &:active,
+    &.btn-loading {
+      background-color: $green-dark;
+    }
+    &.btn-loading {
+      color: $green-dark;
+    }
+    &:disabled {
+      background-color: $green-tertiary;
+    }
+  }
+  &.btn-orange {
+    color: $white-primary;
+    background-color: $orange-primary;
+    &:hover,
+    &:active,
+    &.btn-loading {
+      background-color: $orange-dark;
+    }
+    &.btn-loading {
+      color: $orange-dark;
+    }
+    &:disabled {
+      background-color: $orange-tertiary;
+    }
+  }
+  &.btn-gray {
+    border: solid 1px $gray-btn-border;
+    background-color: $white-primary;
+    color: $black;
+    font-weight: normal;
+    &:hover,
+    &:active,
+    &.btn-loading {
+      background-color: $bluish-gray2;
+      border-color: $bluish-gray2;
+    }
+    &.btn-loading {
+      color: $bluish-gray2;
+    }
+    &:focus {
+      border-color: $bluish-gray2;
+    }
+    &:disabled {
+      background-color: $bluish-gray3;
+      border-color: $bluish-gray3;
+    }
+  }
+  &.btn-lg {
+    min-width: 140px;
+    height: 100%;
+    min-height: 40px;
+    max-height: 45px;
+    padding: 8px 7px;
+  }
+  &.btn-md {
+    min-width: 80px;
+    height: 100%;
+    min-height: 42px;
+    max-height: 48px;
+    padding: 12px 12px;
+  }
+  &.btn-sm {
+    font-size: 14px;
+    min-width: 48px;
+    height: 100%;
+    min-height: 24px;
+    max-height: 29px;
+    padding: 5px 10px;
+    &.btn-loading {
+      &:before {
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+  @keyframes lds-dual-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  &.btn-loading {
+    display: inherit;
+    line-height: 0;
+    &:before {
+      content: ' ';
+      width: 19px;
+      height: 19px;
+      border: 2.5px solid #fff;
+      display: block;
+      margin: 0 auto;
+      text-align: center;
+      border-radius: 50%;
+      border-color: #fff transparent #fff transparent;
+      animation: lds-dual-ring 1.2s linear infinite;
+    }
+  }
+}

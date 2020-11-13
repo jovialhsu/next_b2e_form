@@ -1,0 +1,38 @@
+@import './color';
+@import './typography';
+@import './layout';
+@import './button';
+@import './form';
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #eef2f3;
+    font-family: $font-pc;
+}
+#wrapper > .content{
+    width: 700px;
+    margin-top: 20px;
+    border-radius: 3px;
+    &.application{
+        background: $white-primary;
+        margin-top: 40px;
+        padding-top: 80px;
+        padding-bottom: 100px;
+        text-align: center;
+        svg{
+            margin-bottom: 30px;
+            + h2{
+                margin-bottom: 8px;
+                + p{
+                    margin-bottom: 20px;
+                }
+            }
+        }
+    }
+}
+.buttonArea{
+    text-align: center;
+    button{
+        margin: 30px 10px;
+    }
+}
