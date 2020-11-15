@@ -11,11 +11,11 @@ export default class District extends PureComponent {
         fieldName: PropTypes.string,
     };
 
-    onChange = (e) => {
-        const currentDistrict = e.target.value;
-
-        this.props.changeDistrict(currentDistrict);
-    };
+    // onChange = (e) => {
+    //     const currentDistrict = e.target.value;
+    //     console.log('傳遞的district',e.target.value)
+    //     this.props.changeDistrict(currentDistrict);
+    // };
 
     render() {
         const {
@@ -24,7 +24,7 @@ export default class District extends PureComponent {
             className,
             //value,
         } = this.props;
-     
+     //console.log('地區',this.props.value)
             const districts =!!data ? data.map((v) =>v):[];
         
 

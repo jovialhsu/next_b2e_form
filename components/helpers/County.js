@@ -7,7 +7,7 @@ export default class County extends PureComponent {
         changeCounty: PropTypes.func,
         className: PropTypes.string,
         data: PropTypes.arrayOf(PropTypes.string),
-        value: PropTypes.object,
+        value: PropTypes.string,
         fieldName: PropTypes.string,
     };
 
@@ -22,7 +22,7 @@ export default class County extends PureComponent {
             className,
             //value,
         } = this.props;
-
+//console.log(this.props.value)
         const counties = data.map((v) => v);
 
         return (

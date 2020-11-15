@@ -54,7 +54,7 @@ export default class Dropdown extends Component {
     }
 
     handleMouseDown(event) {
-        console.log(event)
+        //console.log(event)
         if (this.props.onFocus && typeof this.props.onFocus === 'function') {
             this.props.onFocus(this.state.isOpen)
         }
@@ -97,18 +97,18 @@ export default class Dropdown extends Component {
             },
             isOpen: false,
         }
-        console.log(this.props.onChange)
+        //console.log(this.props.onChange)
         this.fireChangeEvent(newState)
         this.setState(newState)
     }
 
     fireChangeEvent(newState) {
         if (newState.selected !== this.state.selected && this.props.changeCounty) {
-            this.props.changeCounty(newState.selected)
+            this.props.changeCounty(newState.selected.value)
             //this.props.onChange(newState.selected)
         }
         if (newState.selected !== this.state.selected && this.props.changeDistrict) {
-            this.props.changeDistrict(newState.selected)
+            this.props.changeDistrict(newState.selected.value)
             //this.props.onChange(newState.selected)
         }
         if (newState.selected !== this.state.selected && this.props.onChange) {
@@ -119,7 +119,7 @@ export default class Dropdown extends Component {
 
     renderOption(option, name) {
         let value = option.value
-        console.log(value)
+        //console.log(value)
         if (typeof value === 'undefined') {
             value = option.label || option
         }
@@ -152,7 +152,7 @@ export default class Dropdown extends Component {
 
     buildMenu() {
         let { options, baseClassName, name } = this.props
-        console.log(this.props)
+        //console.log(this.props)
         let ops = options.map(option => {
             if (option.type === 'group') {
                 let groupTitle = <div className={`${baseClassName}-title`}>{option.name}</div>

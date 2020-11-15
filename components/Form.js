@@ -74,7 +74,7 @@ export default class Form extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
     handleChange(event) {
-        console.log(event);
+        //console.log(event);
         const { name, value, type, checked } = event.target
             ? event.target
             : event;
@@ -82,7 +82,7 @@ export default class Form extends Component {
         type === 'checkbox'
             ? this.setState({ [name]: checked })
             : this.setState({ [name]: value });
-        console.log(event.target);
+        //console.log(event.target);
         if (typeof event.target !== 'undefined') {
             const valid = event.target.getAttribute('data-valid');
             //console.log(valid)
@@ -133,8 +133,8 @@ export default class Form extends Component {
                       });
             }
             if (checkNumArr.indexOf(name) > -1) {
-                console.log(isNumberErr(value));
-                console.log('empty', isEmpty(value));
+                //console.log(isNumberErr(value));
+                //console.log('empty', isEmpty(value));
                 isNumberErr(value) && value !== ''
                     ? this.setState({ [valid]: isNumberErr(value) })
                     : isEmpty(value)
@@ -305,7 +305,7 @@ export default class Form extends Component {
                             label="聯絡地址*"
                             id="ADDR_CONT"
                             name="ADDR_CONT"
-                            countyValue={''}
+                            countyValue={""}
                             value={this.state.ADDR_CONT}
                             valid={this.state.ADDR_CONT_VALID}
                             validityMessage={'請輸入聯絡地址'}

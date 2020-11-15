@@ -134,11 +134,30 @@ label {
   text-indent: 10px;
   color: #999;
   width: 100%;
+  &:hover {
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+  }
   .is-selected {
     color: #111;
   }
 }
-
+.Dropdown-arrow {
+  border-color: #999 transparent transparent;
+  border-style: solid;
+  border-width: 5px 5px 0;
+  content: ' ';
+  display: block;
+  height: 0;
+  margin-top: -ceil(2.5);
+  position: absolute;
+  right: 10px;
+  top: 14px;
+  width: 0
+}
+.is-open .Dropdown-arrow {
+  border-color: transparent transparent #999;
+  border-width: 0 5px 5px;
+}
 .Dropdown-menu {
   position: absolute;
   background-color: white;
@@ -146,6 +165,8 @@ label {
   padding: 1em;
   margin-top: 10px;
   z-index: 10;
+  max-height: 200px;
+  overflow-y: auto;
   //   padding-right: 0;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2),
     0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 4px 5px 0 rgba(0, 0, 0, 0.14);
@@ -162,6 +183,14 @@ label {
     }
   }
 }
+.Dropdown-noresults {
+  box-sizing: border-box;
+  color: #ccc;
+  cursor: default;
+  display: block;
+  padding: 8px 10px;
+}
+
 .invalid {
   border-color: $red-error;
   background: rgb(237, 217, 217);

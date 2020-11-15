@@ -10,16 +10,19 @@ export default class TWzipcodeApp extends Component {
     constructor(props) {
         super(props);
         const { countyValue, districtValue, zipcodeValue } = this.props;
-        console.log(this.props);
-        const counties = Object.keys(zipData);
+        //console.log('選擇的縣市',this.props);
+        const counties = Object.keys(zipData);//縣市的陣列
+        //console.log('counties',counties)
         let district;
         let county;
         let zipcode = '';
         let districts;
 
         if (countyValue === '') {
-            county = countyValue;
-            district = '';
+            county = "";
+            district = '';//若未選擇縣市鄉鎮地區為空白
+            districts=[];
+            //console.log('districts',districts)
         } else {
             let county = countyValue === '' ? counties[0] : countyValue;
             districts = Object.keys(zipData[county]).map((d) => d, []);
@@ -58,12 +61,11 @@ export default class TWzipcodeApp extends Component {
 
     static propTypes = {
         countyFieldName: PropTypes.string,
-        countyValue: PropTypes.object,
+        countyValue: PropTypes.string,
         css: PropTypes.arrayOf(PropTypes.string),
         detect: PropTypes.bool,
         districtFieldName: PropTypes.string,
         districtValue: PropTypes.string,
-        googleMapsKey: PropTypes.string,
         handleChangeCounty: PropTypes.func,
         handleChangeDistrict: PropTypes.func,
         handleChangeZipcode: PropTypes.func,
@@ -79,7 +81,6 @@ export default class TWzipcodeApp extends Component {
         detect: false,
         districtFieldName: 'district',
         districtValue: '',
-        googleMapsKey: '',
         handleChangeCounty: undefined,
         handleChangeDistrict: undefined,
         handleChangeZipcode: undefined,
@@ -88,6 +89,8 @@ export default class TWzipcodeApp extends Component {
         zipcodePlaceholder: '郵遞區號',
     };
     static getDerivedStateFromProps(nextProps) {
+        //console.log('nextprops',nextProps)
+        //console.log(this.props)
         /** componentWillReceiveProps has been renamed, and is not recommended for use*/
         if (
             nextProps.countyValue &&
@@ -113,16 +116,16 @@ export default class TWzipcodeApp extends Component {
     }
 
     changeCounty = (county) => {
-        console.log(county);
-        const districts = Object.keys(zipData[county.value]).map((d) => d, []);
-        console.log(districts);
+        //console.log(county);
+        const districts = Object.keys(zipData[county]).map((d) => d, []);
+        //console.log(districts);
         const { handleChangeCounty } = this.props;
 
         this.setState(
             {
                 county,
                 district: districts[0],
-                zipcode: zipData[county.value][districts[0]],
+                zipcode: zipData[county][districts[0]],
                 districts,
             },
             () => {
@@ -138,9 +141,9 @@ export default class TWzipcodeApp extends Component {
     };
 
     changeDistrict = (district) => {
-        console.log(district);
-        console.log(this.state.county);
-        const zipcode = zipData[this.state.county.value][[district.value][0]];
+        //console.log('change',district);
+        //console.log(this.state.county);
+        const zipcode = zipData[this.state.county][[district][0]];
         const { handleChangeDistrict } = this.props;
 
         this.setState(
@@ -152,7 +155,7 @@ export default class TWzipcodeApp extends Component {
                 if (typeof handleChangeDistrict === 'function') {
                     handleChangeDistrict({
                         county: this.state.county,
-                        district: this.state.district.value,
+                        district: this.state.district,
                         zipcode: this.state.zipcode,
                     });
                 }
@@ -164,8 +167,8 @@ export default class TWzipcodeApp extends Component {
         if (zipcode && zipcode.length === 3) {
             const { county, district } = findDeep(zipData, zipcode);
             const { handleChangeZipcode } = this.props;
-            console.log(county);
-            console.log(district);
+            //console.log(county);
+            //console.log(district);
 
             if (county && district && zipcode) {
                 this.setState(
