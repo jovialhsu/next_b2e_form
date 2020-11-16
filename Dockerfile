@@ -1,15 +1,15 @@
 FROM node:10.19.0-alpine 
 #載入node.js所需環境
 WORKDIR /workspace
-#在這個 Docker 的環境之中建立一個工作目錄 /app
+#在這個 Docker 的環境之中建立一個工作目錄 /workspace
 ADD . /workspace
-#把跟 Dockerfile同個資料夾的程式加到剛建立的工作目錄 /app 中
+#把跟 Dockerfile同個資料夾的程式加到剛建立的工作目錄 /workspace 中
 RUN yarn 
-#執行npm install，讓 npm 透過讀取 package.json 下載相依的 package
+#執行yarn，讓 yarn 透過讀取 package.json 下載相依的 package
 EXPOSE 3005
 #指定 container 對外開放的 port
 CMD node server.js 
-#透過 node index.js 來執行我們的 Server
+#透過 node server.js 來執行我們的 Server
 
 # ARG build_env=local
 
