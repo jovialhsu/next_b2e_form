@@ -42,6 +42,8 @@ export default class Form extends Component {
             COMP_AMOUNT_VALID: true, //驗證是否為輸入數字??100000000
             ///
             CONT_NAME: '', //聯絡人姓名
+            CONT_NAME_FIRST: '', //聯絡人名
+            CONT_NAME_LAST: '', //聯絡人姓
             CONT_NAME_VALID: true,
 
             CONT_TEL_EXT: '', //聯絡人電話(區碼+電話+分機)
@@ -305,7 +307,7 @@ export default class Form extends Component {
                             label="聯絡地址*"
                             id="ADDR_CONT"
                             name="ADDR_CONT"
-                            countyValue={""}
+                            countyValue={''}
                             value={this.state.ADDR_CONT}
                             valid={this.state.ADDR_CONT_VALID}
                             validityMessage={'請輸入聯絡地址'}
@@ -361,6 +363,26 @@ export default class Form extends Component {
                         <TextInput
                             id="CONT_NAME"
                             name="CONT_NAME"
+                            name={[
+                                {
+                                    name: 'CONT_NAME_LAST',
+                                    placeholder: '姓',
+                                    value: this.state.CONT_NAME_LAST,
+                                    valid: this.state.CONT_NAME_LAST_VALID,
+                                    validName: 'CONT_NAME_LAST_VALID',
+                                    onChange: this.handleChange,
+                                    max: '5',
+                                },
+                                {
+                                    name: 'CONT_NAME_FIRST',
+                                    placeholder: '名',
+                                    value: this.state.CONT_NAME_FIRST,
+                                    valid: this.state.CONT_NAME_FIRST_VALID,
+                                    validName: 'CONT_NAME_FIRST_VALID',
+                                    onChange: this.handleChange,
+                                    max: '10',
+                                },
+                            ]}
                             label="姓名*"
                             placeholder="請輸入"
                             value={this.state.CONT_NAME}

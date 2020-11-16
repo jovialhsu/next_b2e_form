@@ -124,6 +124,12 @@ label {
   }
 .Dropdown-root {
   position: relative;
+  &.is-open{
+    .Dropdown-control{
+      border-color: #55d040;
+    outline: none;
+    }
+  }
 }
 .Dropdown-control {
   background: white;
