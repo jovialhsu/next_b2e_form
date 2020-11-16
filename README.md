@@ -44,8 +44,8 @@ API_ENV=DEV
 yarn
 ```
 #### 開發環境 TEST/WS/PRD
-```jsx
-yarn start      //本機設定環境變數 DEV
+```bash
+yarn start      #本機設定環境變數 DEV
 ```
 開啟瀏覽器 `http://3w.join-eztravel.com`
 #### build and run server
@@ -77,15 +77,11 @@ docker-compose exec server sh
 ---
 ## 目錄結構
 ```
-├ pages                 // Next.js page 對應 route
-    └ dashboard
-        └ index.js
+├ pages                 // Next.js page 對應 (route)
     └ _document.js      // html, head, body
     └ _app.js           // 根組件,全局佈局樣式
     └ _error.js         // error page
     └ index.js          // 首頁
-├ containers            // stateful
-    └ byPageComponents
 ├ components            // Stateless & presentational & functional Components
     └ Layout
         └ index.js
@@ -93,56 +89,29 @@ docker-compose exec server sh
     └ Header
     └ Footer
     └ Meta
-├ redux
-    └ constants         // action type constants
-        └ index.js
-    └ actions           // actions
-        └ ...Actions.js
-    └ reducers
-        └ index.js      // rootReducers
-        └ ...Reducer.js
-    └ saga
-        └ index.js      // rootSaga
-        └ ...Saga.js
-    └ store.js
-├ public                // static public to build
-    └ static
-        └ images
-├ theme
-    └ index.js          // Material UI createMuiTheme
+├ public                // static public to 
+    └ images
 ├ config                // clinet config
     └ meta
     └ uri
         └ client.js
-├ utils                 // clinet utils
-    └ index.js
-
------ server 的檔案都需在這層之下 -----
-
-├ server
-    └ config            // server config
-        └ uri
-            └ server.js
-    └ controllers       // server api controllers
-    └ middleware        // server middleware
-    └ utils             // server utils
-        └ index.js
-    └ app.js            // server app
+--server---        
+├ server.js
 
 ├ Dockerfile            // docker Image
 ├ docker-compose.yaml   // docker compose
-├ next.config.js        // webpack config inherit Next.js
+├ next.config.js        // webpack config 
+--inherit Next.js--
 ├ package.json
 ├ yarn.lock
 ├ .babelrc
 ├ .dockerignore
 ├ .gitignore
-├ .prettierrc
 └ .vscode
 
 ----- next build -----
 
-└ build
+└ .next
     └ images
     └ static
     └ server
