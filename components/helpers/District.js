@@ -24,21 +24,19 @@ export default class District extends PureComponent {
             className,
             //value,
         } = this.props;
-     //console.log('地區',this.props.value)
-            const districts =!!data ? data.map((v) =>v):[];
-        
+        //console.log('地區',this.props.value)
+        const districts = !!data ? data.map((v) => v) : [];
 
         return (
             <Dropdown
-                name={fieldName}
+                name={this.props.name}
                 className={className}
                 changeDistrict={this.props.changeDistrict}
                 value={this.props.value}
                 options={districts}
-                placeholder='鄉鎮市區'
-            >
-                
-            </Dropdown>
+                placeholder="鄉鎮市區"
+                onChange={this.props.onChange}
+            ></Dropdown>
         );
     }
 }

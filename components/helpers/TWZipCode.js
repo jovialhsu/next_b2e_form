@@ -11,7 +11,7 @@ export default class TWzipcodeApp extends Component {
         super(props);
         const { countyValue, districtValue, zipcodeValue } = this.props;
         //console.log('選擇的縣市',this.props);
-        const counties = Object.keys(zipData);//縣市的陣列
+        const counties = Object.keys(zipData); //縣市的陣列
         //console.log('counties',counties)
         let district;
         let county;
@@ -19,9 +19,9 @@ export default class TWzipcodeApp extends Component {
         let districts;
 
         if (countyValue === '') {
-            county = "";
-            district = '';//若未選擇縣市鄉鎮地區為空白
-            districts=[];
+            county = '';
+            district = ''; //若未選擇縣市鄉鎮地區為空白
+            districts = [];
             //console.log('districts',districts)
         } else {
             let county = countyValue === '' ? counties[0] : countyValue;
@@ -197,6 +197,7 @@ export default class TWzipcodeApp extends Component {
     };
 
     render() {
+        console.log(this.props);
         const {
             countyFieldName,
             districtFieldName,
@@ -205,7 +206,7 @@ export default class TWzipcodeApp extends Component {
             css,
         } = this.props;
         const { counties, county, districts, district, zipcode } = this.state;
-
+        // this.state.zipcode = this.props.value[2];
         return (
             <>
                 <County
@@ -214,20 +215,28 @@ export default class TWzipcodeApp extends Component {
                     data={counties}
                     value={county}
                     changeCounty={this.changeCounty}
+                    name={this.props.name[0]}
+                    onChange={this.props.onChange}
                 />
                 <District
                     fieldName={districtFieldName}
                     className={css[1]}
                     data={districts}
                     value={district}
+                    name={this.props.name[1]}
+                    //value={this.props.value[1]}
                     changeDistrict={this.changeDistrict}
+                    onChange={this.props.onChange}
                 />
                 <ZipCode
                     name={zipcodeFieldName}
                     className={css[2]}
                     value={zipcode}
+                    //value={this.props.value[2]}
+                    name={this.props.name[2]}
                     placeholder={zipcodePlaceholder}
                     changeZipcode={this.changeZipcode}
+                    onChange={this.props.onChange}
                 />
             </>
         );

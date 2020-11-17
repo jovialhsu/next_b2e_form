@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "node server.js",
-    "build": "next build",
-    "start": "next start"
+    "build": "./node_modules/.bin/cross-env next build",
+    "server": "./node_modules/.bin/cross-env NODE_ENV=production node server.js"
   },
   "dependencies": {
     "@svgr/webpack": "^5.4.0",

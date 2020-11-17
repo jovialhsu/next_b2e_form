@@ -34,8 +34,10 @@ export default class Form extends Component {
             COMP_EMPOLYEE_MSG: '請輸入員工人數',
             COMP_SCALE: '', //公司規模
 
-            ZIP_CONT: '', //郵遞區號
             ADDR_CONT: '', //聯絡地址
+            ADDR_CONT_COUNTY: '',
+            ADDR_CONT_DISTRICT: '',
+            ZIP_CONT: '', //郵遞區號
             ADDR_CONT_VALID: true, //聯絡地址
             DEALER_TYPE: '', //產業類別
             COMP_AMOUNT: '', //資本額
@@ -84,7 +86,7 @@ export default class Form extends Component {
         type === 'checkbox'
             ? this.setState({ [name]: checked })
             : this.setState({ [name]: value });
-        //console.log(event.target);
+        console.log(event);
         if (typeof event.target !== 'undefined') {
             const valid = event.target.getAttribute('data-valid');
             //console.log(valid)
@@ -305,10 +307,25 @@ export default class Form extends Component {
                         />
                         <AddressInput
                             label="聯絡地址*"
-                            id="ADDR_CONT"
-                            name="ADDR_CONT"
+                            id={[
+                                'ADDR_CONT_COUNTY',
+                                'ADDR_CONT_DISTRICT',
+                                'ZIP_CONT',
+                                'ADDR_CONT',
+                            ]}
+                            name={[
+                                'ADDR_CONT_COUNTY',
+                                'ADDR_CONT_DISTRICT',
+                                'ZIP_CONT',
+                                'ADDR_CONT',
+                            ]}
                             countyValue={''}
-                            value={this.state.ADDR_CONT}
+                            value={[
+                                this.state.ADDR_CONT_COUNTY,
+                                this.state.ADDR_CONT_DISTRICT,
+                                this.state.ZIP_CONT,
+                                this.state.ADDR_CONT,
+                            ]}
                             valid={this.state.ADDR_CONT_VALID}
                             validityMessage={'請輸入聯絡地址'}
                             onChange={this.handleChange}
@@ -508,6 +525,7 @@ export default class Form extends Component {
                             variant="gray"
                             label={'清除重填'}
                             type="reset"
+                            onClick={this.handleFormReset}
                         ></Button>
                         <Button
                             label={'確認送出'}

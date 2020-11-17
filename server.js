@@ -16,6 +16,6 @@ app.prepare().then(() => {
         await handle(ctx.req, ctx.res);
         ctx.response = false;
     });
-
+    console.log(process.env.NODE_ENV);
     server.listen(3005);
 });
