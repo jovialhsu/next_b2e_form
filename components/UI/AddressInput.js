@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 //import Dropdown from './Dropdown';
-import TWZipCode from '../helpers/TWZipCode';
+import TWZipCode from '../helpers/TWZipCode'
 export default class AddressInput extends Component {
     render() {
         //console.log(this.props)
@@ -9,7 +9,9 @@ export default class AddressInput extends Component {
                 <label htmlFor={this.props.id}>{this.props.label}</label>
                 <div className="input-container">
                     <TWZipCode
+                        handleChangeCounty={this.props.handleChangeCounty}
                         onChange={this.props.onChange}
+                        syncChange={this.props.syncChange}
                         name={this.props.name.slice(0, 3)}
                         id={this.props.id.slice(0, 3)}
                         value={this.props.value.slice(0, 3)}
@@ -25,13 +27,11 @@ export default class AddressInput extends Component {
                     maxLength={this.props.max}
                 />
                 {this.props.validityMessage && !this.props.valid ? (
-                    <p className="error-message">
-                        {this.props.validityMessage}
-                    </p>
+                    <p className="error-message">{this.props.validityMessage}</p>
                 ) : (
                     ''
                 )}
             </div>
-        );
+        )
     }
 }

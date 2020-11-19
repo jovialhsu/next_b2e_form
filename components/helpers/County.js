@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import Dropdown from '../UI/Dropdown';
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
+import Dropdown from '../UI/Dropdown'
 
 export default class County extends PureComponent {
     static propTypes = {
@@ -9,11 +9,7 @@ export default class County extends PureComponent {
         data: PropTypes.arrayOf(PropTypes.string),
         value: PropTypes.string,
         fieldName: PropTypes.string,
-    };
-
-    onChange = (e) => {
-        console.log('e');
-    };
+    }
 
     render() {
         const {
@@ -21,9 +17,9 @@ export default class County extends PureComponent {
             fieldName,
             className,
             //value,
-        } = this.props;
+        } = this.props
         //console.log(this.props.value)
-        const counties = data.map((v) => v);
+        const counties = data.map(v => v)
 
         return (
             <Dropdown
@@ -33,9 +29,9 @@ export default class County extends PureComponent {
                 value={this.props.value}
                 changeCounty={this.props.changeCounty}
                 options={counties}
-                onChange={this.props.onChange}
+                // onChange={this.props.onChange}
                 placeholder="縣市"
             ></Dropdown>
-        );
+        )
     }
 }

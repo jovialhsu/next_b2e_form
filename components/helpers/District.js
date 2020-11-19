@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import Dropdown from '../UI/Dropdown';
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
+import Dropdown from '../UI/Dropdown'
 
 export default class District extends PureComponent {
     static propTypes = {
@@ -9,7 +9,7 @@ export default class District extends PureComponent {
         data: PropTypes.arrayOf(PropTypes.string),
         value: PropTypes.string,
         fieldName: PropTypes.string,
-    };
+    }
 
     // onChange = (e) => {
     //     const currentDistrict = e.target.value;
@@ -23,9 +23,9 @@ export default class District extends PureComponent {
             fieldName,
             className,
             //value,
-        } = this.props;
+        } = this.props
         //console.log('地區',this.props.value)
-        const districts = !!data ? data.map((v) => v) : [];
+        const districts = !!data ? data.map(v => v) : []
 
         return (
             <Dropdown
@@ -35,8 +35,7 @@ export default class District extends PureComponent {
                 value={this.props.value}
                 options={districts}
                 placeholder="鄉鎮市區"
-                onChange={this.props.onChange}
             ></Dropdown>
-        );
+        )
     }
 }

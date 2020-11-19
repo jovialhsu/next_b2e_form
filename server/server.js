@@ -17,5 +17,6 @@ app.prepare().then(() => {
         ctx.response = false;
     });
     console.log(process.env.NODE_ENV);
+    console.log(process.env.API_ENV);
     server.listen(3005);
 });

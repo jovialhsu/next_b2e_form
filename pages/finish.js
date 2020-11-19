@@ -1,13 +1,8 @@
-import Head from 'next/head';
-import Layout, { siteTitle } from '../components/layout';
-// import { getSortedPostsData } from '../lib/posts';
+import Layout from '../components/layout';
 import Notification from '../components/Notification';
 export default function Form({ allPostsData }) {
     return (
         <Layout>
-            <Head>
-                <title>{siteTitle}</title>
-            </Head>
             <Notification />
         </Layout>
     );

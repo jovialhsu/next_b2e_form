@@ -1,10 +1,8 @@
-import Head from 'next/head';
-import styles from './layout.module.css';
-import Link from 'next/link';
-import Header from './Header';
-import Footer from './Footer';
-const name = 'Cindy';
-export const siteTitle = 'Next.js Website';
+import Head from 'next/head'
+import styles from './layout.module.css'
+import Header from './Header'
+import Footer from './Footer'
+export const siteTitle = '企業會員加入表單'
 export default function Layout({ children, home }) {
     return (
         <>
@@ -12,10 +10,7 @@ export default function Layout({ children, home }) {
             <div className={styles.container}>
                 <Head>
                     <link rel="icon" href="/favicon.ico" />
-                    <meta
-                        name="description"
-                        content="Learn how to build a personal website using Next.js"
-                    />
+                    <meta name="description" content="Learn how to build a personal website using Next.js" />
                     <meta
                         property="og:image"
                         content={`https://og-image.now.sh/${encodeURI(
@@ -24,11 +19,12 @@ export default function Layout({ children, home }) {
                     />
                     <meta name="og:title" content={siteTitle} />
                     <meta name="twitter:card" content="summary_large_image" />
+                    <title>{siteTitle}</title>
                 </Head>
 
                 <main id="wrapper">{children}</main>
             </div>
             <Footer />
         </>
-    );
+    )
 }

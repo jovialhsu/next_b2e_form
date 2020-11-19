@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import Dropdown from './Dropdown';
+import React, { Component } from 'react'
+import Dropdown from './Dropdown'
 
 export default class SelectInput extends Component {
     // componentDidUpdate(prevProps) {
@@ -65,13 +65,11 @@ export default class SelectInput extends Component {
                     value={this.props.value}
                 ></Dropdown>
                 {this.props.validityMessage && !this.props.valid ? (
-                    <p className="error-message">
-                        {this.props.validityMessage}
-                    </p>
+                    <p className="error-message">{this.props.validityMessage}</p>
                 ) : (
                     ''
                 )}
             </div>
-        );
+        )
     }
 }

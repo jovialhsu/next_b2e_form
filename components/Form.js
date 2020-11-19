@@ -1,21 +1,15 @@
-import React, { Component } from 'react';
-import FormHeader from './UI/FormHeader';
-import TextInput from './UI/TextInput';
-import SelectInput from './UI/SelectInput';
-import AddressInput from './UI/AddressInput';
-import FormContainer from './UI/FormContainer';
-import Button from './UI/Button';
-import {
-    isEmpty,
-    isUniformNumbersErr,
-    isEmailErr,
-    isMobileErr,
-    isNumberErr,
-} from './helpers/validation';
+import React, { Component } from 'react'
+import FormHeader from './UI/FormHeader'
+import TextInput from './UI/TextInput'
+import SelectInput from './UI/SelectInput'
+import AddressInput from './UI/AddressInput'
+import FormContainer from './UI/FormContainer'
+import Button from './UI/Button'
+import { isEmpty, isUniformNumbersErr, isEmailErr, isMobileErr, isNumberErr } from './helpers/validation'
 
 export default class Form extends Component {
     constructor() {
-        super();
+        super()
         this.initialState = {
             COMP_NAME: '', //公司名稱*
             COMP_NAME_VALID: true,
@@ -73,26 +67,20 @@ export default class Form extends Component {
             label: '',
             rows: null,
             validityMessage: '',
-        };
-        this.state = this.initialState;
-        this.handleChange = this.handleChange.bind(this);
+        }
+        this.state = this.initialState
+        this.handleChange = this.handleChange.bind(this)
     }
     handleChange(event) {
         //console.log(event);
-        const { name, value, type, checked } = event.target
-            ? event.target
-            : event;
-        const checkNumArr = ['COMP_EMPOLYEE'];
-        type === 'checkbox'
-            ? this.setState({ [name]: checked })
-            : this.setState({ [name]: value });
-        console.log(event);
+        const { name, value, type, checked } = event.target ? event.target : event
+        const checkNumArr = ['COMP_EMPOLYEE']
+        type === 'checkbox' ? this.setState({ [name]: checked }) : this.setState({ [name]: value })
+        //console.log(event)
         if (typeof event.target !== 'undefined') {
-            const valid = event.target.getAttribute('data-valid');
+            const valid = event.target.getAttribute('data-valid')
             //console.log(valid)
-            !isEmpty(value)
-                ? this.setState({ [valid]: true })
-                : this.setState({ [valid]: false });
+            !isEmpty(value) ? this.setState({ [valid]: true }) : this.setState({ [valid]: false })
             if (name === 'COMP_UNI_ID') {
                 //檢驗統編
                 isUniformNumbersErr(value)
@@ -105,7 +93,7 @@ export default class Form extends Component {
                     : this.setState({
                           [valid]: isUniformNumbersErr(value),
                           COMP_UNI_ID_MSG: '請確認統一編號',
-                      });
+                      })
             }
             if (name === 'CONT_EMAIL') {
                 //檢驗電子信箱
@@ -119,7 +107,7 @@ export default class Form extends Component {
                     : this.setState({
                           [valid]: isEmailErr(value),
                           CONT_EMAIL_MSG: '請確認電子信箱',
-                      });
+                      })
             }
             if (name === 'CONT_TEL_MO') {
                 //檢驗行動電話
@@ -134,7 +122,7 @@ export default class Form extends Component {
                     : this.setState({
                           [valid]: isMobileErr(value),
                           CONT_TEL_MO_MSG: '請確認是否為有效行動電話',
-                      });
+                      })
             }
             if (checkNumArr.indexOf(name) > -1) {
                 //console.log(isNumberErr(value));
@@ -149,13 +137,17 @@ export default class Form extends Component {
                     : this.setState({
                           [valid]: isNumberErr(value),
                           COMP_EMPOLYEE_MSG: '請輸入有效數字',
-                      });
+                      })
             }
         }
     }
     handleFormReset = () => {
-        this.setState(() => this.initialState);
-    };
+        this.setState(() => this.initialState)
+    }
+    handleChangeCounty = props => {
+        console.log(props)
+        this.setState(props)
+    }
     // componentDidMount() {
     //     //componentDidMount 的生命週期方法內，使用 AJAX 呼叫來填充資料。
     //     fetch('https://api.example.com/items')
@@ -197,33 +189,16 @@ export default class Form extends Component {
 
         // 		<option value="ETC">其他</option>
 
-        const DEALER_TYPE_OPTIONS = [
-                '資訊科技業',
-                '金融保險業',
-                '服務業',
-                '營造業',
-                '軍警公務員',
-                '教育學術',
-                '其他',
-            ],
-            COMP_SCALE_OPTIONS = [
-                '中小企業',
-                '公開發行公司',
-                '上市 / 上櫃公司',
-                '公家單位',
-                '集團企業',
-            ],
-            COMP_NEED_OPTIONS = ['企業福委', '商務差旅', '企業贈禮'];
+        const DEALER_TYPE_OPTIONS = ['資訊科技業', '金融保險業', '服務業', '營造業', '軍警公務員', '教育學術', '其他'],
+            COMP_SCALE_OPTIONS = ['中小企業', '公開發行公司', '上市 / 上櫃公司', '公家單位', '集團企業'],
+            COMP_NEED_OPTIONS = ['企業福委', '商務差旅', '企業贈禮']
 
         return (
             <div className="content">
-                {/*header*/}
-                {/**表頭 */}
                 <FormHeader
                     title="歡迎加入易遊網企業會員"
                     desc="請填妥以下資料，易遊網企業服務中心將會盡速與您聯絡。"
                 />
-                {/**part-1 */}
                 <form onReset={this.handleFormReset}>
                     <FormContainer index="1" subtitle="企業資訊">
                         <TextInput
@@ -307,18 +282,8 @@ export default class Form extends Component {
                         />
                         <AddressInput
                             label="聯絡地址*"
-                            id={[
-                                'ADDR_CONT_COUNTY',
-                                'ADDR_CONT_DISTRICT',
-                                'ZIP_CONT',
-                                'ADDR_CONT',
-                            ]}
-                            name={[
-                                'ADDR_CONT_COUNTY',
-                                'ADDR_CONT_DISTRICT',
-                                'ZIP_CONT',
-                                'ADDR_CONT',
-                            ]}
+                            id={['ADDR_CONT_COUNTY', 'ADDR_CONT_DISTRICT', 'ZIP_CONT', 'ADDR_CONT']}
+                            name={['ADDR_CONT_COUNTY', 'ADDR_CONT_DISTRICT', 'ZIP_CONT', 'ADDR_CONT']}
                             countyValue={''}
                             value={[
                                 this.state.ADDR_CONT_COUNTY,
@@ -329,6 +294,7 @@ export default class Form extends Component {
                             valid={this.state.ADDR_CONT_VALID}
                             validityMessage={'請輸入聯絡地址'}
                             onChange={this.handleChange}
+                            handleChangeCounty={this.handleChangeCounty}
                             max="50"
                         />
 
@@ -365,8 +331,7 @@ export default class Form extends Component {
                             <p>公司名稱:{this.state.COMP_NAME}</p>
                             <p>統一編號:{this.state.COMP_UNI_ID}</p>
                             <p>
-                                公司電話:{this.state.TEL_AREA}-{this.state.TEL}-
-                                {this.state.TEL_EXT}
+                                公司電話:{this.state.TEL_AREA}-{this.state.TEL}-{this.state.TEL_EXT}
                             </p>
                             <p>員工人數:{this.state.COMP_EMPOLYEE}</p>
                             <p>聯絡地址:{this.state.ADDR_CONT}</p>
@@ -521,20 +486,12 @@ export default class Form extends Component {
 
                     {/**按鈕區塊 */}
                     <div className="buttonArea">
-                        <Button
-                            variant="gray"
-                            label={'清除重填'}
-                            type="reset"
-                            onClick={this.handleFormReset}
-                        ></Button>
-                        <Button
-                            label={'確認送出'}
-                            onClick={(e) => console.log(e)}
-                        ></Button>
+                        <Button variant="gray" label={'清除重填'} type="reset" onClick={this.handleFormReset}></Button>
+                        <Button label={'確認送出'} onClick={e => console.log(e)}></Button>
                     </div>
                 </form>
                 {/*footer*/}
             </div>
-        );
+        )
     }
 }

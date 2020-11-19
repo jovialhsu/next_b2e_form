@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-import Cooparation from '../../public/images/icon-cooparation.svg';
+import Cooparation from '../../public/images/icon-cooparation.svg'
 export default class FormHeader extends Component {
     render() {
         return (
@@ -10,6 +10,6 @@ export default class FormHeader extends Component {
                 <p>{this.props.desc}</p>
                 <p>* 為必填欄位</p>
             </div>
-        );
+        )
     }
 }
