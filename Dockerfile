@@ -25,10 +25,10 @@ ONBUILD COPY source-context.json .
 FROM ${build_env}_build
 WORKDIR /workspace
 COPY --from=builder /workspace/package.json /workspace/next.config.js ./
-COPY --from=builder /workspace/server.js ./
+COPY --from=builder /workspace/server/server.js ./
 COPY --from=builder /workspace/node_modules ./node_modules
 COPY --from=builder /workspace/pages ./.pages
-COPY --from=builder /workspace/.next ./.next
+COPY --from=builder /workspace/build ./build
 COPY --from=builder /workspace/public ./public
 EXPOSE 3005
 #指定 container 對外開放的 port
