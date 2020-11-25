@@ -1,41 +1,79 @@
 const Koa = require('koa');
-// const BodyParser = require('koa-bodyparser');
-// const Router = require('koa-router');
-// const Logger = require('koa-logger');
+const bodyParser = require('koa-bodyparser');
+const Router = require('koa-router');
+///const logger = require('koa-logger');
+//const helmet = require('koa-helmet');
 // const serve = require('koa-static');
 // const mount = require('koa-mount');
-// const cors = require('koa-cors');
+//const cors = require('koa-cors');
+const request = require('request');
+const koaBody = require('koa-body');
 const next = require('next'); // nextjs 作为中间件
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
+const orderControllers = require('./controllers/orderControllers');
 
 app.prepare().then(() => {
     const server = new Koa(); // 声明一个 server
+    const router = new Router();
 
-    /** 这是 Koa 的核心用法：中间件。通常给 use 里面写一个函数，这个函数就是中间件。
-     * params:
-     *  ctx: Koa Context 将 node 的 request 和 response 对象封装到单个对象中，为请求上下文对象
-     *  next: 调用后将执行流程转入下一个中间件，如果当前中间件中没有调用 next，整个中间件的执行流程则会在这里终止，后续中间件不会得到执行
-     */
-
-    // server.use(async (ctx, next) => {
-    //     const start = Date.now();
-    //     await next();
-    //     const ms = Date.now() - start;
-    //     ctx.set('X-Response-Time', `${ms}ms`);
-    // });
-    // server.use(async (ctx, next) => {
-    //     const start = Date.now();
-    //     await next();
-    //     const ms = Date.now() - start;
-    //     console.log(`${ctx.method} ${ctx.url} - ${ms}`);
-    // });
-    server.use(async (ctx, next) => {
-        await handle(ctx.req, ctx.res);
-        ctx.response = false;
-        //console.log('hello world~~~~');
+    router.get('/order-management-rec', async (ctx) => {
+        ctx.status = 200;
+        let { orderNo } = ctx.query;
+        console.log(ctx.query);
+        //const loginInfo = await loginControllers.checkAuth(ctx);
+        //if (loginInfo && loginInfo.checkRole) {
+        const query = Object.assign({}, ctx.query, { decryptOrderNo: orderNo });
+        await app.render(ctx.req, ctx.res, '/orderRecDetail', query);
+        // } else {
+        // ctx.status = 302;
+        // ctx.redirect('/');
+        // return;
+        //}
+        ctx.respond = false;
     });
+
+    router.get('(.*)', async (ctx, next) => {
+        await handle(ctx.req, ctx.res);
+        ctx.respond = false;
+        await next;
+    });
+
+    router.post('/article', (ctx) => {
+        // 把資料分別存在 title、body、author 等變數
+        const { title } = ctx.request.body;
+        const { body } = ctx.request.body;
+        const { author } = ctx.request.body;
+
+        if (title && body && author) {
+            // 如果必填資料都有，就塞進 articles 裡面。然後依照文件回傳 201
+            articles.push({
+                id: ++lastId,
+                title,
+                body,
+                author,
+                time: new Date(),
+            });
+            ctx.status = 201;
+            ctx.body = lastId;
+        } else {
+            // 如果有欄位沒有填，就依照文件回傳 400
+            console.log('ll');
+            ctx.status = 400;
+        }
+    });
+
+    router.post('/api/orderMessage', orderControllers.orderMessage);
+    server.use(
+        bodyParser({
+            multipart: true,
+            formidable: {
+                maxFileSize: 10 * 1024 * 1024,
+            },
+        })
+    );
+    server.use(router.routes(), router.allowedMethods());
     console.log(process.env.NODE_ENV);
     console.log(process.env.API_ENV);
     server.listen(3005);
