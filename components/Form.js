@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+//import { getData } from './actions/index'
 import FormHeader from './UI/FormHeader'
 import TextInput from './UI/TextInput'
 import SelectInput from './UI/SelectInput'
@@ -7,68 +9,68 @@ import FormContainer from './UI/FormContainer'
 import Button from './UI/Button'
 import { isEmpty, isUniformNumbersErr, isEmailErr, isMobileErr, isNumberErr } from './helpers/validation'
 
-export default class Form extends Component {
+export class Form extends Component {
     constructor() {
         super()
-        this.initialState = {
-            COMP_NAME: '', //公司名稱*
-            COMP_NAME_VALID: true,
+        // this.initialState = {
+        //     COMP_NAME: '', //公司名稱*
+        //     COMP_NAME_VALID: true,
 
-            COMP_UNI_ID: '', //統一編號*
-            COMP_UNI_ID_VALID: true,
-            COMP_UNI_ID_MSG: '請輸入統一編號',
+        //     COMP_UNI_ID: '', //統一編號*
+        //     COMP_UNI_ID_VALID: true,
+        //     COMP_UNI_ID_MSG: '請輸入統一編號',
 
-            TEL_VALID: true,
-            TEL: '', //公司電話*
-            TEL_AREA: '', //公司區碼
-            TEL_EXT: '', //公司分機
+        //     TEL_VALID: true,
+        //     TEL: '', //公司電話*
+        //     TEL_AREA: '', //公司區碼
+        //     TEL_EXT: '', //公司分機
 
-            COMP_EMPOLYEE: '', //員工人數
-            COMP_EMPOLYEE_VALID: true,
-            COMP_EMPOLYEE_MSG: '請輸入員工人數',
-            COMP_SCALE: '', //公司規模
+        //     COMP_EMPOLYEE: '', //員工人數
+        //     COMP_EMPOLYEE_VALID: true,
+        //     COMP_EMPOLYEE_MSG: '請輸入員工人數',
+        //     COMP_SCALE: '', //公司規模
 
-            ADDR_CONT: '', //聯絡地址
-            ADDR_CONT_COUNTY: '',
-            ADDR_CONT_DISTRICT: '',
-            ZIP_CONT: '', //郵遞區號
-            ADDR_CONT_VALID: true, //聯絡地址
-            DEALER_TYPE: '', //產業類別
-            COMP_AMOUNT: '', //資本額
-            COMP_AMOUNT_VALID: true, //驗證是否為輸入數字??100000000
-            ///
-            CONT_NAME: '', //聯絡人姓名
-            CONT_NAME_FIRST: '', //聯絡人名
-            CONT_NAME_LAST: '', //聯絡人姓
-            CONT_NAME_VALID: true,
+        //     ADDR_CONT: '', //聯絡地址
+        //     ADDR_CONT_COUNTY: '',
+        //     ADDR_CONT_DISTRICT: '',
+        //     ZIP_CONT: '', //郵遞區號
+        //     ADDR_CONT_VALID: true, //聯絡地址
+        //     DEALER_TYPE: '', //產業類別
+        //     COMP_AMOUNT: '', //資本額
+        //     COMP_AMOUNT_VALID: true, //驗證是否為輸入數字??100000000
+        //     ///
+        //     CONT_NAME: '', //聯絡人姓名
+        //     CONT_NAME_FIRST: '', //聯絡人名
+        //     CONT_NAME_LAST: '', //聯絡人姓
+        //     CONT_NAME_VALID: true,
 
-            CONT_TEL_EXT: '', //聯絡人電話(區碼+電話+分機)
-            CONT_TEL: '',
-            CONT_TEL_AREA: '',
-            CONT_TEL_VALID: true,
+        //     CONT_TEL_EXT: '', //聯絡人電話(區碼+電話+分機)
+        //     CONT_TEL: '',
+        //     CONT_TEL_AREA: '',
+        //     CONT_TEL_VALID: true,
 
-            CONT_EMAIL: '', //聯絡人電子信箱
-            CONT_EMAIL_VALID: true,
-            CONT_EMAIL_MSG: '請輸入電子信箱',
+        //     CONT_EMAIL: '', //聯絡人電子信箱
+        //     CONT_EMAIL_VALID: true,
+        //     CONT_EMAIL_MSG: '請輸入電子信箱',
 
-            CONT_TEL_MO: '', //聯絡人手機
-            CONT_TEL_MO_VALID: true,
-            CONT_TEL_MO_MSG: '請輸入聯絡人手機',
-            ///
-            COMP_NEED: '', //配合方式
-            COMP_NEED_VALID: true,
-            other: '', //其他
-            tourism: '', //配合旅行社
-            COMP_payChoice: '', //付款方式
-            COMP_payChoice_VALID: true,
-            moneyByPeople: '', //每人補助金額
-            controlType: null,
-            id: '',
-            label: '',
-            rows: null,
-            validityMessage: '',
-        }
-        this.state = this.initialState
+        //     CONT_TEL_MO: '', //聯絡人手機
+        //     CONT_TEL_MO_VALID: true,
+        //     CONT_TEL_MO_MSG: '請輸入聯絡人手機',
+        //     ///
+        //     COMP_NEED: '', //配合方式
+        //     COMP_NEED_VALID: true,
+        //     B2E_OTHER: '', //其他
+        //     COMP_TOUR_AGENCY: '', //配合旅行社
+        //     COMP_PAY_CHOICE: '', //付款方式
+        //     COMP_PAY_CHOICE_VALID: true,
+        //     MONEY_BY_PEOPLE: '', //每人補助金額
+        //     controlType: null,
+        //     id: '',
+        //     label: '',
+        //     rows: null,
+        //     validityMessage: '',
+        // }
+        // this.state = this.initialState
         this.handleChange = this.handleChange.bind(this)
     }
     handleChange(event) {
@@ -209,10 +211,10 @@ export default class Form extends Component {
                             //setState使用
                             id="COMP_NAME"
                             name="COMP_NAME"
-                            value={this.state.COMP_NAME} //傳回後端的value
+                            value={this.props.COMP_NAME} //傳回後端的value
                             //判斷是否有效
                             validName="COMP_NAME_VALID" //setState使用
-                            valid={this.state.COMP_NAME_VALID}
+                            valid={this.props.COMP_NAME_VALID}
                             validityMessage={'請輸入公司名稱'} //錯誤訊息
                             //func//input onchange時使用
                             onChange={this.handleChange}
@@ -223,10 +225,10 @@ export default class Form extends Component {
                             type="text"
                             id="COMP_UNI_ID"
                             name="COMP_UNI_ID"
-                            value={this.state.COMP_UNI_ID}
+                            value={this.props.COMP_UNI_ID}
                             validName="COMP_UNI_ID_VALID"
-                            valid={this.state.COMP_UNI_ID_VALID}
-                            validityMessage={this.state.COMP_UNI_ID_MSG}
+                            valid={this.props.COMP_UNI_ID_VALID}
+                            validityMessage={this.props.COMP_UNI_ID_MSG}
                             onChange={this.handleChange}
                             //其他設定
                             max="8"
@@ -239,8 +241,8 @@ export default class Form extends Component {
                                 {
                                     name: 'TEL_AREA',
                                     placeholder: '區碼',
-                                    value: this.state.TEL_AREA,
-                                    valid: this.state.TEL_VALID,
+                                    value: this.props.TEL_AREA,
+                                    valid: this.props.TEL_VALID,
                                     validName: 'TEL_VALID',
                                     onChange: this.handleChange,
                                     max: '4',
@@ -248,8 +250,8 @@ export default class Form extends Component {
                                 {
                                     name: 'TEL',
                                     placeholder: '電話',
-                                    value: this.state.TEL,
-                                    valid: this.state.TEL_VALID,
+                                    value: this.props.TEL,
+                                    valid: this.props.TEL_VALID,
                                     validName: 'TEL_VALID',
                                     onChange: this.handleChange,
                                     max: '10',
@@ -257,15 +259,15 @@ export default class Form extends Component {
                                 {
                                     name: 'TEL_EXT',
                                     placeholder: '分機',
-                                    value: this.state.TEL_AREA,
-                                    valid: this.state.TEL_VALID,
+                                    value: this.props.TEL_AREA,
+                                    valid: this.props.TEL_VALID,
                                     validName: 'TEL_VALID',
                                     onChange: this.handleChange,
                                     max: '5',
                                 },
                             ]}
                             validName="TEL_VALID"
-                            valid={this.state.TEL_VALID}
+                            valid={this.props.TEL_VALID}
                             validityMessage={'請輸入公司電話'}
                         />
                         <TextInput
@@ -274,10 +276,10 @@ export default class Form extends Component {
                             type="text"
                             id="COMP_EMPOLYEE"
                             name="COMP_EMPOLYEE"
-                            value={this.state.COMP_EMPOLYEE}
+                            value={this.props.COMP_EMPOLYEE}
                             validName="COMP_EMPOLYEE_VALID"
-                            valid={this.state.COMP_EMPOLYEE_VALID}
-                            validityMessage={this.state.COMP_EMPOLYEE_MSG}
+                            valid={this.props.COMP_EMPOLYEE_VALID}
+                            validityMessage={this.props.COMP_EMPOLYEE_MSG}
                             onChange={this.handleChange}
                         />
                         <AddressInput
@@ -286,12 +288,12 @@ export default class Form extends Component {
                             name={['ADDR_CONT_COUNTY', 'ADDR_CONT_DISTRICT', 'ZIP_CONT', 'ADDR_CONT']}
                             countyValue={''}
                             value={[
-                                this.state.ADDR_CONT_COUNTY,
-                                this.state.ADDR_CONT_DISTRICT,
-                                this.state.ZIP_CONT,
-                                this.state.ADDR_CONT,
+                                this.props.ADDR_CONT_COUNTY,
+                                this.props.ADDR_CONT_DISTRICT,
+                                this.props.ZIP_CONT,
+                                this.props.ADDR_CONT,
                             ]}
-                            valid={this.state.ADDR_CONT_VALID}
+                            valid={this.props.ADDR_CONT_VALID}
                             validityMessage={'請輸入聯絡地址'}
                             onChange={this.handleChange}
                             handleChangeCounty={this.handleChangeCounty}
@@ -304,7 +306,7 @@ export default class Form extends Component {
                             options={COMP_SCALE_OPTIONS}
                             id="COMP_SCALE"
                             name="COMP_SCALE"
-                            value={this.state.COMP_SCALE}
+                            value={this.props.COMP_SCALE}
                             onChange={this.handleChange}
                         />
                         <SelectInput
@@ -313,7 +315,7 @@ export default class Form extends Component {
                             options={DEALER_TYPE_OPTIONS}
                             id="DEALER_TYPE"
                             name="DEALER_TYPE"
-                            value={this.state.DEALER_TYPE}
+                            value={this.props.DEALER_TYPE}
                             onChange={this.handleChange}
                         />
 
@@ -322,22 +324,22 @@ export default class Form extends Component {
                             placeholder="請輸入"
                             id="COMP_AMOUNT"
                             name="COMP_AMOUNT"
-                            value={this.state.COMP_AMOUNT}
+                            value={this.props.COMP_AMOUNT}
                             validName="COMP_AMOUNT_VALID"
-                            valid={this.state.COMP_AMOUNT_VALID}
+                            valid={this.props.COMP_AMOUNT_VALID}
                             onChange={this.handleChange}
                         />
                         <div>
-                            <p>公司名稱:{this.state.COMP_NAME}</p>
-                            <p>統一編號:{this.state.COMP_UNI_ID}</p>
+                            <p>公司名稱:{this.props.COMP_NAME}</p>
+                            <p>統一編號:{this.props.COMP_UNI_ID}</p>
                             <p>
-                                公司電話:{this.state.TEL_AREA}-{this.state.TEL}-{this.state.TEL_EXT}
+                                公司電話:{this.props.TEL_AREA}-{this.props.TEL}-{this.props.TEL_EXT}
                             </p>
-                            <p>員工人數:{this.state.COMP_EMPOLYEE}</p>
-                            <p>聯絡地址:{this.state.ADDR_CONT}</p>
-                            <p>公司規模:{this.state.COMP_SCALE}</p>
-                            <p>產業類別:{this.state.DEALER_TYPE}</p>
-                            <p>資本額:{this.state.COMP_AMOUNT}</p>
+                            <p>員工人數:{this.props.COMP_EMPOLYEE}</p>
+                            <p>聯絡地址:{this.props.ADDR_CONT}</p>
+                            <p>公司規模:{this.props.COMP_SCALE}</p>
+                            <p>產業類別:{this.props.DEALER_TYPE}</p>
+                            <p>資本額:{this.props.COMP_AMOUNT}</p>
                         </div>
                     </FormContainer>
                     {/**part-2 */}
@@ -349,8 +351,8 @@ export default class Form extends Component {
                                 {
                                     name: 'CONT_NAME_LAST',
                                     placeholder: '姓',
-                                    value: this.state.CONT_NAME_LAST,
-                                    valid: this.state.CONT_NAME_LAST_VALID,
+                                    value: this.props.CONT_NAME_LAST,
+                                    valid: this.props.CONT_NAME_LAST_VALID,
                                     validName: 'CONT_NAME_LAST_VALID',
                                     onChange: this.handleChange,
                                     max: '5',
@@ -358,8 +360,8 @@ export default class Form extends Component {
                                 {
                                     name: 'CONT_NAME_FIRST',
                                     placeholder: '名',
-                                    value: this.state.CONT_NAME_FIRST,
-                                    valid: this.state.CONT_NAME_FIRST_VALID,
+                                    value: this.props.CONT_NAME_FIRST,
+                                    valid: this.props.CONT_NAME_FIRST_VALID,
                                     validName: 'CONT_NAME_FIRST_VALID',
                                     onChange: this.handleChange,
                                     max: '10',
@@ -367,8 +369,8 @@ export default class Form extends Component {
                             ]}
                             label="姓名*"
                             placeholder="請輸入"
-                            value={this.state.CONT_NAME}
-                            valid={this.state.CONT_NAME_VALID}
+                            value={this.props.CONT_NAME}
+                            valid={this.props.CONT_NAME_VALID}
                             validityMessage={'請輸入聯絡人姓名'}
                             onChange={this.handleChange}
                             max="10"
@@ -381,7 +383,7 @@ export default class Form extends Component {
                                 {
                                     name: 'CONT_TEL_AREA',
                                     placeholder: '區碼',
-                                    value: this.state.CONT_TEL_AREA,
+                                    value: this.props.CONT_TEL_AREA,
                                     validName: 'CONT_TEL_VALID',
                                     onChange: this.handleChange,
                                     max: '4',
@@ -389,7 +391,7 @@ export default class Form extends Component {
                                 {
                                     name: 'CONT_TEL',
                                     placeholder: '電話',
-                                    value: this.state.TEL,
+                                    value: this.props.TEL,
                                     validName: 'CONT_TEL_VALID',
                                     onChange: this.handleChange,
                                     max: '10',
@@ -397,25 +399,25 @@ export default class Form extends Component {
                                 {
                                     name: 'CONT_TEL_EXT',
                                     placeholder: '分機',
-                                    value: this.state.CONT_TEL_EXT,
+                                    value: this.props.CONT_TEL_EXT,
                                     validName: 'CONT_TEL_VALID',
                                     onChange: this.handleChange,
                                     max: '5',
                                 },
                             ]}
-                            valid={this.state.CONT_TEL_VALID}
+                            valid={this.props.CONT_TEL_VALID}
                             validityMessage={'請輸入連絡電話'}
                         />
                         <TextInput
                             id="CONT_EMAIL"
                             name="CONT_EMAIL"
-                            value={this.state.CONT_EMAIL}
+                            value={this.props.CONT_EMAIL}
                             label="電子信箱*"
                             placeholder="請輸入"
                             type="email"
-                            valid={this.state.CONT_EMAIL_VALID}
+                            valid={this.props.CONT_EMAIL_VALID}
                             validName="CONT_EMAIL_VALID"
-                            validityMessage={this.state.CONT_EMAIL_MSG}
+                            validityMessage={this.props.CONT_EMAIL_MSG}
                             onChange={this.handleChange}
                         />
                         <TextInput
@@ -423,10 +425,10 @@ export default class Form extends Component {
                             name="CONT_TEL_MO"
                             label="行動電話"
                             placeholder="(例) 0900888333"
-                            value={this.state.CONT_TEL_MO}
-                            valid={this.state.CONT_TEL_MO_VALID}
+                            value={this.props.CONT_TEL_MO}
+                            valid={this.props.CONT_TEL_MO_VALID}
                             validName="CONT_TEL_MO_VALID"
-                            validityMessage={this.state.CONT_TEL_MO_MSG}
+                            validityMessage={this.props.CONT_TEL_MO_MSG}
                             onChange={this.handleChange}
                         />
                     </FormContainer>
@@ -439,47 +441,48 @@ export default class Form extends Component {
                             id="COMP_NEED"
                             name="COMP_NEED"
                             label="配合方式*"
-                            value={this.state.COMP_NEED}
-                            valid={this.state.COMP_NEED_VALID}
+                            value={this.props.COMP_NEED}
+                            valid={this.props.COMP_NEED_VALID}
                             validityMessage={'請選擇配合需求'}
                             onChange={this.handleChange}
                         />
                         <SelectInput
                             options={DEALER_TYPE_OPTIONS}
                             placeholder="請選擇"
-                            id="COMP_payChoice"
-                            name="COMP_payChoice"
+                            id="COMP_PAY_CHOICE"
+                            name="COMP_PAY_CHOICE"
                             label="付款方式*"
-                            value={this.state.COMP_payChoice}
-                            valid={this.state.COMP_payChoice_VALID}
+                            value={this.props.COMP_PAY_CHOICE}
+                            valid={this.props.COMP_PAY_CHOICE_VALID}
                             validityMessage={'請選擇付款方式'}
                             onChange={this.handleChange}
                         />
                         <SelectInput
                             options={DEALER_TYPE_OPTIONS}
                             placeholder="請選擇"
-                            id={'DEALER_TYPE'}
+                            id={'COMP_TOUR_AGENCY'}
+                            name="COMP_TOUR_AGENCY"
                             label="預計配合旅行社*"
-                            value={this.state.value}
-                            valid={this.state.valid}
+                            value={this.props.value}
+                            valid={this.props.valid}
                             validityMessage={'請選擇預計配合旅行社'}
                         />
                         <TextInput
                             id={'moneyByPeople'}
                             label={'每人補助金額'}
                             placeholder="(元/人)"
-                            value={this.state.moneyByPeople}
+                            value={this.props.MONEY_BY_PEOPLE}
                         />
                     </FormContainer>
                     {/**part-4 */}
                     <FormContainer index="4" subtitle="其他">
                         <TextInput
-                            id="other"
-                            name="other"
+                            id="B2E_OTHER"
+                            name="B2E_OTHER"
                             label="特殊需求備註"
                             controlType={'textarea'}
                             rows="3"
-                            value={this.state.other}
+                            value={this.props.B2E_OTHER}
                             onChange={this.handleChange}
                         />
                     </FormContainer>
@@ -495,3 +498,10 @@ export default class Form extends Component {
         )
     }
 }
+function mapStateToProps(state) {
+    console.log(state)
+    return {
+        state,
+    }
+}
+export default connect(mapStateToProps)(Form)

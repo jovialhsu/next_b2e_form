@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 
 function Count(props) {
     const [count, setCount] = useState(0)
-    let countValue = props.value.length
+    console.log(props.value)
+    let countValue = !props.value ? 0 : props.value.length
     useEffect(() => {
         setCount(count => (count += countValue))
         return () => {
