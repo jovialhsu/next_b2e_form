@@ -25,7 +25,7 @@ ONBUILD COPY source-context.json .
 FROM ${build_env}_build
 WORKDIR /workspace
 COPY --from=builder /workspace/package.json /workspace/next.config.js ./
-COPY --from=builder /workspace/server/server.js ./
+COPY --from=builder /workspace/server ./server
 COPY --from=builder /workspace/node_modules ./node_modules
 COPY --from=builder /workspace/pages ./.pages
 COPY --from=builder /workspace/build ./build
