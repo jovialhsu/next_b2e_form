@@ -3,9 +3,7 @@ export const resetB2eMemResult = () => ({
     type: actionTypes.RESET_B2E_MEM_DATA,
 });
 
-export const addB2eMemData = (result) => ({
+export const addB2eMemData = (member) => ({
     type: actionTypes.ADD_B2E_MEM_DATA,
-    payload: {
-        result,
-    },
+    member,
 });

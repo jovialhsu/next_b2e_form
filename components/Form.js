@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 //import { getData } from './actions/index'
+//import * as OrderDetailActions from '../redux/actions/OrderDetailActions'
+import * as B2eFormAction from '../redux/actions/B2eFormAction'
 import FormHeader from './UI/FormHeader'
 import TextInput from './UI/TextInput'
 import SelectInput from './UI/SelectInput'
@@ -9,76 +11,116 @@ import FormContainer from './UI/FormContainer'
 import Button from './UI/Button'
 import { isEmpty, isUniformNumbersErr, isEmailErr, isMobileErr, isNumberErr } from './helpers/validation'
 
+function mapDispatchToProps(dispatch) {
+    return {
+        addB2eMemData: member => dispatch(addB2eMemData(member)),
+        B2eFormAction,
+    }
+}
 export class Form extends Component {
-    constructor() {
-        super()
-        // this.initialState = {
-        //     COMP_NAME: '', //公司名稱*
-        //     COMP_NAME_VALID: true,
+    constructor(props) {
+        super(props)
+        this.initialState = {
+            apiData: {
+                COMP_NAME: '', //公司名稱*
+                COMP_UNI_ID: '', //統一編號*
+                TEL: '', //公司電話*
+                TEL_AREA: '', //公司區碼
+                TEL_EXT: '', //公司分機
+                COMP_EMPOLYEE: '', //員工人數
+                COMP_SCALE: '',
+                ADDR_CONT: '', //聯絡地址
+                ADDR_CONT_COUNTY: '',
+                ADDR_CONT_DISTRICT: '',
+                ZIP_CONT: '', //郵遞區號
+                DEALER_TYPE: '', //產業類別
+                COMP_AMOUNT: '', //資本額
+                CONT_NAME: '', //聯絡人姓名
+                CONT_NAME_FIRST: '', //聯絡人名
+                CONT_NAME_LAST: '', //聯絡人姓
+                CONT_TEL_EXT: '', //聯絡人電話(區碼+電話+分機)
+                CONT_TEL: '',
+                CONT_TEL_AREA: '',
+                CONT_EMAIL: '', //聯絡人電子信箱
+                CONT_TEL_MO: '', //聯絡人手機
+                COMP_NEED: '', //配合方式
+                B2E_OTHER: '', //其他
+                COMP_TOUR_AGENCY: '', //配合旅行社
+                COMP_PAY_CHOICE: '', //付款方式
+                MONEY_BY_PEOPLE: '', //每人補助金額
+            },
+            //COMP_NAME: '', //公司名稱*
+            COMP_NAME_VALID: true,
 
-        //     COMP_UNI_ID: '', //統一編號*
-        //     COMP_UNI_ID_VALID: true,
-        //     COMP_UNI_ID_MSG: '請輸入統一編號',
+            //COMP_UNI_ID: '', //統一編號*
+            COMP_UNI_ID_VALID: true,
+            COMP_UNI_ID_MSG: '請輸入統一編號',
 
-        //     TEL_VALID: true,
-        //     TEL: '', //公司電話*
-        //     TEL_AREA: '', //公司區碼
-        //     TEL_EXT: '', //公司分機
+            TEL_VALID: true,
+            // TEL: '', //公司電話*
+            // TEL_AREA: '', //公司區碼
+            // TEL_EXT: '', //公司分機
 
-        //     COMP_EMPOLYEE: '', //員工人數
-        //     COMP_EMPOLYEE_VALID: true,
-        //     COMP_EMPOLYEE_MSG: '請輸入員工人數',
-        //     COMP_SCALE: '', //公司規模
+            // COMP_EMPOLYEE: '', //員工人數
+            COMP_EMPOLYEE_VALID: true,
+            COMP_EMPOLYEE_MSG: '請輸入員工人數',
+            // COMP_SCALE: '', //公司規模
 
-        //     ADDR_CONT: '', //聯絡地址
-        //     ADDR_CONT_COUNTY: '',
-        //     ADDR_CONT_DISTRICT: '',
-        //     ZIP_CONT: '', //郵遞區號
-        //     ADDR_CONT_VALID: true, //聯絡地址
-        //     DEALER_TYPE: '', //產業類別
-        //     COMP_AMOUNT: '', //資本額
-        //     COMP_AMOUNT_VALID: true, //驗證是否為輸入數字??100000000
-        //     ///
-        //     CONT_NAME: '', //聯絡人姓名
-        //     CONT_NAME_FIRST: '', //聯絡人名
-        //     CONT_NAME_LAST: '', //聯絡人姓
-        //     CONT_NAME_VALID: true,
+            // ADDR_CONT: '', //聯絡地址
+            // ADDR_CONT_COUNTY: '',
+            // ADDR_CONT_DISTRICT: '',
+            // ZIP_CONT: '', //郵遞區號
+            ADDR_CONT_VALID: true, //聯絡地址
+            // DEALER_TYPE: '', //產業類別
+            // COMP_AMOUNT: '', //資本額
+            COMP_AMOUNT_VALID: true, //驗證是否為輸入數字??100000000
+            ///
+            // CONT_NAME: '', //聯絡人姓名
+            // CONT_NAME_FIRST: '', //聯絡人名
+            // CONT_NAME_LAST: '', //聯絡人姓
+            CONT_NAME_VALID: true,
 
-        //     CONT_TEL_EXT: '', //聯絡人電話(區碼+電話+分機)
-        //     CONT_TEL: '',
-        //     CONT_TEL_AREA: '',
-        //     CONT_TEL_VALID: true,
+            // CONT_TEL_EXT: '', //聯絡人電話(區碼+電話+分機)
+            // CONT_TEL: '',
+            // CONT_TEL_AREA: '',
+            CONT_TEL_VALID: true,
 
-        //     CONT_EMAIL: '', //聯絡人電子信箱
-        //     CONT_EMAIL_VALID: true,
-        //     CONT_EMAIL_MSG: '請輸入電子信箱',
+            //CONT_EMAIL: '', //聯絡人電子信箱
+            CONT_EMAIL_VALID: true,
+            CONT_EMAIL_MSG: '請輸入電子信箱',
 
-        //     CONT_TEL_MO: '', //聯絡人手機
-        //     CONT_TEL_MO_VALID: true,
-        //     CONT_TEL_MO_MSG: '請輸入聯絡人手機',
-        //     ///
-        //     COMP_NEED: '', //配合方式
-        //     COMP_NEED_VALID: true,
-        //     B2E_OTHER: '', //其他
-        //     COMP_TOUR_AGENCY: '', //配合旅行社
-        //     COMP_PAY_CHOICE: '', //付款方式
-        //     COMP_PAY_CHOICE_VALID: true,
-        //     MONEY_BY_PEOPLE: '', //每人補助金額
-        //     controlType: null,
-        //     id: '',
-        //     label: '',
-        //     rows: null,
-        //     validityMessage: '',
-        // }
-        // this.state = this.initialState
+            //CONT_TEL_MO: '', //聯絡人手機
+            CONT_TEL_MO_VALID: true,
+            CONT_TEL_MO_MSG: '請輸入聯絡人手機',
+            ///
+            //COMP_NEED: '', //配合方式
+            COMP_NEED_VALID: true,
+            B2E_OTHER: '', //其他
+            //COMP_TOUR_AGENCY: '', //配合旅行社
+            //COMP_PAY_CHOICE: '', //付款方式
+            COMP_PAY_CHOICE_VALID: true,
+            //MONEY_BY_PEOPLE: '', //每人補助金額
+            controlType: null,
+            id: '',
+            label: '',
+            rows: null,
+            validityMessage: '',
+        }
+        this.state = this.initialState
         this.handleChange = this.handleChange.bind(this)
     }
     handleChange(event) {
         //console.log(event);
+        //const o = { p: 42, q: true }
+        //const { p, q } = o
+        //const event.target ={name:event.target.name}
+        //const name = event.target.name
         const { name, value, type, checked } = event.target ? event.target : event
         const checkNumArr = ['COMP_EMPOLYEE']
         type === 'checkbox' ? this.setState({ [name]: checked }) : this.setState({ [name]: value })
         //console.log(event)
+        //this.setState({ [name]: value })
+        //this.setState({})
         if (typeof event.target !== 'undefined') {
             const valid = event.target.getAttribute('data-valid')
             //console.log(valid)
@@ -150,6 +192,16 @@ export class Form extends Component {
         console.log(props)
         this.setState(props)
     }
+
+    handleSubmit = e => {
+        e.preventDefault()
+        const member = this.props
+        this.props.addB2eMemData(member)
+        //const dispatch = useDispatch()
+        //const postOrderMessage = () => dispatch(B2eFormAction.addB2eMemData(member))
+        //postOrderMessage()
+    }
+
     // componentDidMount() {
     //     //componentDidMount 的生命週期方法內，使用 AJAX 呼叫來填充資料。
     //     fetch('https://api.example.com/items')
@@ -194,14 +246,41 @@ export class Form extends Component {
         const DEALER_TYPE_OPTIONS = ['資訊科技業', '金融保險業', '服務業', '營造業', '軍警公務員', '教育學術', '其他'],
             COMP_SCALE_OPTIONS = ['中小企業', '公開發行公司', '上市 / 上櫃公司', '公家單位', '集團企業'],
             COMP_NEED_OPTIONS = ['企業福委', '商務差旅', '企業贈禮']
-
+        const {
+            COMP_NAME, //公司名稱*
+            COMP_UNI_ID, //統一編號*
+            TEL, //公司電話*
+            TEL_AREA, //公司區碼
+            TEL_EXT, //公司分機
+            COMP_EMPOLYEE, //員工人數
+            COMP_SCALE,
+            ADDR_CONT, //聯絡地址
+            ADDR_CONT_COUNTY,
+            ADDR_CONT_DISTRICT,
+            ZIP_CONT, //郵遞區號
+            DEALER_TYPE, //產業類別
+            COMP_AMOUNT, //資本額
+            CONT_NAME, //聯絡人姓名
+            CONT_NAME_FIRST, //聯絡人名
+            CONT_NAME_LAST, //聯絡人姓
+            CONT_TEL_EXT, //聯絡人電話(區碼+電話+分機)
+            CONT_TEL,
+            CONT_TEL_AREA,
+            CONT_EMAIL, //聯絡人電子信箱
+            CONT_TEL_MO, //聯絡人手機
+            COMP_NEED, //配合方式
+            B2E_OTHER, //其他
+            COMP_TOUR_AGENCY, //配合旅行社
+            COMP_PAY_CHOICE, //付款方式
+            MONEY_BY_PEOPLE,
+        } = this.state.apiData
         return (
             <div className="content">
                 <FormHeader
                     title="歡迎加入易遊網企業會員"
                     desc="請填妥以下資料，易遊網企業服務中心將會盡速與您聯絡。"
                 />
-                <form onReset={this.handleFormReset}>
+                <form onReset={this.handleFormReset} onSubmit={this.handleSubmit}>
                     <FormContainer index="1" subtitle="企業資訊">
                         <TextInput
                             //欄位名稱
@@ -211,10 +290,10 @@ export class Form extends Component {
                             //setState使用
                             id="COMP_NAME"
                             name="COMP_NAME"
-                            value={this.props.COMP_NAME} //傳回後端的value
+                            value={COMP_NAME} //傳回後端的value
                             //判斷是否有效
                             validName="COMP_NAME_VALID" //setState使用
-                            valid={this.props.COMP_NAME_VALID}
+                            valid={this.state.COMP_NAME_VALID}
                             validityMessage={'請輸入公司名稱'} //錯誤訊息
                             //func//input onchange時使用
                             onChange={this.handleChange}
@@ -225,9 +304,9 @@ export class Form extends Component {
                             type="text"
                             id="COMP_UNI_ID"
                             name="COMP_UNI_ID"
-                            value={this.props.COMP_UNI_ID}
+                            value={COMP_UNI_ID}
                             validName="COMP_UNI_ID_VALID"
-                            valid={this.props.COMP_UNI_ID_VALID}
+                            valid={this.state.COMP_UNI_ID_VALID}
                             validityMessage={this.props.COMP_UNI_ID_MSG}
                             onChange={this.handleChange}
                             //其他設定
@@ -241,8 +320,8 @@ export class Form extends Component {
                                 {
                                     name: 'TEL_AREA',
                                     placeholder: '區碼',
-                                    value: this.props.TEL_AREA,
-                                    valid: this.props.TEL_VALID,
+                                    value: TEL_AREA,
+                                    valid: this.state.TEL_VALID,
                                     validName: 'TEL_VALID',
                                     onChange: this.handleChange,
                                     max: '4',
@@ -250,8 +329,8 @@ export class Form extends Component {
                                 {
                                     name: 'TEL',
                                     placeholder: '電話',
-                                    value: this.props.TEL,
-                                    valid: this.props.TEL_VALID,
+                                    value: TEL,
+                                    valid: this.state.TEL_VALID,
                                     validName: 'TEL_VALID',
                                     onChange: this.handleChange,
                                     max: '10',
@@ -259,15 +338,15 @@ export class Form extends Component {
                                 {
                                     name: 'TEL_EXT',
                                     placeholder: '分機',
-                                    value: this.props.TEL_AREA,
-                                    valid: this.props.TEL_VALID,
+                                    value: TEL_AREA,
+                                    valid: this.state.TEL_VALID,
                                     validName: 'TEL_VALID',
                                     onChange: this.handleChange,
                                     max: '5',
                                 },
                             ]}
                             validName="TEL_VALID"
-                            valid={this.props.TEL_VALID}
+                            valid={this.state.TEL_VALID}
                             validityMessage={'請輸入公司電話'}
                         />
                         <TextInput
@@ -490,7 +569,7 @@ export class Form extends Component {
                     {/**按鈕區塊 */}
                     <div className="buttonArea">
                         <Button variant="gray" label={'清除重填'} type="reset" onClick={this.handleFormReset}></Button>
-                        <Button label={'確認送出'} onClick={e => console.log(e)}></Button>
+                        <Button type="submit" label={'確認送出'}></Button>
                     </div>
                 </form>
                 {/*footer*/}
@@ -504,4 +583,4 @@ function mapStateToProps(state) {
         state,
     }
 }
-export default connect(mapStateToProps)(Form)
+export default connect(mapStateToProps, mapDispatchToProps)(Form)

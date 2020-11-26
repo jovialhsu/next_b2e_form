@@ -1,7 +1,7 @@
 import { applyMiddleware, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
-import rootReducer from '../redux/reducers/B2eFormReducer';
+import rootReducer from '../redux/reducers';
 import rootSaga from '../redux/sagas';
 
 const bindMiddleware = (middleware) => {

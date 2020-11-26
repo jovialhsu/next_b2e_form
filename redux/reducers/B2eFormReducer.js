@@ -2,6 +2,10 @@ import * as actionTypes from '../constants';
 
 const INITIAL_STATE = {
     COMP_NAME: '', //公司名稱*
+    memberInfo: {
+        company: '123',
+        tel: '03-3666788',
+    },
     COMP_NAME_VALID: true,
 
     COMP_UNI_ID: '', //統一編號*
@@ -58,57 +62,15 @@ const INITIAL_STATE = {
     rows: null,
     validityMessage: '',
 };
-
-function rootReducer(state = INITIAL_STATE, { type, payload }) {
-    switch (type) {
-        case actionTypes.FETCH_REC_DETAIL_PRODLIST:
-        case actionTypes.POST_REC_DETAIL_DATA: {
-            return {
-                ...state,
-                isLoading: true,
-            };
-        }
-        case actionTypes.FETCH_REC_DETAIL_PRODLIST_SUCCESS: {
-            return {
-                ...state,
-                isLoading: false,
-                prodList: payload.prodList,
-                cashEnabled: payload.cashEnabled,
-                isFinished: payload.isFinished,
-            };
-        }
-        case actionTypes.UPDATE_REC_DETAIL_DATA: {
-            return {
-                ...state,
-                apiData: {
-                    ...state.apiData,
-                    [payload.field]: payload.value,
-                },
-            };
-        }
-        case actionTypes.POST_REC_DETAIL_DATA_SUCCESS: {
-            return {
-                ...state,
-                isLoading: false,
-                result: {
-                    ...state.result,
-                    ...payload.result,
-                },
-            };
-        }
-        case actionTypes.RESET_REC_DETAIL_RESULT: {
-            return {
-                ...state,
-                result: {
-                    message: '',
-                    result: '',
-                    chargeNo: '',
-                    applyNo: '',
-                },
-            };
-        }
+const B2eFormReducer = (state = INITIAL_STATE, action) => {
+    // Do something
+    console.log(action);
+    switch (action.type) {
+        case actionTypes.ADD_B2E_MEM_DATA:
+            return Object.assign({}, ...state, action.member);
         default:
             return state;
     }
-}
-export default rootReducer;
+};
+
+export default B2eFormReducer;
