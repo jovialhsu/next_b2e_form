@@ -1,19 +1,15 @@
 import { call, put, select, race, delay } from 'redux-saga/effects';
 import axios from 'axios';
 import { order as orderAPI } from '../../config/uri/client';
-//import * as CommonActions from '../actions/CommonActions';
 import * as OrderRecDetailActions from '../actions/OrderRecDetailAction';
 import * as B2eFormAction from '../actions/B2eFormAction';
 
 // postOrderMessage
 export function* addB2eMemData({ member }) {
-    //yield put(CommonActions.isLoading(true));
     const state = yield select();
     console.log(state.B2eFormReducer);
-    const { memberInfo } = state.B2eFormReducer;
-    // const { p, q } = o;
-    // const o = { p: 42, q: true };
-    //const state.B2eFormReducer={memberInfo:value}
+    const memberInfo = state.B2eFormReducer.memberInfo;
+
     try {
         const { timeout } = yield race({
             sendMessage: call(sendMessageAction, member, memberInfo),
@@ -47,7 +43,7 @@ export function* addB2eMemData({ member }) {
  */
 
 function* sendMessageAction(member, memberInfo) {
-    const { company, tel } = memberInfo;
+    console.log(memberInfo);
 
     try {
         const { data } = yield call(

@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-//import Dropdown from './Dropdown';
 import TWZipCode from '../helpers/TWZipCode'
 export default class AddressInput extends Component {
     render() {
-        //console.log(this.props)
         return (
             <div className="address">
                 <label htmlFor={this.props.id}>{this.props.label}</label>
@@ -25,6 +23,7 @@ export default class AddressInput extends Component {
                     placeholder="村里/道路/街名/門號/樓層"
                     onChange={this.props.onChange}
                     maxLength={this.props.max}
+                    defaultValue={this.props.value[0] + this.props.value[1]}
                 />
                 {this.props.validityMessage && !this.props.valid ? (
                     <p className="error-message">{this.props.validityMessage}</p>

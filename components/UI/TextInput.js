@@ -4,16 +4,43 @@ import Count from './Count'
 export default class TextInput extends Component {
     constructor(props) {
         super()
-        // this.state = {
-        //     controlType : null,
-        //     id: '',
-        //     label:'',
-        //     rows:null,
-        //     value:'',
-        //     type:'text',
-        //     valid:true,
-        //     validityMessage:'',
-        // }
+        this.state = {
+            CONT_NAME_LAST: '',
+            CONT_NAME_FIRST: '',
+            CONT_TEL_AREA: '',
+            CONT_TEL: '',
+            TEL_AREA: '',
+            TEL: '',
+        }
+    }
+    changeName = e => {
+        const { handleChangeName } = this.props
+        const { name, value } = e.target
+        console.log('props', this.props)
+        this.setState({ [name]: value }, () => {
+            if (typeof handleChangeName === 'function') {
+                handleChangeName({
+                    CONT_NAME: this.state.CONT_NAME_LAST + this.state.CONT_NAME_FIRST,
+                })
+            }
+        })
+    }
+    changeTel = e => {
+        const { handleChangeTel } = this.props
+        const { name, value } = e.target
+        console.log('props', this.props)
+        console.log(e.target.name)
+        this.setState({ [name]: value }, () => {
+            if (typeof handleChangeTel === 'function') {
+                let props = {}
+                if (name.indexOf('CONT_') > -1) {
+                    props = { contTel: `${this.state.CONT_TEL_AREA}-${this.state.CONT_TEL}` }
+                } else {
+                    props = { tel1: `${this.state.TEL_AREA}-${this.state.TEL}` }
+                }
+                handleChangeTel(props)
+            }
+        })
     }
     render() {
         let widthClass = this.props.controlType === 'textarea' ? 'address' : ''
@@ -43,23 +70,24 @@ export default class TextInput extends Component {
                                     name={item.name}
                                     data-valid={item.validName}
                                     key={item.name}
-                                    onChange={item.onChange}
+                                    onChange={this.changeTel}
                                     maxLength={item.max}
                                 />
                             ))}
                     </div>
                 ) : this.props.id === 'CONT_NAME' ? (
                     <div className="input-container">
-                        {this.props.name &&
-                            this.props.name.map(item => (
+                        {this.props.subName &&
+                            this.props.subName.map(item => (
                                 <input
                                     name={item.name}
                                     data-valid={item.validName}
                                     id={item.id}
                                     key={item.name}
                                     placeholder={item.placeholder}
-                                    onChange={item.onChange}
+                                    onChange={this.changeName}
                                     maxLength={item.max}
+                                    handleChangeName={item.handleChangeName}
                                 />
                             ))}
                     </div>

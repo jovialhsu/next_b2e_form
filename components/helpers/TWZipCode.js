@@ -108,7 +108,6 @@ export default class TWzipcodeApp extends Component {
         )
     }
     changeCounty = county => {
-        console.log('county', county)
         const districts = Object.keys(zipData[county]).map(d => d, [])
         const { handleChangeCounty } = this.props
 
@@ -132,8 +131,6 @@ export default class TWzipcodeApp extends Component {
     }
 
     changeDistrict = district => {
-        console.log('district', district)
-        //console.log(this.state.county);
         const zipcode = zipData[this.state.county][[district][0]]
         const { handleChangeCounty } = this.props
 
@@ -159,8 +156,6 @@ export default class TWzipcodeApp extends Component {
         if (zipcode && zipcode.length === 3) {
             const { county, district } = findDeep(zipData, zipcode)
             const { handleChangeCounty } = this.props
-            //console.log(county);
-            //console.log(zipcode)
 
             if (county && district && zipcode) {
                 this.setState(

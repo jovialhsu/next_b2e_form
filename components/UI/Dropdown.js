@@ -21,12 +21,6 @@ export default class Dropdown extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        // console.log(
-        //     'componentDidUpdate',
-        //     this.state,
-        //     this.props.value,
-        //     prevProps
-        // );
         if (this.props.value !== prevProps.value) {
             if (this.props.value) {
                 let selected = this.parseValue(this.props.value, this.props.options)
@@ -34,7 +28,6 @@ export default class Dropdown extends Component {
                     this.setState({ selected })
                 }
             } else {
-                //console.log('reset')
                 this.setState({
                     selected: {
                         label:
@@ -61,7 +54,6 @@ export default class Dropdown extends Component {
     }
 
     handleMouseDown(event) {
-        //console.log(event)
         if (this.props.onFocus && typeof this.props.onFocus === 'function') {
             this.props.onFocus(this.state.isOpen)
         }
@@ -104,7 +96,6 @@ export default class Dropdown extends Component {
             },
             isOpen: false,
         }
-        //console.log(newState)
         this.fireChangeEvent(newState)
         this.setState(newState)
     }
@@ -112,21 +103,17 @@ export default class Dropdown extends Component {
     fireChangeEvent(newState) {
         if (newState.selected !== this.state.selected && this.props.changeCounty) {
             this.props.changeCounty(newState.selected.value)
-            //this.props.onChange(newState.selected)
         }
         if (newState.selected !== this.state.selected && this.props.changeDistrict) {
             this.props.changeDistrict(newState.selected.value)
-            //this.props.onChange(newState.selected)
         }
         if (newState.selected !== this.state.selected && this.props.onChange) {
-            //this.props.onClick(newState.selected)
             this.props.onChange(newState.selected)
         }
     }
 
     renderOption(option, name) {
         let value = option.value
-        //console.log(value)
         if (typeof value === 'undefined') {
             value = option.label || option
         }
@@ -159,7 +146,6 @@ export default class Dropdown extends Component {
 
     buildMenu() {
         let { options, baseClassName, name } = this.props
-        //console.log(this.props)
         let ops = options.map(option => {
             if (option.type === 'group') {
                 let groupTitle = <div className={`${baseClassName}-title`}>{option.name}</div>
