@@ -5,12 +5,14 @@ export default class TextInput extends Component {
     constructor(props) {
         super()
         this.state = {
-            CONT_NAME_LAST: '',
-            CONT_NAME_FIRST: '',
-            CONT_TEL_AREA: '',
-            CONT_TEL: '',
-            TEL_AREA: '',
-            TEL: '',
+            contNameLast: '',
+            contNameFirst: '',
+            contTelArea: '',
+            contTel: '',
+            telArea: '',
+            tel: '',
+            telExt: '',
+            contTelExt: '',
         }
     }
     changeName = e => {
@@ -20,7 +22,7 @@ export default class TextInput extends Component {
         this.setState({ [name]: value }, () => {
             if (typeof handleChangeName === 'function') {
                 handleChangeName({
-                    CONT_NAME: this.state.CONT_NAME_LAST + this.state.CONT_NAME_FIRST,
+                    contName: this.state.contNameLast + this.state.contNameFirst,
                 })
             }
         })
@@ -33,10 +35,13 @@ export default class TextInput extends Component {
         this.setState({ [name]: value }, () => {
             if (typeof handleChangeTel === 'function') {
                 let props = {}
-                if (name.indexOf('CONT_') > -1) {
-                    props = { contTel: `${this.state.CONT_TEL_AREA}-${this.state.CONT_TEL}` }
+                if (name.indexOf('cont') > -1) {
+                    props = {
+                        contTel: `${this.state.contTelArea}-${this.state.contTel}`,
+                        contTelExt: this.state.contTelExt,
+                    }
                 } else {
-                    props = { tel1: `${this.state.TEL_AREA}-${this.state.TEL}` }
+                    props = { tel1: `${this.state.telArea}-${this.state.tel}`, telExt: this.state.telExt }
                 }
                 handleChangeTel(props)
             }
@@ -53,7 +58,6 @@ export default class TextInput extends Component {
                         <textarea
                             key={1}
                             rows={this.props.rows}
-                            id={this.props.id}
                             name={this.props.name}
                             cols="30"
                             onChange={this.props.onChange}
@@ -75,14 +79,13 @@ export default class TextInput extends Component {
                                 />
                             ))}
                     </div>
-                ) : this.props.id === 'CONT_NAME' ? (
+                ) : this.props.name === 'contName' ? (
                     <div className="input-container">
                         {this.props.subName &&
                             this.props.subName.map(item => (
                                 <input
                                     name={item.name}
                                     data-valid={item.validName}
-                                    id={item.id}
                                     key={item.name}
                                     placeholder={item.placeholder}
                                     onChange={this.changeName}
@@ -96,7 +99,6 @@ export default class TextInput extends Component {
                         type={this.props.type}
                         name={this.props.name}
                         data-valid={this.props.validName}
-                        id={this.props.id}
                         placeholder={this.props.placeholder}
                         onChange={this.props.onChange}
                         maxLength={this.props.max}

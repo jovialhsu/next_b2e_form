@@ -62,7 +62,7 @@ export const isCnNameErr = (name1, name2, labelName, useStrict = false) => {
  */
 export const isUniformNumbersErr = id => {
     console.log(id)
-    if (!/^[A-Za-z0-9]{1,8}$/.test(id)) {
+    if (!/^[0-9]{1,8}$/.test(id)) {
         return false
     }
     return true

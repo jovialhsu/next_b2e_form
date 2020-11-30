@@ -121,9 +121,9 @@ export default class TWzipcodeApp extends Component {
             () => {
                 if (typeof handleChangeCounty === 'function') {
                     handleChangeCounty({
-                        ADDR_CONT_COUNTY: this.state.county,
-                        ADDR_CONT_DISTRICT: this.state.district,
-                        ZIP_CONT: this.state.zipcode,
+                        addrContCounty: this.state.county,
+                        addrContDistrict: this.state.district,
+                        zipCont: this.state.zipcode,
                     })
                 }
             }
@@ -143,9 +143,9 @@ export default class TWzipcodeApp extends Component {
             () => {
                 if (typeof handleChangeCounty === 'function') {
                     handleChangeCounty({
-                        ADDR_CONT_COUNTY: this.state.county,
-                        ADDR_CONT_DISTRICT: this.state.district,
-                        ZIP_CONT: this.state.zipcode,
+                        addrContCounty: this.state.county,
+                        addrContDistrict: this.state.district,
+                        zipCont: this.state.zipcode,
                     })
                 }
             }
@@ -168,9 +168,9 @@ export default class TWzipcodeApp extends Component {
                     () => {
                         if (typeof handleChangeCounty === 'function') {
                             handleChangeCounty({
-                                ADDR_CONT_COUNTY: this.state.county,
-                                ADDR_CONT_DISTRICT: this.state.district,
-                                ZIP_CONT: this.state.zipcode,
+                                addrContCounty: this.state.county,
+                                addrContDistrict: this.state.district,
+                                zipCont: this.state.zipcode,
                             })
                         }
                     }
@@ -180,7 +180,7 @@ export default class TWzipcodeApp extends Component {
             this.setState({
                 zipcode,
             })
-            this.props.onChange({ name: 'ZIP_CONT', value: zipcode })
+            this.props.onChange({ name: 'zipCont', value: zipcode })
         }
     }
 

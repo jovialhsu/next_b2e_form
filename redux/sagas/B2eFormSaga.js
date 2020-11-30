@@ -1,7 +1,7 @@
 import { call, put, select, race, delay } from 'redux-saga/effects';
 import axios from 'axios';
 import { order as orderAPI } from '../../config/uri/client';
-import * as OrderRecDetailActions from '../actions/OrderRecDetailAction';
+//import * as OrderRecDetailActions from '../actions/OrderRecDetailAction';
 import * as B2eFormAction from '../actions/B2eFormAction';
 
 // postOrderMessage

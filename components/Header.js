@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import parse from 'html-react-parser'
+import { mainWeb } from '../config/uri/client'
 export default class Header extends Component {
     constructor() {
         super()
@@ -15,7 +16,7 @@ export default class Header extends Component {
     }
     renderPosts = async () => {
         try {
-            let res = await axios.get('http://hpapi-t01.eztravel.com.tw/v1/api/ezSpHeader')
+            let res = await axios.get(`${mainWeb(`TEST`)}v1/api/ezSpHeader`)
             let ezHeader = res.data
             // this will re render the view with new data
             this.setState({

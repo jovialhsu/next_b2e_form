@@ -8,23 +8,7 @@ export const login = {
     logout: '/api/logout',
     recaptcha: '/api/recaptcha',
 };
-export const order = {
-    orderlist: '/api/orderlist',
-    receivingInfo: '/api/receivingInfo',
-    orderHandlerList: '/api/orderHandlerList',
-    orderDetail: '/api/orderDetail',
-    downloadOrderMail: '/api/downloadOrderMail',
-    tripContract: '/api/tripContract',
-    vacationContract: '/api/vacationContract',
-    companyInfo: '/api/companyInfo',
-    orderMessage: '/api/orderMessage',
-    sendMessage: '/api/sendMessage',
-    sendEmailMessage: '/api/sendEmailMessage',
-    changeContact: '/api/changeContact',
-    showBooking: '/api/showBooking',
-    booking: '/api/booking',
-    doCashRecSheet: '/api/doCashRecSheet',
-};
+
 //Endpoint & staticUrl
 const member = (env) => {
     switch (env) {
@@ -37,7 +21,14 @@ const member = (env) => {
             return '//mem00t-w01.eztravel.com.tw/';
     }
 };
-export const memberEndpoint = {
-    payment: (env, aesEncode) =>
-        `${member(env)}member/payment/payflow?orderNo=${aesEncode}`,
+export const mainWeb = (env) => {
+    switch (env) {
+        case 'PROD':
+            return 'https://hpapi.eztravel.com.tw/';
+        case 'WS':
+            return 'http://hpapi-ws01.eztravel.com.tw/';
+        case 'TEST':
+        default:
+            return '//hpapi-t01.eztravel.com.tw/';
+    }
 };
