@@ -13,7 +13,6 @@ export default class ZipCode extends PureComponent {
 
     onChange = e => {
         const zipCode = e.target.value
-        //console.log(e.target)
         this.props.changeZipcode(zipCode)
         if (zipCode.length === 3) {
             Object.keys(Data).forEach(i => {

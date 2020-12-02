@@ -18,7 +18,6 @@ export default class TextInput extends Component {
     changeName = e => {
         const { handleChangeName } = this.props
         const { name, value } = e.target
-        console.log('props', this.props)
         this.setState({ [name]: value }, () => {
             if (typeof handleChangeName === 'function') {
                 handleChangeName({
@@ -30,8 +29,6 @@ export default class TextInput extends Component {
     changeTel = e => {
         const { handleChangeTel } = this.props
         const { name, value } = e.target
-        console.log('props', this.props)
-        console.log(e.target.name)
         this.setState({ [name]: value }, () => {
             if (typeof handleChangeTel === 'function') {
                 let props = {}
@@ -49,6 +46,7 @@ export default class TextInput extends Component {
     }
     render() {
         let widthClass = this.props.controlType === 'textarea' ? 'address' : ''
+        const divProps = Object.assign({}, this.props)
         return (
             <div className={'form-control ' + widthClass}>
                 <label htmlFor={this.props.id}>{this.props.label}</label>
@@ -76,6 +74,7 @@ export default class TextInput extends Component {
                                     key={item.name}
                                     onChange={this.changeTel}
                                     maxLength={item.max}
+                                    required={item.required}
                                 />
                             ))}
                     </div>
@@ -91,17 +90,20 @@ export default class TextInput extends Component {
                                     onChange={this.changeName}
                                     maxLength={item.max}
                                     handleChangeName={item.handleChangeName}
+                                    required={item.required}
                                 />
                             ))}
                     </div>
                 ) : (
                     <input
+                        className={!this.props.valid ? 'invalid' : ''}
                         type={this.props.type}
                         name={this.props.name}
                         data-valid={this.props.validName}
                         placeholder={this.props.placeholder}
                         onChange={this.props.onChange}
                         maxLength={this.props.max}
+                        required={this.props.required}
                     />
                 )}
 

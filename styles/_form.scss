@@ -47,6 +47,10 @@ textarea {
     border-color: #55d040;
     outline: none;
   }
+  &.invalid {
+    border-color: $red-error;
+    // background: rgb(237, 217, 217);
+  }
 }
 .form-container {
   display: flex;
@@ -197,10 +201,7 @@ label {
   padding: 8px 10px;
 }
 
-.invalid {
-  border-color: $red-error;
-  background: rgb(237, 217, 217);
-}
+
 .error-message {
   color:$red-error;
   margin: 0.25rem 0;

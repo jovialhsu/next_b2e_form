@@ -61,7 +61,6 @@ export const isCnNameErr = (name1, name2, labelName, useStrict = false) => {
  * @param {string} id - 公司統編
  */
 export const isUniformNumbersErr = id => {
-    console.log(id)
     if (!/^[0-9]{1,8}$/.test(id)) {
         return false
     }

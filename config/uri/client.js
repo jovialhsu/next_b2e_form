@@ -2,11 +2,9 @@
  * 前端呼叫的api會被bundle進被瀏覽器載入的JS檔
  */
 //apiUri
-export const login = {
-    otpk: '/api/otpk',
-    checkLoginAuth: '/api/checkLoginAuth',
-    logout: '/api/logout',
-    recaptcha: '/api/recaptcha',
+exports.mainApi = {
+    header: '/api/header',
+    footer: '/api/footer',
 };
 
 //Endpoint & staticUrl
@@ -21,7 +19,7 @@ const member = (env) => {
             return '//mem00t-w01.eztravel.com.tw/';
     }
 };
-export const mainWeb = (env) => {
+exports.mainWeb = (env) => {
     switch (env) {
         case 'PROD':
             return 'https://hpapi.eztravel.com.tw/';

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'next/router'
 import { addB2eMemData } from '../redux/actions/B2eFormAction'
 import FormHeader from './UI/FormHeader'
 import TextInput from './UI/TextInput'
@@ -68,7 +69,6 @@ export class Form extends Component {
         this.handleChange = this.handleChange.bind(this)
     }
     handleChange(event) {
-        console.log(event.target)
         const { name, value } = event.target ? event.target : event
         const checkNumArr = ['compEmpolyee'] //需要驗證為數字name欄位
         this.setState({ apiData: { ...this.state.apiData, [name]: value } })
@@ -144,17 +144,37 @@ export class Form extends Component {
         this.setState({ apiData: { ...this.state.apiData, contName } })
     }
     handleChangeTel = props => {
-        console.log('props', props)
         props.tel1
             ? this.setState({ apiData: { ...this.state.apiData, tel1: props.tel1, telExt: props.telExt } })
             : this.setState({
                   apiData: { ...this.state.apiData, contTel: props.contTel, contTelExt: props.contTelExt },
               })
     }
+    checkValid() {
+        //const { addrContValid, compAmountValid ,compEmpolyeeValid}
+        return (
+            this.state.addrContValid &&
+            this.state.compAmountValid &&
+            this.state.compEmpolyeeValid &&
+            this.state.compNameValid &&
+            this.state.compNeedValid &&
+            this.state.compPayChoiceValid &&
+            this.state.compUniIdValid &&
+            this.state.contEmailValid &&
+            this.state.contNameValid &&
+            this.state.contTelMoValid &&
+            this.state.contTelValid
+        )
+    }
     handleSubmit = e => {
         e.preventDefault()
-        const member = this.state.apiData
-        this.props.addB2eMemData(member)
+        console.log(checkValid())
+        if (checkValid()) {
+            const member = this.state.apiData
+            this.props.addB2eMemData(member)
+            this.props.router.push('/finish')
+        }
+        return
     }
     render() {
         const dealerTypeOptions = ['資訊科技業', '金融保險業', '服務業', '營造業', '軍警公務員', '教育學術', '其他'],
@@ -206,6 +226,7 @@ export class Form extends Component {
                             valid={this.state.compNameValid}
                             validityMessage={'請輸入公司名稱'} //錯誤訊息
                             onChange={this.handleChange}
+                            required="required"
                         />
                         <TextInput
                             label="統一編號*"
@@ -218,6 +239,7 @@ export class Form extends Component {
                             validityMessage={this.state.compUniIdMsg}
                             onChange={this.handleChange}
                             max="8"
+                            required="required"
                         />
                         <TextInput
                             label="公司電話*"
@@ -231,6 +253,7 @@ export class Form extends Component {
                                     validName: 'telValid',
                                     onChange: this.handleChange,
                                     max: '4',
+                                    required: 'required',
                                 },
                                 {
                                     name: 'tel',
@@ -240,6 +263,7 @@ export class Form extends Component {
                                     validName: 'telValid',
                                     onChange: this.handleChange,
                                     max: '10',
+                                    required: 'required',
                                 },
                                 {
                                     name: 'telExt',
@@ -266,6 +290,7 @@ export class Form extends Component {
                             valid={this.state.compEmpolyeeValid}
                             validityMessage={this.state.compEmpolyeeMsg}
                             onChange={this.handleChange}
+                            required="required"
                         />
                         <AddressInput
                             label="聯絡地址*"
@@ -277,6 +302,7 @@ export class Form extends Component {
                             onChange={this.handleChange}
                             handleChangeCounty={this.handleChangeCounty}
                             max="50"
+                            required="required"
                         />
 
                         <SelectInput
@@ -320,6 +346,7 @@ export class Form extends Component {
                                     onChange: this.handleChange,
                                     handleChangeName: this.handleChangeName,
                                     max: '5',
+                                    required: 'required',
                                 },
                                 {
                                     name: 'contNameFirst',
@@ -330,6 +357,7 @@ export class Form extends Component {
                                     onChange: this.handleChange,
                                     handleChangeName: this.handleChangeName,
                                     max: '10',
+                                    required: 'required',
                                 },
                             ]}
                             label="姓名*"
@@ -352,6 +380,7 @@ export class Form extends Component {
                                     validName: 'contTelValid',
                                     onChange: this.handleChange,
                                     max: '4',
+                                    required: 'required',
                                 },
                                 {
                                     name: 'contTel',
@@ -360,6 +389,7 @@ export class Form extends Component {
                                     validName: 'contTelValid',
                                     onChange: this.handleChange,
                                     max: '10',
+                                    required: 'required',
                                 },
                                 {
                                     name: 'contTelExt',
@@ -384,6 +414,7 @@ export class Form extends Component {
                             validName="contEmailValid"
                             validityMessage={this.state.contEmailMsg}
                             onChange={this.handleChange}
+                            required="required"
                         />
                         <TextInput
                             name="contTelMo"
@@ -407,6 +438,7 @@ export class Form extends Component {
                             valid={this.state.compNeedValid}
                             validityMessage={'請選擇配合需求'}
                             onChange={this.handleChange}
+                            required="required"
                         />
                         <SelectInput
                             options={payChoiceOptions}
@@ -417,6 +449,7 @@ export class Form extends Component {
                             valid={this.state.compPayChoiceValid}
                             validityMessage={'請選擇付款方式'}
                             onChange={this.handleChange}
+                            required="required"
                         />
                         <SelectInput
                             options={tourAgencyOptions}
@@ -427,6 +460,7 @@ export class Form extends Component {
                             valid={true}
                             validityMessage={'請選擇預計配合旅行社'}
                             onChange={this.handleChange}
+                            required="required"
                         />
                         <TextInput
                             label={'每人補助金額'}
@@ -457,9 +491,8 @@ export class Form extends Component {
     }
 }
 function mapStateToProps(state) {
-    //console.log(state)
     return {
         state,
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Form)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Form))

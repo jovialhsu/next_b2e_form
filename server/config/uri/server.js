@@ -6,14 +6,13 @@ const config = require('../../config');
 const MEMBER = `${config.memPlayScheme}://member.eztravel.com.tw/`;
 const MEMBER_API =
     config.env === 'DEV' ? 'http://member-api:8080/' : 'http://member-api/';
-const ORDER_API =
-    config.env === 'DEV' ? 'http://order-api:8080/' : 'http://order-api/';
+const MAIN_WEB_API =
+    config.env === 'DEV'
+        ? 'http://hpapi-t01.eztravel.com.tw/'
+        : 'http://hpapi.eztravel.com.tw/';
 
-exports.orderApi = {
-    orderlist: `${ORDER_API}order/rest/v1/b2b/orderlist`,
-    orderContent: `${ORDER_API}order/rest/v1/Order/getMemberOrderContent`,
-    orderProd: `${ORDER_API}order/rest/v1/Order/getOrderProd`,
-    orderMessage: () =>
-        `http://ord00t-a01.eztravel.com.tw:8080/order/rest/v1/Order/getOrderProd`,
-    //`${ORDER_API}order/v1/b2b/orders/${orderNo}/messages`,
+exports.mainWebApi = {
+    header: `${MAIN_WEB_API}v1/api/ezSpHeader`,
+    footer: `${MAIN_WEB_API}v1/api/ezSpFooter`,
+    ezJsCss: `${MAIN_WEB_API}v2/api/ezSpJsCss`,
 };

@@ -1,30 +1,35 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import { connect } from 'react-redux'
+import { getFooter } from '../redux/actions/B2eFormAction'
 import parse from 'html-react-parser'
-export default class Header extends Component {
-    constructor() {
-        super()
-        this.state = {
-            ezFooter: '',
-        }
+function mapDispatchToProps(dispatch) {
+    return {
+        getFooter: () => dispatch(getFooter()),
+    }
+}
+export class Footer extends Component {
+    constructor(props) {
+        super(props)
     }
     componentDidMount() {
         this.renderEzFooter()
     }
     renderEzFooter = async () => {
         try {
-            let res = await axios.get('http://hpapi-t01.eztravel.com.tw/v1/api/ezSpFooter')
-            let ezFooter = res.data
-            // this will re render the view with new data
-            this.setState({
-                ezFooter: ezFooter,
-            })
+            this.props.getFooter()
         } catch (err) {
             console.log(err)
         }
     }
 
     render() {
-        return <>{parse(this.state.ezFooter)}</>
+        return <>{this.props.footer ? parse(this.props.footer) : ''}</>
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        footer: state.B2eFormReducer.footer,
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Footer)

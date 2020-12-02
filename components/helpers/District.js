@@ -11,20 +11,8 @@ export default class District extends PureComponent {
         fieldName: PropTypes.string,
     }
 
-    // onChange = (e) => {
-    //     const currentDistrict = e.target.value;
-    //     console.log('傳遞的district',e.target.value)
-    //     this.props.changeDistrict(currentDistrict);
-    // };
-
     render() {
-        const {
-            data,
-            fieldName,
-            className,
-            //value,
-        } = this.props
-        //console.log('地區',this.props.value)
+        const { data, fieldName, className } = this.props
         const districts = !!data ? data.map(v => v) : []
 
         return (
