@@ -1,6 +1,6 @@
 import { call, put, select, race, delay } from 'redux-saga/effects';
 import axios from 'axios';
-import { mainApi as mainWebAPI } from '../../config/uri/client';
+import { mainApi as mainWebAPI, b2e as b2eApi } from '../../config/uri/client';
 import * as B2eFormAction from '../actions/B2eFormAction';
 
 // postOrderMessage
@@ -53,11 +53,7 @@ export function* getFooter() {
 
 function* sendB2eMemberInfo(member) {
     try {
-        const { data } = yield call(
-            axios.post,
-            'http://localhost:3000/member',
-            member
-        );
+        const { data } = yield call(axios.post, b2eApi.member, member);
         //yield put(OrderDetailActions.postMessageStatus(data.status))
         if (data.status == 200) {
             //yield put(B2eFormAction.addB2eMemData({ company: '', tel: '' }))

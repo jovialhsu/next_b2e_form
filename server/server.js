@@ -13,8 +13,9 @@ const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 const mainWebControllers = require('./controllers/mainWebControllers');
-const { mainWeb } = require('../config/uri/client');
-const { mainWebApi } = require('./config/uri/server');
+const b2eControllers = require('./controllers/b2eControllers');
+// const { mainWeb } = require('../config/uri/client');
+// const { mainWebApi } = require('./config/uri/server');
 
 app.prepare().then(() => {
     const server = new Koa(); // 声明一个 server
@@ -22,7 +23,7 @@ app.prepare().then(() => {
 
     router.get('/api/header', mainWebControllers.header);
     router.get('/api/footer', mainWebControllers.footer);
-
+    router.post('/api/b2eMember', b2eControllers.member);
     server.use(
         bodyParser({
             multipart: true,

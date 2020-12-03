@@ -1,36 +1,11 @@
 ## 專案架構
 - ReactJS
 - NextJS
+- Redux
+- Redux-saga
 - Webpack
 - Babel
 - Koa (server)
----
-### host
-**for windows mode**
-
-C:\WINDOWS\System32\drivers\etc\hosts
-
-~~新增: 3w.join-eztravel.com~~
-```
-~~127.0.0.1 3w.join-eztravel.com~~
-```
-
-### Nginx
-http {} 內新增一組 server block
-
-server_name    `*.join-eztravel.com`;
-```bash
-server {
-    listen       80;
-    server_name  *.join-eztravel.com;
-    charset utf-8;
-
-    # 指向 3000 port
-    location /{
-        proxy_pass http://localhost:3000/;
-    }
-}
-```
 ---
 ## 專案設定
 
@@ -45,7 +20,7 @@ yarn
 ```
 #### 開發環境 TEST/WS/PRD
 ```bash
-yarn start      #本機設定環境變數 DEV
+yarn dev      #本機設定環境變數 DEV
 ```
 開啟瀏覽器 `http://3w.join-eztravel.com`
 #### build and run server

@@ -11,7 +11,7 @@ export default class TextInput extends Component {
             contTel: '',
             telArea: '',
             tel: '',
-            telExt: '',
+            tel1Ext: '',
             contTelExt: '',
         }
     }
@@ -35,10 +35,10 @@ export default class TextInput extends Component {
                 if (name.indexOf('cont') > -1) {
                     props = {
                         contTel: `${this.state.contTelArea}-${this.state.contTel}`,
-                        contTelExt: this.state.contTelExt,
+                        contTelExt: `#${this.state.contTelExt}`,
                     }
                 } else {
-                    props = { tel1: `${this.state.telArea}-${this.state.tel}`, telExt: this.state.telExt }
+                    props = { tel1: `${this.state.telArea}-${this.state.tel}`, tel1Ext: `#${this.state.tel1Ext}` }
                 }
                 handleChangeTel(props)
             }

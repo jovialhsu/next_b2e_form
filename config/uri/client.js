@@ -6,6 +6,9 @@ exports.mainApi = {
     header: '/api/header',
     footer: '/api/footer',
 };
+exports.b2e = {
+    member: '/api/b2eMember',
+};
 
 //Endpoint & staticUrl
 const member = (env) => {
@@ -17,16 +20,5 @@ const member = (env) => {
         case 'TEST':
         default:
             return '//mem00t-w01.eztravel.com.tw/';
-    }
-};
-exports.mainWeb = (env) => {
-    switch (env) {
-        case 'PROD':
-            return 'https://hpapi.eztravel.com.tw/';
-        case 'WS':
-            return 'http://hpapi-ws01.eztravel.com.tw/';
-        case 'TEST':
-        default:
-            return '//hpapi-t01.eztravel.com.tw/';
     }
 };

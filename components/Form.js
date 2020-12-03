@@ -20,57 +20,54 @@ export class Form extends Component {
         super(props)
         this.initialState = {
             apiData: {
-                compName: '', //公司名稱*
+                nameChn: '', //公司名稱*
                 compUniId: '', //統一編號*
-                tel: '', //公司電話*
-                telArea: '', //公司區碼
-                telExt: '', //公司分機
-                compEmpolyee: '', //員工人數
+                tel1Ext: '', //公司分機
+                headcount: '', //員工人數
                 compScale: '',
                 addrCont: '', //聯絡地址
                 addrContCounty: '',
                 addrContDistrict: '',
                 zipCont: '', //郵遞區號
                 dealerType: '', //產業類別
-                compAmount: '', //資本額
+                capital: '', //資本額
                 contName: '', //聯絡人姓名
                 contTelExt: '', //聯絡人電話(區碼+電話+分機)
                 contTel: '',
-                contTelArea: '',
                 contEmail: '', //聯絡人電子信箱
                 contTelMo: '', //聯絡人手機
-                compNeed: '', //配合方式
-                b2eOther: '', //其他
-                compTourAgency: '', //配合旅行社
-                compPayChoice: '', //付款方式
-                moneyByPeople: '', //每人補助金額
+                collaborateWay: '', //配合方式
+                demand: '', //其他
+                travelAgency: '', //配合旅行社
+                paymentMethod: '', //付款方式
+                subsidy: '', //每人補助金額
             },
-            compNameValid: true,
+            telArea: '',
+            contTelArea: '',
+            tel: '',
+            nameChnValid: true,
             compUniIdValid: true,
             compUniIdMsg: '請輸入統一編號',
             telValid: true,
-            compEmpolyeeValid: true,
-            compEmpolyeeMsg: '請輸入員工人數',
+            headcountValid: true,
+            headcountMsg: '請輸入員工人數',
             addrContValid: true, //聯絡地址
-            compAmountValid: true, //驗證是否為輸入數字??100000000
+            capitalValid: true, //驗證是否為輸入數字??100000000
             contNameValid: true,
             contTelValid: true,
             contEmailValid: true,
             contEmailMsg: '請輸入電子信箱',
             contTelMoValid: true,
             contTelMoMsg: '請輸入聯絡人手機',
-            compNeedValid: true,
-            b2eOther: '', //其他
-            compPayChoiceValid: true,
-            controlType: null,
-            rows: null,
+            collaborateWayValid: true,
+            paymentMethodValid: true,
         }
         this.state = this.initialState
         this.handleChange = this.handleChange.bind(this)
     }
     handleChange(event) {
         const { name, value } = event.target ? event.target : event
-        const checkNumArr = ['compEmpolyee'] //需要驗證為數字name欄位
+        const checkNumArr = ['headcount'] //需要驗證為數字name欄位
         this.setState({ apiData: { ...this.state.apiData, [name]: value } })
         if (typeof event.target !== 'undefined') {
             const valid = event.target.getAttribute('data-valid')
@@ -123,11 +120,11 @@ export class Form extends Component {
                     : isEmpty(value)
                     ? this.setState({
                           [valid]: false,
-                          compEmpolyeeMsg: '請輸入員工人數',
+                          headcountMsg: '請輸入員工人數',
                       })
                     : this.setState({
                           [valid]: isNumberErr(value),
-                          compEmpolyeeMsg: '請輸入有效數字',
+                          headcountMsg: '請輸入有效數字',
                       })
             }
         }
@@ -145,20 +142,20 @@ export class Form extends Component {
     }
     handleChangeTel = props => {
         props.tel1
-            ? this.setState({ apiData: { ...this.state.apiData, tel1: props.tel1, telExt: props.telExt } })
+            ? this.setState({ apiData: { ...this.state.apiData, tel1: props.tel1, tel1Ext: props.tel1Ext } })
             : this.setState({
                   apiData: { ...this.state.apiData, contTel: props.contTel, contTelExt: props.contTelExt },
               })
     }
     checkValid() {
-        //const { addrContValid, compAmountValid ,compEmpolyeeValid}
+        //const { addrContValid, capitalValid ,headcountValid}
         return (
             this.state.addrContValid &&
-            this.state.compAmountValid &&
-            this.state.compEmpolyeeValid &&
-            this.state.compNameValid &&
-            this.state.compNeedValid &&
-            this.state.compPayChoiceValid &&
+            this.state.capitalValid &&
+            this.state.headcountValid &&
+            this.state.nameChnValid &&
+            this.state.collaborateWayValid &&
+            this.state.paymentMethodValid &&
             this.state.compUniIdValid &&
             this.state.contEmailValid &&
             this.state.contNameValid &&
@@ -166,10 +163,24 @@ export class Form extends Component {
             this.state.contTelValid
         )
     }
+    checkSelectValue() {
+        /**
+        檢查必填選項配合方式collaborateWay
+            付款方式paymentMethod
+            配合旅行社是否為空值travelAgency
+            如果是空值? 相對應的VALID要設為FALSE
+        */
+        const { collaborateWay, paymentMethod, travelAgency } = this.state.apiData
+        if (collaborateWay === '') {
+            //this.setState()
+        } else {
+            return true
+        }
+    }
     handleSubmit = e => {
         e.preventDefault()
-        console.log(checkValid())
-        if (checkValid()) {
+        console.log(this.checkValid())
+        if (this.checkValid()) {
             const member = this.state.apiData
             this.props.addB2eMemData(member)
             this.props.router.push('/finish')
@@ -179,34 +190,30 @@ export class Form extends Component {
     render() {
         const dealerTypeOptions = ['資訊科技業', '金融保險業', '服務業', '營造業', '軍警公務員', '教育學術', '其他'],
             compScaleOptions = ['中小企業', '公開發行公司', '上市 / 上櫃公司', '公家單位', '集團企業'],
-            compNeedOptions = ['企業福委', '商務差旅', '企業贈禮'],
+            collaborateWayOptions = ['企業福委', '商務差旅', '企業贈禮'],
             tourAgencyOptions = ['易遊網', '其他'],
             payChoiceOptions = ['月結', '特約']
         const {
-            compName, //公司名稱*
+            nameChn, //公司名稱*
             compUniId, //統一編號*
-            tel, //公司電話*
-            telArea, //公司區碼
-            telExt, //公司分機
-            compEmpolyee, //員工人數
+            tel1Ext, //公司分機
+            headcount, //員工人數
             compScale,
             addrCont, //聯絡地址
             addrContCounty,
             addrContDistrict,
             zipCont, //郵遞區號
             dealerType, //產業類別
-            compAmount, //資本額
-            contName, //聯絡人姓名
-            contTelExt, //聯絡人電話(區碼+電話+分機)
-            contTel,
-            contTelArea,
+            capital, //資本額
+            contTelExt, //聯絡人電話(區碼+電話)
+            contTel, //分機
             contEmail, //聯絡人電子信箱
             contTelMo, //聯絡人手機
-            compNeed, //配合方式
-            b2eOther, //其他
-            compTourAgency, //配合旅行社
-            compPayChoice, //付款方式
-            moneyByPeople,
+            collaborateWay, //配合方式
+            demand, //其他
+            travelAgency, //配合旅行社
+            paymentMethod, //付款方式
+            subsidy,
         } = this.state.apiData
         return (
             <div className="content">
@@ -220,10 +227,10 @@ export class Form extends Component {
                             label="公司名稱*"
                             placeholder="請輸入"
                             max="50"
-                            name="compName"
-                            value={compName} //傳回後端的value
-                            validName="compNameValid" //setState使用
-                            valid={this.state.compNameValid}
+                            name="nameChn"
+                            value={nameChn} //傳回後端的value
+                            validName="nameChnValid" //setState使用
+                            valid={this.state.nameChnValid}
                             validityMessage={'請輸入公司名稱'} //錯誤訊息
                             onChange={this.handleChange}
                             required="required"
@@ -248,7 +255,7 @@ export class Form extends Component {
                                 {
                                     name: 'telArea',
                                     placeholder: '區碼',
-                                    value: telArea,
+                                    value: this.state.telArea,
                                     valid: this.state.telValid,
                                     validName: 'telValid',
                                     onChange: this.handleChange,
@@ -258,7 +265,7 @@ export class Form extends Component {
                                 {
                                     name: 'tel',
                                     placeholder: '電話',
-                                    value: tel,
+                                    value: this.state.tel,
                                     valid: this.state.telValid,
                                     validName: 'telValid',
                                     onChange: this.handleChange,
@@ -266,9 +273,9 @@ export class Form extends Component {
                                     required: 'required',
                                 },
                                 {
-                                    name: 'telExt',
+                                    name: 'tel1Ext',
                                     placeholder: '分機',
-                                    value: telExt,
+                                    value: tel1Ext,
                                     valid: this.state.telValid,
                                     validName: 'telValid',
                                     onChange: this.handleChange,
@@ -284,11 +291,11 @@ export class Form extends Component {
                             label="員工人數*"
                             placeholder="請輸入"
                             type="text"
-                            name="compEmpolyee"
-                            value={compEmpolyee}
-                            validName="compEmpolyeeValid"
-                            valid={this.state.compEmpolyeeValid}
-                            validityMessage={this.state.compEmpolyeeMsg}
+                            name="headcount"
+                            value={headcount}
+                            validName="headcountValid"
+                            valid={this.state.headcountValid}
+                            validityMessage={this.state.headcountMsg}
                             onChange={this.handleChange}
                             required="required"
                         />
@@ -325,10 +332,10 @@ export class Form extends Component {
                         <TextInput
                             label="資本額"
                             placeholder="請輸入"
-                            name="compAmount"
-                            value={compAmount}
-                            validName="compAmountValid"
-                            valid={this.state.compAmountValid}
+                            name="capital"
+                            value={capital}
+                            validName="capitalValid"
+                            valid={this.state.capitalValid}
                             onChange={this.handleChange}
                         />
                     </FormContainer>
@@ -376,7 +383,7 @@ export class Form extends Component {
                                 {
                                     name: 'contTelArea',
                                     placeholder: '區碼',
-                                    value: contTelArea,
+                                    value: this.state.contTelArea,
                                     validName: 'contTelValid',
                                     onChange: this.handleChange,
                                     max: '4',
@@ -430,54 +437,52 @@ export class Form extends Component {
                     {/**part-3 */}
                     <FormContainer index="3" subtitle="企業配合需求">
                         <SelectInput
-                            options={compNeedOptions}
+                            options={collaborateWayOptions}
                             placeholder="請選擇"
-                            name="compNeed"
+                            name="collaborateWay"
                             label="配合方式*"
-                            value={compNeed}
-                            valid={this.state.compNeedValid}
+                            value={collaborateWay}
+                            valid={this.state.collaborateWayValid}
                             validityMessage={'請選擇配合需求'}
                             onChange={this.handleChange}
-                            required="required"
                         />
                         <SelectInput
                             options={payChoiceOptions}
                             placeholder="請選擇"
-                            name="compPayChoice"
+                            name="paymentMethod"
                             label="付款方式*"
-                            value={compPayChoice}
-                            valid={this.state.compPayChoiceValid}
+                            value={paymentMethod}
+                            valid={this.state.paymentMethodValid}
                             validityMessage={'請選擇付款方式'}
                             onChange={this.handleChange}
-                            required="required"
                         />
                         <SelectInput
                             options={tourAgencyOptions}
                             placeholder="請選擇"
-                            name="compTourAgency"
+                            name="travelAgency"
                             label="預計配合旅行社*"
-                            value={compTourAgency}
+                            value={travelAgency}
                             valid={true}
                             validityMessage={'請選擇預計配合旅行社'}
                             onChange={this.handleChange}
-                            required="required"
                         />
                         <TextInput
                             label={'每人補助金額'}
                             placeholder="(元/人)"
-                            value={moneyByPeople}
-                            name="moneyByPeople"
+                            value={subsidy}
+                            name="subsidy"
+                            valid={true}
                             onChange={this.handleChange}
                         />
                     </FormContainer>
                     {/**part-4 */}
                     <FormContainer index="4" subtitle="其他">
                         <TextInput
-                            name="b2eOther"
+                            name="demand"
                             label="特殊需求備註"
                             controlType={'textarea'}
                             rows="3"
-                            value={b2eOther}
+                            value={demand}
                             onChange={this.handleChange}
                         />
                     </FormContainer>
