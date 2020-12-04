@@ -14,7 +14,7 @@ const MAIN_WEB_API =
 exports.mainWebApi = {
     header: `${MAIN_WEB_API}v1/api/ezSpHeader`,
     footer: `${MAIN_WEB_API}v1/api/ezSpFooter`,
-    ezJsCss: `${MAIN_WEB_API}v2/api/ezSpJsCss`,
+    EzJsCss: `${MAIN_WEB_API}v2/api/ezSpJsCss`,
 };
 exports.b2eApi = {
     member: `${MEMBER_API}member`,

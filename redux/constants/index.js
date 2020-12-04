@@ -6,3 +6,5 @@ export const FETCH_HEADER = 'FETCH_HEADER';
 export const FETCH_FOOTER = 'FETCH_FOOTER';
 export const GET_HEADER = 'GET_FOOTER';
 export const GET_FOOTER = 'GET_FOOTER';
+export const GET_EZ_JS_CSS = 'GET_EZ_JS_CSS';
+export const FETCH_EZ_JS_CSS = 'FETCH_EZ_JS_CSS';

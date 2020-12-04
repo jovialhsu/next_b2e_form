@@ -20,30 +20,23 @@ export default class ZipCode extends PureComponent {
                     if (zipCode === Data[i][j]) {
                         return this.props.changeZipcode(zipCode)
                     }
-
                     return false
                 })
             })
         }
+        this.props.onChange(e)
     }
 
     render() {
-        // if (this.props.ZipCodeValue === '') {
-        //     this.props = {
-        //         value: '',
-        //         writable: true,
-        //     };
-        // }
         return (
             <input
                 type="text"
-                className={this.props.className}
+                className={(this.props.className, !this.props.valid ? 'invalid' : '')}
                 name={this.props.name}
                 value={this.props.value}
                 onChange={this.onChange}
                 placeholder={this.props.placeholder}
                 maxLength="3"
-                //onChange={this.props.onChange}
                 zipcodevalue={this.props.value}
             />
         )

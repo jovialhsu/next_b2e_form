@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import styles from './layout.module.css'
 import Header from './Header'
 import Footer from './Footer'
 export const siteTitle = '企業會員加入表單'
@@ -7,7 +6,7 @@ export default function Layout({ children, home }) {
     return (
         <>
             <Header />
-            <div className={styles.container}>
+            <div>
                 <Head>
                     <link rel="icon" href="/favicon.ico" />
                     <meta name="description" content="Learn how to build a personal website using Next.js" />

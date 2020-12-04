@@ -41,6 +41,7 @@ export class Form extends Component {
                 travelAgency: '', //配合旅行社
                 paymentMethod: '', //付款方式
                 subsidy: '', //每人補助金額
+                tel1: '',
             },
             telArea: '',
             contTelArea: '',
@@ -48,10 +49,13 @@ export class Form extends Component {
             nameChnValid: true,
             compUniIdValid: true,
             compUniIdMsg: '請輸入統一編號',
-            telValid: true,
+            tel1Valid: true,
             headcountValid: true,
             headcountMsg: '請輸入員工人數',
             addrContValid: true, //聯絡地址
+            addrContCountyValid: true,
+            addrContDistrictValid: true,
+            zipContValid: true,
             capitalValid: true, //驗證是否為輸入數字??100000000
             contNameValid: true,
             contTelValid: true,
@@ -61,6 +65,7 @@ export class Form extends Component {
             contTelMoMsg: '請輸入聯絡人手機',
             collaborateWayValid: true,
             paymentMethodValid: true,
+            travelAgencyValid: true,
         }
         this.state = this.initialState
         this.handleChange = this.handleChange.bind(this)
@@ -68,9 +73,20 @@ export class Form extends Component {
     handleChange(event) {
         const { name, value } = event.target ? event.target : event
         const checkNumArr = ['headcount'] //需要驗證為數字name欄位
-        this.setState({ apiData: { ...this.state.apiData, [name]: value } })
+        //將對應的值寫入apiData
+        this.setState({ apiData: { ...this.state.apiData, [name]: value } }, () => {})
+
+        /**
+         * 檢查資料正確
+         * 不為空值:[nameChn,compUniId,headcount,addrCont,contTel,contEmail,collaborateWay,travelAgency,paymentMethod,contName,tel1]
+         * 為數字:[headcount]
+         * 為電子郵件格式:[contEmail]
+         * 統一編號:[compUniId]
+         * 行動電話格式:[contTelMo]
+         */
         if (typeof event.target !== 'undefined') {
             const valid = event.target.getAttribute('data-valid')
+            console.log(valid)
             !isEmpty(value) ? this.setState({ [valid]: true }) : this.setState({ [valid]: false })
             if (name === 'compUniId') {
                 //檢驗統編
@@ -83,7 +99,7 @@ export class Form extends Component {
                       })
                     : this.setState({
                           [valid]: isUniformNumbersErr(value),
-                          compUniIdMsg: '請確認統一編號',
+                          compUniIdMsg: '請確認統一編號格式',
                       })
             }
             if (name === 'contEmail') {
@@ -97,7 +113,7 @@ export class Form extends Component {
                       })
                     : this.setState({
                           [valid]: isEmailErr(value),
-                          contEmailMsg: '請確認電子信箱',
+                          contEmailMsg: '請確認電子信箱格式',
                       })
             }
             if (name === 'contTelMo') {
@@ -127,6 +143,9 @@ export class Form extends Component {
                           headcountMsg: '請輸入有效數字',
                       })
             }
+        } else {
+            const valid = `${event.name}Valid`
+            !isEmpty(value) ? this.setState({ [valid]: true }) : this.setState({ [valid]: false })
         }
     }
     handleFormReset = () => {
@@ -134,53 +153,123 @@ export class Form extends Component {
     }
     handleChangeCounty = props => {
         const { addrContCounty, addrContDistrict, zipCont } = props
-        this.setState({ apiData: { ...this.state.apiData, addrContCounty, addrContDistrict, zipCont } })
+        this.setState({
+            zipContValid: !isEmpty(zipCont) ? true : false,
+            apiData: { ...this.state.apiData, addrContCounty, addrContDistrict, zipCont },
+        })
     }
     handleChangeName = props => {
-        const { contName } = props
-        this.setState({ apiData: { ...this.state.apiData, contName } })
+        const { contName, contNameValid } = props
+        this.setState({ contNameValid: contNameValid, apiData: { ...this.state.apiData, contName } })
     }
     handleChangeTel = props => {
+        console.log(props)
         props.tel1
-            ? this.setState({ apiData: { ...this.state.apiData, tel1: props.tel1, tel1Ext: props.tel1Ext } })
+            ? this.setState({
+                  tel1Valid: props.tel1Valid,
+                  apiData: { ...this.state.apiData, tel1: props.tel1, tel1Ext: props.tel1Ext },
+              })
             : this.setState({
+                  contTelValid: props.contTelValid,
                   apiData: { ...this.state.apiData, contTel: props.contTel, contTelExt: props.contTelExt },
               })
     }
     checkValid() {
-        //const { addrContValid, capitalValid ,headcountValid}
+        const {
+            addrContValid,
+            capitalValid,
+            headcountValid,
+            nameChnValid,
+            collaborateWayValid,
+            paymentMethodValid,
+            compUniIdValid,
+            contEmailValid,
+            contNameValid,
+            contTelMoValid,
+            contTelValid,
+        } = this.state
         return (
-            this.state.addrContValid &&
-            this.state.capitalValid &&
-            this.state.headcountValid &&
-            this.state.nameChnValid &&
-            this.state.collaborateWayValid &&
-            this.state.paymentMethodValid &&
-            this.state.compUniIdValid &&
-            this.state.contEmailValid &&
-            this.state.contNameValid &&
-            this.state.contTelMoValid &&
-            this.state.contTelValid
+            addrContValid &&
+            capitalValid &&
+            headcountValid &&
+            nameChnValid &&
+            collaborateWayValid &&
+            paymentMethodValid &&
+            compUniIdValid &&
+            contEmailValid &&
+            contNameValid &&
+            contTelMoValid &&
+            contTelValid
         )
     }
-    checkSelectValue() {
-        /**
-        檢查必填選項配合方式collaborateWay
-            付款方式paymentMethod
-            配合旅行社是否為空值travelAgency
-            如果是空值? 相對應的VALID要設為FALSE
-        */
-        const { collaborateWay, paymentMethod, travelAgency } = this.state.apiData
-        if (collaborateWay === '') {
-            //this.setState()
+    /**
+     * 檢查資料正確
+     * 不為空值:[nameChn,compUniId,headcount,addrCont,contTel,contEmail,collaborateWay,travelAgency,paymentMethod,contName,tel1]
+     * */
+    checkValueEmpty() {
+        console.log('>>')
+        const {
+                nameChn,
+                compUniId,
+                headcount,
+                addrCont,
+                contTel,
+                contEmail,
+                collaborateWay,
+                travelAgency,
+                paymentMethod,
+                contName,
+                tel1,
+            } = this.state.apiData,
+            checkValueEmptyArr = [
+                nameChn,
+                compUniId,
+                headcount,
+                addrCont,
+                contTel,
+                contEmail,
+                collaborateWay,
+                travelAgency,
+                paymentMethod,
+                contName,
+                tel1,
+            ],
+            checkValidOption = [
+                'nameChnValid',
+                'compUniIdValid',
+                'headcountValid',
+                'addrContValid',
+                'contTelValid',
+                'contEmailValid',
+                'collaborateWayValid',
+                'travelAgencyValid',
+                'paymentMethodValid',
+                'contNameValid',
+                'tel1Valid',
+            ]
+
+        if (checkValueEmptyArr.some(item => item === '')) {
+            checkValueEmptyArr.map((item, index) => {
+                if (item === '') {
+                    if (checkValidOption[index] === 'addrContValid') {
+                        this.setState({
+                            addrContCountyValid: this.state.apiData.addrContCounty ? true : false,
+                            addrContDistrictValid: this.state.apiData.addrContDistrict ? true : false,
+                            zipContValid: this.state.apiData.zipCont ? true : false,
+                        })
+                    }
+                    this.setState({ [checkValidOption[index]]: false })
+                }
+            })
+            return false
         } else {
             return true
         }
     }
     handleSubmit = e => {
         e.preventDefault()
-        console.log(this.checkValid())
-        if (this.checkValid()) {
+        console.log(this.checkValid(), this.checkValueEmpty())
+        if (this.checkValid() && this.checkValueEmpty()) {
             const member = this.state.apiData
             this.props.addB2eMemData(member)
             this.props.router.push('/finish')
@@ -190,7 +279,7 @@ export class Form extends Component {
     render() {
         const dealerTypeOptions = ['資訊科技業', '金融保險業', '服務業', '營造業', '軍警公務員', '教育學術', '其他'],
             compScaleOptions = ['中小企業', '公開發行公司', '上市 / 上櫃公司', '公家單位', '集團企業'],
-            collaborateWayOptions = ['企業福委', '商務差旅', '企業贈禮'],
+            collaborateWayOptions = ['企業福委', '商務差旅', '企業贈禮', ''],
             tourAgencyOptions = ['易遊網', '其他'],
             payChoiceOptions = ['月結', '特約']
         const {
@@ -228,12 +317,11 @@ export class Form extends Component {
                             placeholder="請輸入"
                             max="50"
                             name="nameChn"
-                            value={nameChn} //傳回後端的value
-                            validName="nameChnValid" //setState使用
+                            value={nameChn}
+                            validName="nameChnValid"
                             valid={this.state.nameChnValid}
                             validityMessage={'請輸入公司名稱'} //錯誤訊息
                             onChange={this.handleChange}
-                            required="required"
                         />
                         <TextInput
                             label="統一編號*"
@@ -246,7 +334,7 @@ export class Form extends Component {
                             validityMessage={this.state.compUniIdMsg}
                             onChange={this.handleChange}
                             max="8"
-                            required="required"
+                            /*required="required"*/
                         />
                         <TextInput
                             label="公司電話*"
@@ -256,34 +344,33 @@ export class Form extends Component {
                                     name: 'telArea',
                                     placeholder: '區碼',
                                     value: this.state.telArea,
-                                    valid: this.state.telValid,
-                                    validName: 'telValid',
+                                    valid: this.state.tel1Valid,
+                                    validName: 'tel1Valid',
                                     onChange: this.handleChange,
                                     max: '4',
-                                    required: 'required',
+                                    // required: 'required',
                                 },
                                 {
                                     name: 'tel',
                                     placeholder: '電話',
                                     value: this.state.tel,
-                                    valid: this.state.telValid,
-                                    validName: 'telValid',
+                                    valid: this.state.tel1Valid,
+                                    validName: 'tel1Valid',
                                     onChange: this.handleChange,
                                     max: '10',
-                                    required: 'required',
+                                    // required: 'required',
                                 },
                                 {
                                     name: 'tel1Ext',
                                     placeholder: '分機',
                                     value: tel1Ext,
-                                    valid: this.state.telValid,
-                                    validName: 'telValid',
+                                    valid: 'true',
                                     onChange: this.handleChange,
                                     max: '5',
                                 },
                             ]}
-                            validName="telValid"
-                            valid={this.state.telValid}
+                            validName="tel1Valid"
+                            valid={this.state.tel1Valid}
                             validityMessage={'請輸入公司電話'}
                             handleChangeTel={this.handleChangeTel}
                         />
@@ -297,19 +384,25 @@ export class Form extends Component {
                             valid={this.state.headcountValid}
                             validityMessage={this.state.headcountMsg}
                             onChange={this.handleChange}
-                            required="required"
+                            // required="required"
                         />
                         <AddressInput
                             label="聯絡地址*"
                             name={['addrContCounty', 'addrContDistrict', 'zipCont', 'addrCont']}
                             countyValue={''}
                             value={[addrContCounty, addrContDistrict, zipCont, addrCont]}
-                            valid={this.state.addrContValid}
+                            valid={[
+                                this.state.addrContCountyValid,
+                                this.state.addrContDistrictValid,
+                                this.state.zipContValid,
+                                this.state.addrContValid,
+                            ]}
+                            validName="addrContValid"
                             validityMessage={'請輸入聯絡地址'}
                             onChange={this.handleChange}
                             handleChangeCounty={this.handleChangeCounty}
                             max="50"
-                            required="required"
+                            // required="required"
                         />
 
                         <SelectInput
@@ -317,6 +410,7 @@ export class Form extends Component {
                             placeholder="請選擇"
                             options={compScaleOptions}
                             name="compScale"
+                            valid="true"
                             value={compScale}
                             onChange={this.handleChange}
                         />
@@ -325,6 +419,7 @@ export class Form extends Component {
                             placeholder="請選擇"
                             options={dealerTypeOptions}
                             name="dealerType"
+                            valid="true"
                             value={dealerType}
                             onChange={this.handleChange}
                         />
@@ -348,23 +443,23 @@ export class Form extends Component {
                                     name: 'contNameLast',
                                     placeholder: '姓',
                                     value: this.props.contNameLast,
-                                    valid: this.props.contNameLastValid,
-                                    validName: 'contNameLastValid',
+                                    valid: this.state.contNameValid,
+                                    validName: 'contNameValid',
                                     onChange: this.handleChange,
                                     handleChangeName: this.handleChangeName,
                                     max: '5',
-                                    required: 'required',
+                                    // required: 'required',
                                 },
                                 {
                                     name: 'contNameFirst',
                                     placeholder: '名',
                                     value: this.props.contNameFirst,
-                                    valid: this.props.contNameFirstValid,
-                                    validName: 'contNameFirstValid',
+                                    valid: this.state.contNameValid,
+                                    validName: 'contNameValid',
                                     onChange: this.handleChange,
                                     handleChangeName: this.handleChangeName,
                                     max: '10',
-                                    required: 'required',
+                                    // required: 'required',
                                 },
                             ]}
                             label="姓名*"
@@ -384,24 +479,27 @@ export class Form extends Component {
                                     name: 'contTelArea',
                                     placeholder: '區碼',
                                     value: this.state.contTelArea,
+                                    valid: this.state.contTelValid,
                                     validName: 'contTelValid',
                                     onChange: this.handleChange,
                                     max: '4',
-                                    required: 'required',
+                                    // required: 'required',
                                 },
                                 {
                                     name: 'contTel',
                                     placeholder: '電話',
                                     value: contTel,
+                                    valid: this.state.contTelValid,
                                     validName: 'contTelValid',
                                     onChange: this.handleChange,
                                     max: '10',
-                                    required: 'required',
+                                    // required: 'required',
                                 },
                                 {
                                     name: 'contTelExt',
                                     placeholder: '分機',
                                     value: contTelExt,
+                                    valid: true,
                                     validName: 'contTelValid',
                                     onChange: this.handleChange,
                                     max: '5',
@@ -421,7 +519,7 @@ export class Form extends Component {
                             validName="contEmailValid"
                             validityMessage={this.state.contEmailMsg}
                             onChange={this.handleChange}
-                            required="required"
+                            // required="required"
                         />
                         <TextInput
                             name="contTelMo"
@@ -462,7 +560,7 @@ export class Form extends Component {
                             name="travelAgency"
                             label="預計配合旅行社*"
                             value={travelAgency}
-                            valid={true}
+                            valid={this.state.travelAgencyValid}
                             validityMessage={'請選擇預計配合旅行社'}
                             onChange={this.handleChange}
                         />
@@ -471,7 +569,7 @@ export class Form extends Component {
                             placeholder="(元/人)"
                             value={subsidy}
                             name="subsidy"
-                            valid={true}
+                            valid="true"
                             onChange={this.handleChange}
                         />
                     </FormContainer>

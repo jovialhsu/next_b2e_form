@@ -191,7 +191,8 @@ export default class Dropdown extends Component {
             className,
         } = this.props
 
-        const disabledClass = this.props.disabled ? 'Dropdown-disabled' : ''
+        //const disabledClass = this.props.disabled ? 'Dropdown-disabled' : ''
+        const validClass = !this.props.valid ? 'invalid' : ''
         const placeHolderValue =
             typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label
 
@@ -203,7 +204,7 @@ export default class Dropdown extends Component {
         const controlClass = classNames({
             [`${baseClassName}-control`]: true,
             [controlClassName]: !!controlClassName,
-            [disabledClass]: !!disabledClass,
+            [validClass]: !!validClass,
         })
         const placeholderClass = classNames({
             [`${baseClassName}-placeholder`]: true,

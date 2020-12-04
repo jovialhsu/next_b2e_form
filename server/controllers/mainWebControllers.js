@@ -44,3 +44,20 @@ exports.footer = async (ctx, next) => {
         console.log(error);
     }
 };
+exports.EzJsCss = async (ctx, next) => {
+    ctx.status = 200;
+    const options = {
+        method: 'GET',
+        url: mainWebApi.EzJsCss,
+    };
+    try {
+        const { data } = await utils.axiosHandler(options);
+        if (!data) {
+            ctx.response.body = noDataMessage;
+            return;
+        }
+        ctx.response.body = data;
+    } catch (error) {
+        console.log(error);
+    }
+};

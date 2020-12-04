@@ -45,6 +45,15 @@ export function* getFooter() {
         console.log(error);
     }
 }
+export function* getEzJsCss() {
+    //const state = yield select();
+    try {
+        const payload = yield call(fetchEzJsCss);
+        yield put({ type: 'FETCH_EZ_JS_CSS', payload });
+    } catch (error) {
+        console.log(error);
+    }
+}
 /**
  * @description sendB2eMemberInfo
  * 01 - 內部訊息 (E-mail) 預設E-mail
@@ -75,6 +84,14 @@ function* fetchHeader() {
 function* fetchFooter() {
     try {
         const { data } = yield call(axios.get, mainWebAPI.footer);
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+function* fetchEzJsCss() {
+    try {
+        const { data } = yield call(axios.get, mainWebAPI.EzJsCss);
         return data;
     } catch (error) {
         console.log(error);

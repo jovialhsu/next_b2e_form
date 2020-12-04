@@ -19,8 +19,10 @@ export default class County extends PureComponent {
             <Dropdown
                 name={this.props.name}
                 className={className}
+                valid={this.props.valid}
                 value={this.props.value}
                 changeCounty={this.props.changeCounty}
+                onChange={this.props.onChange}
                 options={counties}
                 placeholder="縣市"
             ></Dropdown>

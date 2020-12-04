@@ -21,3 +21,11 @@ export const fetchFooter = (footer) => ({
     type: actionTypes.FETCH_FOOTER,
     footer,
 });
+
+export const getEzJsCss = () => ({
+    type: actionTypes.GET_EZ_JS_CSS,
+});
+export const fetchEzJsCss = (EzJsCss) => ({
+    type: actionTypes.FETCH_EZ_JS_CSS,
+    EzJsCss,
+});

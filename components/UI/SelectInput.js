@@ -12,6 +12,7 @@ export default class SelectInput extends Component {
                     onChange={this.props.onChange}
                     name={this.props.name}
                     value={this.props.value}
+                    valid={this.props.valid}
                 ></Dropdown>
                 {this.props.validityMessage && !this.props.valid ? (
                     <p className="error-message">{this.props.validityMessage}</p>

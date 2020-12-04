@@ -23,6 +23,7 @@ app.prepare().then(() => {
 
     router.get('/api/header', mainWebControllers.header);
     router.get('/api/footer', mainWebControllers.footer);
+    router.get('/api/EzJsCss', mainWebControllers.EzJsCss);
     router.post('/api/b2eMember', b2eControllers.member);
     server.use(
         bodyParser({

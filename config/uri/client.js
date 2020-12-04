@@ -5,6 +5,7 @@
 exports.mainApi = {
     header: '/api/header',
     footer: '/api/footer',
+    EzJsCss: '/api/EzJsCss',
 };
 exports.b2e = {
     member: '/api/b2eMember',

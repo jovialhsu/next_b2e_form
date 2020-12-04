@@ -12,7 +12,7 @@ export default class District extends PureComponent {
     }
 
     render() {
-        const { data, fieldName, className } = this.props
+        const { data, className } = this.props
         const districts = !!data ? data.map(v => v) : []
 
         return (
@@ -20,6 +20,8 @@ export default class District extends PureComponent {
                 name={this.props.name}
                 className={className}
                 changeDistrict={this.props.changeDistrict}
+                onChange={this.props.onChange}
+                valid={this.props.valid}
                 value={this.props.value}
                 options={districts}
                 placeholder="鄉鎮市區"

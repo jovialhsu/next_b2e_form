@@ -4,6 +4,7 @@ const INITIAL_STATE = {
     memberInfo: {},
     footer: '',
     header: '',
+    EzJsCss: '',
 };
 const B2eFormReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
@@ -14,6 +15,10 @@ const B2eFormReducer = (state = INITIAL_STATE, action) => {
         case actionTypes.GET_HEADER:
             return state;
         case actionTypes.GET_FOOTER:
+            return state;
+        case actionTypes.FETCH_EZ_JS_CSS:
+            return { ...state, EzJsCss: action.payload };
+        case actionTypes.GET_EZ_JS_CSS:
             return state;
         case actionTypes.FETCH_HEADER:
             return { ...state, header: action.payload };

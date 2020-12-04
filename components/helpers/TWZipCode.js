@@ -194,6 +194,7 @@ export default class TWzipcodeApp extends Component {
                     className={css[0]}
                     data={counties}
                     value={this.props.value[0]}
+                    valid={this.props.valid[0]}
                     changeCounty={this.changeCounty}
                     name={this.props.name[0]}
                     onChange={this.props.onChange}
@@ -203,6 +204,7 @@ export default class TWzipcodeApp extends Component {
                     className={css[1]}
                     data={districts}
                     value={this.props.value[1]}
+                    valid={this.props.valid[1]}
                     name={this.props.name[1]}
                     changeDistrict={this.changeDistrict}
                     onChange={this.props.onChange}
@@ -211,9 +213,11 @@ export default class TWzipcodeApp extends Component {
                     name={zipcodeFieldName}
                     className={css[2]}
                     value={this.props.value[2]}
+                    valid={this.props.valid[2]}
                     name={this.props.name[2]}
                     placeholder={zipcodePlaceholder}
                     changeZipcode={this.changeZipcode}
+                    onChange={this.props.onChange}
                 />
             </>
         )
