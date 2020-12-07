@@ -277,11 +277,20 @@ export class Form extends Component {
         return
     }
     render() {
-        const dealerTypeOptions = ['資訊科技業', '金融保險業', '服務業', '營造業', '軍警公務員', '教育學術', '其他'],
+        const dealerTypeOptions = [
+                '資訊科技業',
+                '金融保險業',
+                '服務業',
+                '營造業',
+                '軍警公務員',
+                '教育學術',
+                '製造業',
+                '其他',
+            ],
             compScaleOptions = ['中小企業', '公開發行公司', '上市 / 上櫃公司', '公家單位', '集團企業'],
-            collaborateWayOptions = ['企業福委', '商務差旅', '企業贈禮', ''],
-            tourAgencyOptions = ['易遊網', '其他'],
-            payChoiceOptions = ['月結', '特約']
+            collaborateWayOptions = ['員工旅遊補助', '員工團體旅遊', '其他'],
+            tourAgencyOptions = ['0家', '1家', '2家', '3家', '4家', '5家'],
+            paymentMethodOptions = ['企業月結', '員工自行付款', '其他']
         const {
             nameChn, //公司名稱*
             compUniId, //統一編號*
@@ -545,7 +554,7 @@ export class Form extends Component {
                             onChange={this.handleChange}
                         />
                         <SelectInput
-                            options={payChoiceOptions}
+                            options={paymentMethodOptions}
                             placeholder="請選擇"
                             name="paymentMethod"
                             label="付款方式*"

@@ -41,13 +41,21 @@ h1 {
     margin-bottom: 2px;
     border-radius: 3px;
     .form-control {
+        label[for='contName'] {
+            & + .input-container > input:first-child {
+                width: 82px;
+                & + input {
+                    width: 156px;
+                }
+            }
+        }
         input,
         textarea {
             display: block;
             height: 40px;
             line-height: 40px;
             font: inherit;
-            width: 100%;
+            width: 254px;
             border: 1px solid #bdbdbd;
             border-radius: 3px;
             background: white;
@@ -64,6 +72,10 @@ h1 {
                 border-color: $red-error;
                 // background: rgb(237, 217, 217);
             }
+        }
+        textarea {
+            width: 547px;
+            resize: none;
         }
     }
 }
@@ -95,11 +107,11 @@ label {
         display: flex;
         justify-content: space-between;
         input:first-child {
-            width: 56px;
+            width: 50px;
             & + input {
-                width: 128px;
+                width: 122px;
                 & + input {
-                    width: 56px;
+                    width: 50px;
                 }
             }
         }
@@ -116,18 +128,27 @@ label {
         }
     }
 }
-.address {
-    @extend .form-control;
-    width: 554px;
-    margin-left: 77px;
-    .input-container {
-        margin-bottom: 12px;
-        & > * {
-            width: 178px;
+.form-container {
+    .address {
+        @extend .form-control;
+        width: 554px;
+        margin-left: 77px;
+        .input-container {
+            margin-bottom: 12px;
+            & > * {
+                width: 178px;
+            }
+            & > input {
+                width: 172px;
+                height: 38.5px;
+            }
+            + input {
+                width: 551px;
+            }
         }
-    }
-    textarea {
-        height: 100px;
+        textarea {
+            height: 100px;
+        }
     }
 }
 .Dropdown-root {
@@ -175,21 +196,34 @@ label {
     width: 0;
 }
 .is-open .Dropdown-arrow {
-    border-color: transparent transparent #999;
+    border-color: transparent transparent #000;
     border-width: 0 5px 5px;
 }
 .Dropdown-menu {
     position: absolute;
     background-color: white;
-    width: calc(100% - 1em);
+    width: calc(100% - 2em);
     padding: 1em;
     margin-top: 10px;
     z-index: 10;
     max-height: 200px;
     overflow-y: auto;
-    //   padding-right: 0;
+    scrollbar-color: #ccc #fff;
+    scrollbar-width: thin;
     box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2),
         0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 4px 5px 0 rgba(0, 0, 0, 0.14);
+    &::-webkit-scrollbar {
+        width: 10px;
+        background-color: #fff;
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: #ccc;
+    }
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background-color: #fff;
+    }
     .Dropdown-option {
         height: 30px;
         text-indent: 0.5em;

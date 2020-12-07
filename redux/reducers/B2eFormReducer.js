@@ -16,10 +16,10 @@ const B2eFormReducer = (state = INITIAL_STATE, action) => {
             return state;
         case actionTypes.GET_FOOTER:
             return state;
-        case actionTypes.FETCH_EZ_JS_CSS:
-            return { ...state, EzJsCss: action.payload };
         case actionTypes.GET_EZ_JS_CSS:
             return state;
+        case actionTypes.FETCH_EZ_JS_CSS:
+            return { ...state, EzJsCss: action.payload };
         case actionTypes.FETCH_HEADER:
             return { ...state, header: action.payload };
         case actionTypes.FETCH_FOOTER:

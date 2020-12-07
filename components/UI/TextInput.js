@@ -4,7 +4,7 @@ import Count from './Count'
 
 export default class TextInput extends Component {
     constructor(props) {
-        super()
+        super(props)
         this.state = {
             contNameLast: '',
             contNameFirst: '',
@@ -100,7 +100,7 @@ export default class TextInput extends Component {
                                     placeholder={item.placeholder}
                                     onChange={this.changeName}
                                     maxLength={item.max}
-                                    handleChangeName={item.handleChangeName}
+                                    //handleChangeName={item.handleChangeName}
                                     required={item.required}
                                 />
                             ))}

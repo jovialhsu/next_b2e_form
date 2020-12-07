@@ -86,7 +86,7 @@ docker-compose exec server sh
 
 ----- next build -----
 
-└ .next
+└ build
     └ images
     └ static
     └ server

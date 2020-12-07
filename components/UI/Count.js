@@ -6,7 +6,7 @@ function Count(props) {
     useEffect(() => {
         setCount(count => (count += countValue))
         return () => {
-            setCount(count => 0)
+            setCount(count => (count = 0))
         }
     }, [countValue])
     return (

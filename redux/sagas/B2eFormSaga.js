@@ -8,7 +8,6 @@ export function* addB2eMemData({ member }) {
     //const state = yield select();
 
     //const memberInfo = state.B2eFormReducer.memberInfo;
-    //console.log(member);
     try {
         const { timeout } = yield race({
             sendMessage: call(sendB2eMemberInfo, member),

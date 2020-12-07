@@ -38,6 +38,7 @@ export default class ZipCode extends PureComponent {
                 placeholder={this.props.placeholder}
                 maxLength="3"
                 zipcodevalue={this.props.value}
+                readOnly={true}
             />
         )
     }

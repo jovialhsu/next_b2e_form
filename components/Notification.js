@@ -1,7 +1,7 @@
 import React from 'react'
 //import { ReactComponent as Application } from '../public/images/icon-application-success.svg';
 import Application from '../public/images/icon-application-success.svg'
-import Button from './Button'
+import Button from './UI/Button'
 import PropTypes from 'prop-types'
 
 const Notification = () => {

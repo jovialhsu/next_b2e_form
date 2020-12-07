@@ -14,9 +14,6 @@ function mapDispatchToProps(dispatch) {
 export class Header extends Component {
     constructor(props) {
         super(props)
-        // this.state = {
-        //     JsCss: '',
-        // }
     }
     componentDidMount() {
         this.renderEzJsCss()
@@ -31,14 +28,7 @@ export class Header extends Component {
     }
     renderEzJsCss = async () => {
         try {
-            console.log('123')
-            //let res = await axios.get('http://hpapi-t01.eztravel.com.tw/v2/api/ezSpJsCss')
-            //let JsCss = res.data
             this.props.getEzJsCss()
-            // this will re render the view with new data
-            // this.setState({
-            //     JsCss: JsCss,
-            // })
         } catch (err) {
             console.log(err)
         }

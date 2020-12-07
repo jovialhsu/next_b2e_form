@@ -1,4 +1,5 @@
 import * as actionTypes from '../constants';
+
 export const resetB2eMemResult = () => ({
     type: actionTypes.RESET_B2E_MEM_DATA,
 });
@@ -21,7 +22,6 @@ export const fetchFooter = (footer) => ({
     type: actionTypes.FETCH_FOOTER,
     footer,
 });
-
 export const getEzJsCss = () => ({
     type: actionTypes.GET_EZ_JS_CSS,
 });
