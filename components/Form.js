@@ -86,7 +86,6 @@ export class Form extends Component {
          */
         if (typeof event.target !== 'undefined') {
             const valid = event.target.getAttribute('data-valid')
-            console.log(valid)
             !isEmpty(value) ? this.setState({ [valid]: true }) : this.setState({ [valid]: false })
             if (name === 'compUniId') {
                 //檢驗統編
@@ -163,7 +162,6 @@ export class Form extends Component {
         this.setState({ contNameValid: contNameValid, apiData: { ...this.state.apiData, contName } })
     }
     handleChangeTel = props => {
-        console.log(props)
         props.tel1
             ? this.setState({
                   tel1Valid: props.tel1Valid,
@@ -207,7 +205,6 @@ export class Form extends Component {
      * 不為空值:[nameChn,compUniId,headcount,addrCont,contTel,contEmail,collaborateWay,travelAgency,paymentMethod,contName,tel1]
      * */
     checkValueEmpty() {
-        console.log('>>')
         const {
                 nameChn,
                 compUniId,
@@ -343,7 +340,6 @@ export class Form extends Component {
                             validityMessage={this.state.compUniIdMsg}
                             onChange={this.handleChange}
                             max="8"
-                            /*required="required"*/
                         />
                         <TextInput
                             label="公司電話*"
@@ -357,7 +353,6 @@ export class Form extends Component {
                                     validName: 'tel1Valid',
                                     onChange: this.handleChange,
                                     max: '4',
-                                    // required: 'required',
                                 },
                                 {
                                     name: 'tel',
@@ -367,7 +362,6 @@ export class Form extends Component {
                                     validName: 'tel1Valid',
                                     onChange: this.handleChange,
                                     max: '10',
-                                    // required: 'required',
                                 },
                                 {
                                     name: 'tel1Ext',
@@ -393,7 +387,6 @@ export class Form extends Component {
                             valid={this.state.headcountValid}
                             validityMessage={this.state.headcountMsg}
                             onChange={this.handleChange}
-                            // required="required"
                         />
                         <AddressInput
                             label="聯絡地址*"
@@ -411,7 +404,6 @@ export class Form extends Component {
                             onChange={this.handleChange}
                             handleChangeCounty={this.handleChangeCounty}
                             max="50"
-                            // required="required"
                         />
 
                         <SelectInput
@@ -492,7 +484,6 @@ export class Form extends Component {
                                     validName: 'contTelValid',
                                     onChange: this.handleChange,
                                     max: '4',
-                                    // required: 'required',
                                 },
                                 {
                                     name: 'contTel',
@@ -502,7 +493,6 @@ export class Form extends Component {
                                     validName: 'contTelValid',
                                     onChange: this.handleChange,
                                     max: '10',
-                                    // required: 'required',
                                 },
                                 {
                                     name: 'contTelExt',
@@ -528,7 +518,6 @@ export class Form extends Component {
                             validName="contEmailValid"
                             validityMessage={this.state.contEmailMsg}
                             onChange={this.handleChange}
-                            // required="required"
                         />
                         <TextInput
                             name="contTelMo"

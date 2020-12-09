@@ -3,36 +3,44 @@
 @import './layout';
 @import './button';
 @import './form';
-body{
+body {
     margin: 0;
     padding: 0;
-    background-color: #eef2f3;
+    //background-color: #eef2f3;
     font-family: $font-pc;
+    > div {
+        background-color: #eef2f3;
+    }
 }
-#wrapper > .content{
+
+#wrapper > .content {
     width: 700px;
     margin-top: 20px;
     border-radius: 3px;
-    &.application{
+    &.single {
+        height: calc(100vh - 80px);
+    }
+    .application {
         background: $white-primary;
-        margin-top: 40px;
+        margin-top: 50px;
         padding-top: 80px;
         padding-bottom: 100px;
+        margin-bottom: 80px;
         text-align: center;
-        svg{
+        svg {
             margin-bottom: 30px;
-            + h2{
+            + h2 {
                 margin-bottom: 8px;
-                + p{
+                + p {
                     margin-bottom: 20px;
                 }
             }
         }
     }
 }
-.buttonArea{
+.buttonArea {
     text-align: center;
-    button{
+    button {
         margin: 30px 10px;
     }
 }

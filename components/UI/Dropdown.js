@@ -223,7 +223,7 @@ export default class Dropdown extends Component {
         const value = <div className={placeholderClass}>{placeHolderValue}</div>
         const menu = this.state.isOpen ? (
             <div className={menuClass} aria-expanded="true">
-                {this.buildMenu()}
+                <div>{this.buildMenu()}</div>
             </div>
         ) : null
 

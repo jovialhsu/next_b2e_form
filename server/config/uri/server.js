@@ -3,9 +3,11 @@
  */
 const config = require('../../config');
 //DEV endpoint & docker container TEST/WS/PRD endpoint
-const MEMBER = `${config.memPlayScheme}://member.eztravel.com.tw/`;
+//const MEMBER = `${config.memPlayScheme}://member.eztravel.com.tw/`;
 const MEMBER_API =
-    config.env === 'DEV' ? 'http://localhost:3000/' : 'http://localhost:3000/';
+    config.env === 'DEV'
+        ? 'http://mem00t-w01.eztravel.com.tw:8080/'
+        : 'http://member-api.eztravel.com.tw:8080/';
 const MAIN_WEB_API =
     config.env === 'DEV'
         ? 'http://hpapi-t01.eztravel.com.tw/'
@@ -17,5 +19,5 @@ exports.mainWebApi = {
     EzJsCss: `${MAIN_WEB_API}v2/api/ezSpJsCss`,
 };
 exports.b2eApi = {
-    member: `${MEMBER_API}member`,
+    member: `${MEMBER_API}member/rest/v1/b2e/registryB2eMain`,
 };
