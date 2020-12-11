@@ -22,7 +22,6 @@ yarn
 ```bash
 yarn dev      #本機設定環境變數 DEV
 ```
-開啟瀏覽器 `http://3w.join-eztravel.com`
 #### build and run server
 **API_ENV 由環境變數帶入**
 ```
@@ -52,30 +51,40 @@ docker-compose exec server sh
 ---
 ## 目錄結構
 ```
-├ pages                 // Next.js page 對應 (route)
-    └ _document.js      // html, head, body
-    └ _app.js           // 根組件,全局佈局樣式
-    └ _error.js         // error page
-    └ index.js          // 首頁
-├ components            // Stateless & presentational & functional Components
-    └ Layout
-        └ index.js
-        └ _useStyles.js
-    └ Header
-    └ Footer
-    └ Meta
-├ public                // static public to 
-    └ images
-├ config                // clinet config
-    └ meta
-    └ uri
-        └ client.js
+|-pages                  // Next.js page 對應 (route)
+|    ├ _document.js      // html, head, body
+|    ├ _app.js           // root組件,全局佈局樣式
+|    ├ finish.js         //　填寫完成頁  
+|    └ index.js          // 首頁（企業會員加入表單）
+|-components             // Stateless & presentational 
+|    ├ helpers
+|    ├ UI
+|    ├ utils
+& functional Components    
+|-public                 // static public to 
+|    └ images
+|-config                 // clinet config
+|    ├ meta
+|    └ uri
+|        └ client.js     // frontEnd call server api route
+|-redux
+|    ├ actions
+|    ├ constants
+|    ├ reducers
+|    ├ sagas             
+|    └ store.js           // import redux, redux-saga
 --server---        
-├ server.js
-
-├ Dockerfile            // docker Image
-├ docker-compose.yaml   // docker compose
-├ next.config.js        // webpack config 
+├ server
+|    ├ config
+|    |    └ uri
+|    |        └ server.js // true endpoint routes
+|    ├ controllers        // axios
+|    ├ routes
+|    ├ utils
+|    └ server.js          // Koa
+├ Dockerfile              // docker Image
+├ docker-compose.yaml     // docker compose
+├ next.config.js          // webpack config 
 --inherit Next.js--
 ├ package.json
 ├ yarn.lock
@@ -87,7 +96,7 @@ docker-compose exec server sh
 ----- next build -----
 
 └ build
-    └ images
-    └ static
+    ├ images
+    ├ static
     └ server
 ```

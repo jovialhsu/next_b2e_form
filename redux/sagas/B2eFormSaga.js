@@ -5,9 +5,6 @@ import * as B2eFormAction from '../actions/B2eFormAction';
 
 // postOrderMessage
 export function* addB2eMemData({ member }) {
-    //const state = yield select();
-
-    //const memberInfo = state.B2eFormReducer.memberInfo;
     try {
         const { timeout } = yield race({
             sendMessage: call(sendB2eMemberInfo, member),
@@ -27,7 +24,6 @@ export function* addB2eMemData({ member }) {
     }
 }
 export function* getHeader() {
-    //const state = yield select();
     try {
         const payload = yield call(fetchHeader);
         yield put({ type: 'FETCH_HEADER', payload });
@@ -36,7 +32,6 @@ export function* getHeader() {
     }
 }
 export function* getFooter() {
-    //const state = yield select();
     try {
         const payload = yield call(fetchFooter);
         yield put({ type: 'FETCH_FOOTER', payload });
@@ -45,7 +40,6 @@ export function* getFooter() {
     }
 }
 export function* getEzJsCss() {
-    //const state = yield select();
     try {
         const payload = yield call(fetchEzJsCss);
         yield put({ type: 'FETCH_EZ_JS_CSS', payload });
@@ -55,18 +49,12 @@ export function* getEzJsCss() {
 }
 /**
  * @description sendB2eMemberInfo
- * 01 - 內部訊息 (E-mail) 預設E-mail
- * 02 - 外部訊息 (E-mail)
+ * @param member 申請資料
  */
 
 function* sendB2eMemberInfo(member) {
     try {
-        const { data } = yield call(axios.post, b2eApi.member, member);
-        //yield put(OrderDetailActions.postMessageStatus(data.status))
-        if (data.status == 200) {
-            //yield put(B2eFormAction.addB2eMemData({ company: '', tel: '' }))
-            //yield put(B2eFormAction.updateOrderMessage({ type: '', bodyText: '' }))
-        }
+        yield call(axios.post, b2eApi.member, member);
         return;
     } catch (error) {
         console.log(error);

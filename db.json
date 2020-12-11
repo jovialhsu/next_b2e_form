@@ -1005,6 +1005,31 @@
       "subsidy": "",
       "tel1": "",
       "id": 47
+    },
+    {
+      "nameChn": "eztravel",
+      "compUniId": "12345678",
+      "tel1Ext": "",
+      "headcount": "100",
+      "compScale": "中小企業",
+      "addrCont": "台北市中山區民生東路三段51號4樓",
+      "addrContCounty": "台北市",
+      "addrContDistrict": "中山區",
+      "zipCont": "104",
+      "dealerType": "金融保險業",
+      "capital": "",
+      "contName": "HsuHsinLin",
+      "contTelExt": "",
+      "contTel": "2-4128001",
+      "contEmail": "celia0528@gmail.com",
+      "contTelMo": "",
+      "collaborateWay": "員工旅遊補助",
+      "demand": "NO@@",
+      "travelAgency": "1家",
+      "paymentMethod": "企業月結",
+      "subsidy": "",
+      "tel1": "2-4128001",
+      "id": 48
     }
   ]
 }

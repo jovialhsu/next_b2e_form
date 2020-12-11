@@ -20,4 +20,5 @@ exports.mainWebApi = {
 };
 exports.b2eApi = {
     member: `${MEMBER_API}member/rest/v1/b2e/registryB2eMain`,
+    //member: 'http://localhost:3000/member',
 };

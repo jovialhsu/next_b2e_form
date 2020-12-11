@@ -1,7 +1,6 @@
 const config = require('../config');
 const isProduction = config.nodeEnv === 'production';
 const utils = require('../utils');
-//const logger = utils.logger;
 const { b2eApi } = require('../config/uri/server');
 // if no data response body
 const noDataMessage = {

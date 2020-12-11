@@ -10,7 +10,7 @@ const compression = require('compression');
 const koaConnect = require('koa-connect');
 //const request = require('request');
 //const koaBody = require('koa-body');
-const next = require('next'); // nextjs 作为中间件
+const next = require('next'); // nextjs
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
@@ -20,7 +20,7 @@ const b2eControllers = require('./controllers/b2eControllers');
 // const { mainWebApi } = require('./config/uri/server');
 
 app.prepare().then(() => {
-    const server = new Koa(); // 声明一个 server
+    const server = new Koa();
     const router = new Router();
     server.use(koaConnect(compression()));
     router.get('/api/header', mainWebControllers.header);

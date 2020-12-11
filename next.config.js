@@ -5,27 +5,6 @@ const CompressionPlugin = require('compression-webpack-plugin');
 //const dev = config.nodeEnv !== 'production';
 //const assetPrefix = dev ? '/' : staticCdnEndpoint
 const config = require('./server/config');
-// module.exports = {
-//     distDir: 'build',
-//     webpack: (config, options) => {
-//         config.module.rules.push({
-//             test: /\.svg$/,
-//             use: ['@svgr/webpack', 'url-loader'],
-//         });
-//         config.plugins.push(
-//             new CompressionPlugin({
-//                 path: path.resolve(__dirname, './build'),
-//                 filename: '[path].gz[query]',
-//                 algorithm: 'gzip',
-//                 test: /\.js$|\.css$|\.html$/,
-//                 threshold: 10240,
-//                 minRatio: 0.8,
-//             })
-//         );
-//         console.log(config);
-//         return config;
-//     },
-// };
 const nextConfig = {
     // 設定產出路徑為 /build 取代 /.next (for google cloud storage)
     distDir: 'build',
