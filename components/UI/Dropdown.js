@@ -65,6 +65,7 @@ export default class Dropdown extends Component {
             this.setState({
                 isOpen: !this.state.isOpen,
             })
+            if (this.props.openHandler) this.props.openHandler(!this.state.isOpen)
         }
     }
 
@@ -98,6 +99,7 @@ export default class Dropdown extends Component {
         }
         this.fireChangeEvent(newState)
         this.setState(newState)
+        if (this.props.openHandler) this.props.openHandler(newState.isOpen)
     }
 
     fireChangeEvent(newState) {
@@ -170,6 +172,7 @@ export default class Dropdown extends Component {
             if (!this.dropdownRef.current.contains(event.target)) {
                 if (this.state.isOpen) {
                     this.setState({ isOpen: false })
+                    if (this.props.openHandler) this.props.openHandler(false)
                 }
             }
         }

@@ -12,9 +12,8 @@ export default class County extends PureComponent {
     }
 
     render() {
-        const { data, fieldName, className } = this.props
+        const { data, className } = this.props
         const counties = data.map(v => v)
-
         return (
             <Dropdown
                 name={this.props.name}
@@ -23,6 +22,7 @@ export default class County extends PureComponent {
                 value={this.props.value}
                 changeCounty={this.props.changeCounty}
                 onChange={this.props.onChange}
+                openHandler={this.props.openHandler}
                 options={counties}
                 placeholder="縣市"
             ></Dropdown>

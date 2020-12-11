@@ -198,6 +198,7 @@ export default class TWzipcodeApp extends Component {
                     changeCounty={this.changeCounty}
                     name={this.props.name[0]}
                     onChange={this.props.onChange}
+                    openHandler={this.props.openHandler}
                 />
                 <District
                     fieldName={districtFieldName}
@@ -208,6 +209,7 @@ export default class TWzipcodeApp extends Component {
                     name={this.props.name[1]}
                     changeDistrict={this.changeDistrict}
                     onChange={this.props.onChange}
+                    openHandler={this.props.openHandler}
                 />
                 <ZipCode
                     name={zipcodeFieldName}

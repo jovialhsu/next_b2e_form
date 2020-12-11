@@ -23,6 +23,7 @@ export default class District extends PureComponent {
                 onChange={this.props.onChange}
                 valid={this.props.valid}
                 value={this.props.value}
+                openHandler={this.props.openHandler}
                 options={districts}
                 placeholder="鄉鎮市區"
             ></Dropdown>

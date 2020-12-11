@@ -265,7 +265,7 @@ export class Form extends Component {
     }
     handleSubmit = e => {
         e.preventDefault()
-        console.log(this.checkValid(), this.checkValueEmpty())
+        //console.log(this.checkValid(), this.checkValueEmpty())
         if (this.checkValid() && this.checkValueEmpty()) {
             const member = this.state.apiData
             this.props.addB2eMemData(member)
@@ -324,6 +324,7 @@ export class Form extends Component {
                             max="50"
                             name="nameChn"
                             value={nameChn}
+                            tab="0"
                             validName="nameChnValid"
                             valid={this.state.nameChnValid}
                             validityMessage={'請輸入公司名稱'} //錯誤訊息
@@ -335,6 +336,7 @@ export class Form extends Component {
                             type="text"
                             name="compUniId"
                             value={compUniId}
+                            tab="1"
                             validName="compUniIdValid"
                             valid={this.state.compUniIdValid}
                             validityMessage={this.state.compUniIdMsg}
@@ -344,6 +346,7 @@ export class Form extends Component {
                         <TextInput
                             label="公司電話*"
                             controlType={'tel'}
+                            tab="2"
                             name={[
                                 {
                                     name: 'telArea',
@@ -383,6 +386,7 @@ export class Form extends Component {
                             type="text"
                             name="headcount"
                             value={headcount}
+                            tab="3"
                             validName="headcountValid"
                             valid={this.state.headcountValid}
                             validityMessage={this.state.headcountMsg}
@@ -392,6 +396,7 @@ export class Form extends Component {
                             label="聯絡地址*"
                             name={['addrContCounty', 'addrContDistrict', 'zipCont', 'addrCont']}
                             countyValue={''}
+                            tab="4"
                             value={[addrContCounty, addrContDistrict, zipCont, addrCont]}
                             valid={[
                                 this.state.addrContCountyValid,
@@ -414,6 +419,7 @@ export class Form extends Component {
                             valid="true"
                             value={compScale}
                             onChange={this.handleChange}
+                            tab="5"
                         />
                         <SelectInput
                             label="產業類別"
@@ -422,6 +428,7 @@ export class Form extends Component {
                             name="dealerType"
                             valid="true"
                             value={dealerType}
+                            tab="6"
                             onChange={this.handleChange}
                         />
 
@@ -430,6 +437,7 @@ export class Form extends Component {
                             placeholder="請輸入"
                             name="capital"
                             value={capital}
+                            tab="7"
                             validName="capitalValid"
                             valid={this.state.capitalValid}
                             onChange={this.handleChange}
@@ -466,6 +474,7 @@ export class Form extends Component {
                             label="姓名*"
                             placeholder="請輸入"
                             value={this.state.apiData.contNameFirst + this.state.apiData.contNameLast}
+                            tab="8"
                             valid={this.state.contNameValid}
                             validityMessage={'請輸入聯絡人姓名'}
                             onChange={this.handleChange}
@@ -475,6 +484,7 @@ export class Form extends Component {
                         <TextInput
                             label="電話*"
                             controlType={'tel'}
+                            tab="9"
                             name={[
                                 {
                                     name: 'contTelArea',
@@ -511,6 +521,7 @@ export class Form extends Component {
                         <TextInput
                             name="contEmail"
                             value={contEmail}
+                            tab="10"
                             label="電子信箱*"
                             placeholder="請輸入"
                             type="email"
@@ -522,6 +533,7 @@ export class Form extends Component {
                         <TextInput
                             name="contTelMo"
                             label="行動電話"
+                            tab="11"
                             placeholder="(例) 0900888333"
                             value={contTelMo}
                             valid={this.state.contTelMoValid}
@@ -538,6 +550,7 @@ export class Form extends Component {
                             name="collaborateWay"
                             label="配合方式*"
                             value={collaborateWay}
+                            tab="12"
                             valid={this.state.collaborateWayValid}
                             validityMessage={'請選擇配合需求'}
                             onChange={this.handleChange}
@@ -548,6 +561,7 @@ export class Form extends Component {
                             name="paymentMethod"
                             label="付款方式*"
                             value={paymentMethod}
+                            tab="13"
                             valid={this.state.paymentMethodValid}
                             validityMessage={'請選擇付款方式'}
                             onChange={this.handleChange}
@@ -558,6 +572,7 @@ export class Form extends Component {
                             name="travelAgency"
                             label="預計配合旅行社*"
                             value={travelAgency}
+                            tab="14"
                             valid={this.state.travelAgencyValid}
                             validityMessage={'請選擇預計配合旅行社'}
                             onChange={this.handleChange}
@@ -567,6 +582,7 @@ export class Form extends Component {
                             placeholder="(元/人)"
                             value={subsidy}
                             name="subsidy"
+                            tab="15"
                             valid="true"
                             onChange={this.handleChange}
                         />
@@ -576,10 +592,12 @@ export class Form extends Component {
                         <TextInput
                             name="demand"
                             label="特殊需求備註"
+                            tab="16"
                             controlType={'textarea'}
                             rows="3"
                             value={demand}
                             onChange={this.handleChange}
+                            valid={true}
                         />
                     </FormContainer>
                     <div className="buttonArea">

@@ -54,70 +54,93 @@ export default class TextInput extends Component {
         })
     }
     render() {
-        let widthClass = this.props.controlType === 'textarea' ? 'address' : ''
-        const divProps = Object.assign({}, this.props)
+        let widthClass = this.props.controlType === 'textarea' ? 'address textarea' : ''
         return (
             <div className={'form-control ' + widthClass}>
-                <label htmlFor={this.props.name}>{this.props.label}</label>
-                {this.props.controlType === 'textarea' ? (
-                    [
-                        <Count key={0} value={this.props.value} maxLength="500" />,
-                        <textarea
-                            key={1}
-                            rows={this.props.rows}
-                            name={this.props.name}
-                            cols="30"
-                            onChange={this.props.onChange}
-                            defaultValue={this.props.defaultValue}
-                            maxLength="500"
-                        ></textarea>,
-                    ]
-                ) : this.props.controlType === 'tel' ? (
-                    <div className="input-container">
-                        {this.props.name &&
-                            this.props.name.map(item => (
-                                <input
-                                    className={!item.valid ? 'invalid' : ''}
-                                    placeholder={item.placeholder}
-                                    name={item.name}
-                                    data-valid={item.validName}
-                                    key={item.name}
-                                    onChange={this.changeTel}
-                                    maxLength={item.max}
-                                    required={item.required}
-                                />
-                            ))}
-                    </div>
-                ) : this.props.name === 'contName' ? (
-                    <div className="input-container">
-                        {this.props.subName &&
-                            this.props.subName.map(item => (
-                                <input
-                                    className={!item.valid ? 'invalid' : ''}
-                                    name={item.name}
-                                    data-valid={item.validName}
-                                    key={item.name}
-                                    placeholder={item.placeholder}
-                                    onChange={this.changeName}
-                                    maxLength={item.max}
-                                    //handleChangeName={item.handleChangeName}
-                                    required={item.required}
-                                />
-                            ))}
-                    </div>
-                ) : (
-                    <input
-                        className={!this.props.valid ? 'invalid' : ''}
-                        type={this.props.type}
-                        name={this.props.name}
-                        data-valid={this.props.validName}
-                        placeholder={this.props.placeholder}
-                        onChange={this.props.onChange}
-                        maxLength={this.props.max}
-                        required={this.props.required}
-                    />
-                )}
-
+                <div className="input-container" key={this.props.tab + 'input'} tabIndex={this.props.tab}>
+                    {this.props.controlType === 'textarea'
+                        ? [
+                              <Count key={'0' + this.props.name} value={this.props.value} maxLength="500" />,
+                              <textarea
+                                  key={'1' + this.props.name}
+                                  rows={this.props.rows}
+                                  name={this.props.name}
+                                  cols="30"
+                                  onChange={this.props.onChange}
+                                  defaultValue={this.props.defaultValue}
+                                  maxLength="500"
+                              ></textarea>,
+                              <label
+                                  key={'2' + this.props.name}
+                                  htmlFor={this.props.name}
+                                  className={!this.props.valid ? 'invalid' : ''}
+                              >
+                                  {this.props.label}
+                              </label>,
+                          ]
+                        : this.props.controlType === 'tel'
+                        ? [
+                              <fieldset key={this.props.name + '3'}>
+                                  {this.props.name &&
+                                      this.props.name.map((item, i) => (
+                                          <React.Fragment key={i + item.name + '1'}>
+                                              <input
+                                                  className={!item.valid ? 'invalid' : ''}
+                                                  placeholder={item.placeholder}
+                                                  name={item.name}
+                                                  data-valid={item.validName}
+                                                  key={item.name}
+                                                  onChange={this.changeTel}
+                                                  maxLength={item.max}
+                                              />
+                                              <label htmlFor={item.name} key={(i + 2) * 5}></label>
+                                          </React.Fragment>
+                                      ))}
+                                  <legend key={this.props.name + '4'} className={!this.props.valid ? 'invalid' : ''}>
+                                      {this.props.label}
+                                  </legend>
+                              </fieldset>,
+                          ]
+                        : this.props.name === 'contName'
+                        ? [
+                              <fieldset key={this.props.name + '5'}>
+                                  {this.props.subName &&
+                                      this.props.subName.map((item, i) => (
+                                          <React.Fragment key={i + item.name + '2'}>
+                                              <input
+                                                  className={!item.valid ? 'invalid' : ''}
+                                                  name={item.name}
+                                                  data-valid={item.validName}
+                                                  key={item.name}
+                                                  placeholder={item.placeholder}
+                                                  onChange={this.changeName}
+                                                  maxLength={item.max}
+                                              />
+                                              <label htmlFor={item.name} key={(i + 3) * 2}></label>
+                                          </React.Fragment>
+                                      ))}
+                                  <legend key={this.props.name + '6'} className={!this.props.valid ? 'invalid' : ''}>
+                                      {this.props.label}
+                                  </legend>
+                              </fieldset>,
+                          ]
+                        : [
+                              <React.Fragment key={this.props.name + '5'}>
+                                  <input
+                                      className={!this.props.valid ? 'invalid' : ''}
+                                      type={this.props.type}
+                                      name={this.props.name}
+                                      data-valid={this.props.validName}
+                                      placeholder={this.props.placeholder}
+                                      onChange={this.props.onChange}
+                                      maxLength={this.props.max}
+                                  />
+                                  <label htmlFor={this.props.name} className={!this.props.valid ? 'invalid' : ''}>
+                                      {this.props.label}
+                                  </label>
+                              </React.Fragment>,
+                          ]}
+                </div>
                 {this.props.validityMessage && !this.props.valid ? (
                     <p className="error-message">{this.props.validityMessage}</p>
                 ) : (

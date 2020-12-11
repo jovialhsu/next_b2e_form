@@ -6,6 +6,10 @@
     padding-top: 30px;
     padding-bottom: 21px;
     border-radius: 3px;
+    &:first-of-type {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
 }
 h1 {
     color: #222;
@@ -30,6 +34,12 @@ h1 {
         background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='26' viewBox='0 0 20 26'%3E%3Cpath d='M18.368 17.095C16.587 20.097 10.732 26 10 26c-.577 0-6.588-5.903-8.37-8.903C.595 15.372 0 13.305 0 11.078 0 5.008 4.482.08 10 .08c5.517 0 10 4.927 10 10.998 0 2.227-.597 4.294-1.632 6.017z' fill='%2355D040' fill-rule='evenodd'/%3E%3C/svg%3E")
             no-repeat center;
     }
+    &[data-seq='1'] {
+        margin-top: 2px;
+    }
+}
+form > div:nth-child(8) {
+    border-radius: 3px;
 }
 .form-container {
     display: flex;
@@ -39,51 +49,101 @@ h1 {
     background-color: white;
     padding-bottom: 38px;
     margin-bottom: 2px;
-    border-radius: 3px;
+    //border-radius: 3px;
     .form-control {
-        label[for='contName'] {
-            & + .input-container > input:first-child {
-                width: 82px;
-                & + input {
-                    width: 156px;
+        position: relative;
+        .input-container {
+            &:focus {
+                & > label {
+                    color: #119d36;
                 }
             }
-        }
-        input,
-        textarea {
-            display: block;
-            height: 40px;
-            line-height: 40px;
-            font: inherit;
-            width: 254px;
-            border: 1px solid #bdbdbd;
-            border-radius: 3px;
-            background: white;
-            text-indent: 10px;
-            transition: border-color 0.1s ease-out;
-            &::placeholder {
-                color: #bdbdbd;
+            input,
+            textarea {
+                display: block;
+                height: 40px;
+                line-height: 40px;
+                font: inherit;
+                width: 254px;
+                border: 1px solid #bdbdbd;
+                border-radius: 3px;
+                background: white;
+                text-indent: 10px;
+                transition: border-color 0.1s ease-out;
+                &::placeholder {
+                    color: #bdbdbd;
+                }
+                &:focus {
+                    border-color: #55d040;
+                    outline: none;
+                    ~ label,
+                    ~ legend {
+                        color: #119d36;
+                    }
+                }
+                &.invalid {
+                    border-color: $red-error;
+                    // background: rgb(237, 217, 217);
+                }
             }
-            &:focus {
-                border-color: #55d040;
-                outline: none;
+            textarea {
+                width: 547px;
+                height: 66px;
+                resize: none;
+                padding: 1em;
+                text-indent: 0;
             }
-            &.invalid {
-                border-color: $red-error;
-                // background: rgb(237, 217, 217);
+            fieldset {
+                position: relative;
+                width: 260px;
+                border: none;
+                display: flex;
+                padding: 0;
+                margin: 0;
+                margin-top: -31px;
+                legend {
+                    margin-bottom: 10px;
+                    &.is-open {
+                        color: #119d36;
+                    }
+                    &.invalid {
+                        color: $red-error;
+                    }
+                }
+                input[data-valid='contNameValid'] {
+                    width: 82px;
+                    margin-right: 10px;
+                    & ~ input {
+                        width: 156px;
+                    }
+                }
+                label {
+                    display: none;
+                }
             }
-        }
-        textarea {
-            width: 547px;
-            resize: none;
+
+            input[data-valid='tel1Valid']:first-child,
+            input[data-valid='contTelValid'] {
+                margin-right: 10px;
+                width: 50px;
+                & ~ input {
+                    width: 122px;
+                    margin-right: 10px;
+                    & ~ input {
+                        width: 50px;
+                    }
+                }
+            }
         }
     }
 }
 
 label {
+    position: absolute;
     display: block;
     margin-bottom: 0.5rem;
     width: 100%;
+    margin-top: -12%;
     &[for='demand'] {
         width: auto;
         float: left;
@@ -97,24 +157,21 @@ label {
             }
         }
     }
+    &.is-open {
+        color: #119d36;
+    }
+    &.invalid {
+        color: $red-error;
+    }
 }
 
 .form-control {
     width: 260px;
-    margin-top: 30px;
+    margin-top: 45px;
     margin-right: 34px;
     .input-container {
         display: flex;
         justify-content: space-between;
-        input:first-child {
-            width: 50px;
-            & + input {
-                width: 122px;
-                & + input {
-                    width: 50px;
-                }
-            }
-        }
     }
     &:nth-child(even) {
         margin-left: 77px;
@@ -122,7 +179,6 @@ label {
     &:nth-child(1),
     &:nth-child(3) {
         margin-left: 77px;
-
         & + div {
             margin-left: 0;
         }
@@ -133,17 +189,40 @@ label {
         @extend .form-control;
         width: 554px;
         margin-left: 77px;
+        &.textarea {
+            margin-top: 20px;
+        }
         .input-container {
             margin-bottom: 12px;
+            flex-wrap: wrap;
+            span {
+                order: 2;
+                text-align: right;
+                font-size: 12px;
+                color: $gray-light;
+                + textarea {
+                    order: 3;
+                    + label {
+                        order: 1;
+                        position: relative;
+                        margin-top: 0%;
+                    }
+                }
+            }
             & > * {
                 width: 178px;
             }
             & > input {
                 width: 172px;
                 height: 38.5px;
+                + input {
+                    margin-top: 10px;
+                    width: 551px;
+                }
             }
-            + input {
-                width: 551px;
+
+            label {
+                margin-top: -5%;
             }
         }
         textarea {
@@ -200,32 +279,37 @@ label {
     border-width: 0 5px 5px;
 }
 .Dropdown-menu {
-    max-height: 200px;
+    //max-height: 200px;
     position: absolute;
     width: calc(100%);
     top: 60px;
     z-index: 100;
     filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.3));
+    //border: 5px solid #fff;
     > div {
         background-color: white;
         padding: 1em;
-        max-height: 200px;
+        max-height: 282px;
         overflow-y: auto;
-        scrollbar-color: #ccc #fff;
+        //margin-right: 5px;
+        scrollbar-color: #dcdcdc #f0f0f0;
         scrollbar-width: thin;
         border-top-color: transparent;
         border-top-width: 5px;
         &::-webkit-scrollbar {
-            width: 10px;
-            background-color: #fff;
+            width: 7px;
+            //background-color: #fff;
+        }
+        &::-webkit-scrollbar-track-piece {
+            margin-right: 5px;
         }
         &::-webkit-scrollbar-thumb {
-            border-radius: 10px;
-            background-color: #ccc;
+            border-radius: 16px;
+            background-color: #dcdcdc;
         }
         &::-webkit-scrollbar-track {
-            border-radius: 10px;
-            background-color: #fff;
+            border-radius: 16px;
+            background-color: #f0f0f0;
         }
     }
     &::after {
