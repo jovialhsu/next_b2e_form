@@ -1,6 +1,7 @@
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const Router = require('koa-router');
+const config = require('./config');
 ///const logger = require('koa-logger');
 //const helmet = require('koa-helmet');
 // const serve = require('koa-static');
@@ -44,5 +45,7 @@ app.prepare().then(() => {
     server.use(router.routes());
     console.log(process.env.NODE_ENV);
     console.log(process.env.API_ENV);
-    server.listen(3005);
+    server.listen(config.port, () => {
+        console.info(`server start on port:${config.port}`);
+    });
 });

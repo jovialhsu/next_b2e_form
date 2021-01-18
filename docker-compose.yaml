@@ -2,15 +2,15 @@ services:
   server:
     restart: always
     expose:
-      - 3005
+      - 3000
     command: ['yarn', 'start']
     build:
       context: ./
     environment:
-      - PORT=3005
+      - PORT=3000
       # - NODE_ENV=production
     volumes:
       - './:/workspace'
       - './:/workspace/node_modules'
     ports:
-      - 3005:3005
+      - 3000:3000

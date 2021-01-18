@@ -2,6 +2,7 @@
  * server use api uri
  */
 const config = require('../../config');
+console.log(config);
 //DEV endpoint & docker container TEST/WS/PRD endpoint
 //const MEMBER = `${config.memPlayScheme}://member.eztravel.com.tw/`;
 const MEMBER_API =

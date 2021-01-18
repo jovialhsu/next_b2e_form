@@ -30,7 +30,7 @@ COPY --from=builder /workspace/node_modules ./node_modules
 COPY --from=builder /workspace/pages ./.pages
 COPY --from=builder /workspace/build ./build
 COPY --from=builder /workspace/public ./public
-EXPOSE 3005
+#EXPOSE 8080
 #指定 container 對外開放的 port
 CMD yarn server
 
