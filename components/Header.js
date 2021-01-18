@@ -35,10 +35,11 @@ export class Header extends Component {
     }
 
     render() {
+        console.log(this.props)
         return (
             <>
-                {this.props.EzJsCss ? parse(this.props.EzJsCss) : ''}
-                {this.props.header ? parse(this.props.header) : ''}
+                {this.props.EzJsCss && this.props.EzJsCss?.status !== -1 ? parse(this.props.EzJsCss) : ''}
+                {this.props.header && this.props.header?.status !== -1 ? parse(this.props.header) : ''}
             </>
         )
     }

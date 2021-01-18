@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'next/router'
-import { addB2eMemData } from '../redux/actions/B2eFormAction'
+import { addB2eMemData, requestError } from '../redux/actions/B2eFormAction'
 import FormHeader from './UI/FormHeader'
 import TextInput from './UI/TextInput'
 import SelectInput from './UI/SelectInput'
@@ -13,6 +13,7 @@ import { isEmpty, isUniformNumbersErr, isEmailErr, isMobileErr, isNumberErr } fr
 function mapDispatchToProps(dispatch) {
     return {
         addB2eMemData: member => dispatch(addB2eMemData(member)),
+        requestError: error => dispatch(requestError(error)),
     }
 }
 export class Form extends Component {

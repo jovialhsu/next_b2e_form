@@ -23,7 +23,7 @@ export class Footer extends Component {
     }
 
     render() {
-        return <>{this.props.footer ? parse(this.props.footer) : ''}</>
+        return <>{this.props.footer && this.props.footer?.status !== -1 ? parse(this.props.footer) : ''}</>
     }
 }
 
