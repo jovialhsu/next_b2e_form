@@ -36,15 +36,16 @@ const checkStatus = (response) => {
     }
     return {
         status: 404,
-        //requestUrl: response.config.url,
+        requestUrl: response.config.url,
         msg: 'network fetch error',
     };
 };
 
 const checkCode = (res) => {
-    // if (res.status === 404) {
-    //   logger.warn(`${res.msg} - ${res.requestUrl}`)
-    // }
+    if (res.status === 404) {
+        console.warn(`${res.msg} - ${res.requestUrl}`);
+    }
+    //console.log('回應', res);
     return res;
 };
 
@@ -70,6 +71,7 @@ const axiosHandler = (options) => {
                 },
             })
                 .then((response) => {
+                    console.log(response);
                     return checkStatus(response);
                 })
                 .then((res) => {

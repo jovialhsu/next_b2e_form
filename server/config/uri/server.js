@@ -2,7 +2,7 @@
  * server use api uri
  */
 const config = require('../../config');
-console.log(config);
+// console.log(config);
 //DEV endpoint & docker container TEST/WS/PRD endpoint
 //const MEMBER = `${config.memPlayScheme}://member.eztravel.com.tw/`;
 const MEMBER_API =
@@ -17,9 +17,10 @@ const MAIN_WEB_API =
 exports.mainWebApi = {
     header: `${MAIN_WEB_API}v1/api/ezSpHeader`,
     footer: `${MAIN_WEB_API}v1/api/ezSpFooter`,
-    EzJsCss: `${MAIN_WEB_API}v2/api/ezSpJsCss`,
+    EzJsCss: `${MAIN_WEB_API}v3/api/ezSpJsCss`,
 };
 exports.b2eApi = {
-    member: `${MEMBER_API}member/rest/v1/b2e/registryB2eMain`,
-    //member: 'http://localhost:3000/member',
+    //member: `${MEMBER_API}member/rest/v1/b2e/registryB2eMain`,
+    member: `${MEMBER_API}member/rest/v1/b2e/registryB2e`,
+    //member: 'http://localhost:3005/member',
 };

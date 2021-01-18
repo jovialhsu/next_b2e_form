@@ -13,7 +13,6 @@ import { isEmpty, isUniformNumbersErr, isEmailErr, isMobileErr, isNumberErr } fr
 function mapDispatchToProps(dispatch) {
     return {
         addB2eMemData: member => dispatch(addB2eMemData(member)),
-        requestError: error => dispatch(requestError(error)),
     }
 }
 export class Form extends Component {
@@ -270,6 +269,7 @@ export class Form extends Component {
         if (this.checkValid() && this.checkValueEmpty()) {
             const member = this.state.apiData
             this.props.addB2eMemData(member)
+            console.log(this.props.state.B2eFormReducer.isError)
             this.props.router.push('/finish')
         }
         return
