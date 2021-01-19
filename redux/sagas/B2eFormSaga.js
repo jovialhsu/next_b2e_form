@@ -55,7 +55,8 @@ export function* getEzJsCss() {
 function* sendB2eMemberInfo(member) {
     try {
         yield call(axios.post, b2eApi.member, member);
-        // return;
+
+        return;
     } catch (error) {
         yield put({ type: 'SENDB2E_REQUEST_FAILED', error });
         console.log(error);

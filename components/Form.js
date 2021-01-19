@@ -270,7 +270,7 @@ export class Form extends Component {
             const member = this.state.apiData
             this.props.addB2eMemData(member)
             console.log(this.props.state.B2eFormReducer.isError)
-            this.props.router.push('/finish')
+            // this.props.router.push('/finish')
         }
         return
     }
