@@ -1,7 +1,7 @@
 const config = require('../config');
 const isProduction = config.nodeEnv === 'production';
 const utils = require('../utils');
-const route = require('koa-route');
+const Router = require('koa-router');
 const { b2eApi } = require('../config/uri/server');
 // if no data response body
 const noDataMessage = {
@@ -19,13 +19,20 @@ exports.member = async (ctx, next) => {
         ctx.response.body = await utils.axiosHandler(options);
         console.log('回應的狀態', ctx.response.body);
         ctx.status = ctx.response.body.status;
-        if (ctx.status !== 200) {
+        console.log('##', ctx.status);
+        if (ctx.status !== 200 && ctx.status !== 201) {
             await next();
         } else {
-            ctx.app.use(route.get('/finish'));
+            const router = new Router();
+            console.log('發送成功');
+            // ctx.app.use(
+            //     router.get('/finish', async (ctx) => {
+            //         console.log(ctx);
+            //     })
+            // );
         }
     } catch (error) {
-        console.log(error);
+        //console.log('錯誤', error);
         ctx.app.emit('error', error, ctx);
     }
 };

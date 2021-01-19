@@ -7,6 +7,7 @@ import TextInput from './UI/TextInput'
 import SelectInput from './UI/SelectInput'
 import AddressInput from './UI/AddressInput'
 import FormContainer from './UI/FormContainer'
+import Modal from './UI/Modal'
 import Button from './UI/Button'
 import { isEmpty, isUniformNumbersErr, isEmailErr, isMobileErr, isNumberErr } from './helpers/validation'
 
@@ -66,9 +67,13 @@ export class Form extends Component {
             collaborateWayValid: true,
             paymentMethodValid: true,
             travelAgencyValid: true,
+            error: false,
         }
         this.state = this.initialState
         this.handleChange = this.handleChange.bind(this)
+    }
+    componentDidUpdate() {
+        this.props.success ? this.props.router.push('/join/finish') : ''
     }
     handleChange(event) {
         const { name, value } = event.target ? event.target : event
@@ -200,6 +205,9 @@ export class Form extends Component {
             contTelValid
         )
     }
+    // finish() {
+    //     this.props.router.push('/finish')
+    // }
     /**
      * 檢查資料正確
      * 不為空值:[nameChn,compUniId,headcount,addrCont,contTel,contEmail,collaborateWay,travelAgency,paymentMethod,contName,tel1]
@@ -263,14 +271,11 @@ export class Form extends Component {
             return true
         }
     }
-    handleSubmit = e => {
+    handleSubmit = async e => {
         e.preventDefault()
-        //console.log(this.checkValid(), this.checkValueEmpty())
         if (this.checkValid() && this.checkValueEmpty()) {
             const member = this.state.apiData
-            this.props.addB2eMemData(member)
-            console.log(this.props.state.B2eFormReducer.isError)
-            // this.props.router.push('/finish')
+            await this.props.addB2eMemData(member)
         }
         return
     }
@@ -313,6 +318,7 @@ export class Form extends Component {
         } = this.state.apiData
         return (
             <div className="content">
+                {this.props.error ? <Modal /> : ''}
                 <FormHeader
                     title="歡迎加入易遊網企業會員"
                     desc="請填妥以下資料，易遊網企業服務中心將會盡速與您聯絡。"
@@ -610,9 +616,12 @@ export class Form extends Component {
         )
     }
 }
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
+    console.log(state)
     return {
-        state,
+        ...state,
+        success: state.B2eFormReducer.isSuccess,
+        error: state.B2eFormReducer.isError,
     }
 }
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Form))

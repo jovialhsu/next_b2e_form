@@ -6,19 +6,15 @@ import * as B2eFormAction from '../actions/B2eFormAction';
 // postOrderMessage
 export function* addB2eMemData({ member }) {
     try {
-        const { timeout } = yield race({
-            sendMessage: call(sendB2eMemberInfo, member),
+        const { sends, timeout } = yield race({
+            sends: call(sendB2eMemberInfo, member),
             timeout: delay(30 * 1000),
         });
-        // if (timeout) {
-        //   yield put(
-        //     CommonActions.error({
-        //       msg: '訊息發送未完成或失敗，請稍後確認往來訊息',
-        //       buttons: [{ text: '確認' }],
-        //     })
-        //   )
-        // }
-        //return
+        console.log(sends, timeout);
+        if (timeout) {
+            yield put({ type: 'SENDB2E_REQUEST_FAILED', error });
+        }
+        return;
     } catch (error) {
         console.log(error);
     }
@@ -52,13 +48,15 @@ export function* getEzJsCss() {
  * @param member 申請資料
  */
 
-function* sendB2eMemberInfo(member) {
+export function* sendB2eMemberInfo(member) {
     try {
-        yield call(axios.post, b2eApi.member, member);
-        return;
+        const { data } = yield call(axios.post, b2eApi.member, member);
+        yield put({ type: 'SENDB2E_REQUEST_SUCCESS' });
+        return data;
     } catch (error) {
         yield put({ type: 'SENDB2E_REQUEST_FAILED', error });
         console.log(error);
+        return;
     }
 }
 function* fetchHeader() {

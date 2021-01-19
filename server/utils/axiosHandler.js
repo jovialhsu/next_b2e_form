@@ -35,9 +35,9 @@ const checkStatus = (response) => {
         return response;
     }
     return {
-        status: 404,
+        status: response.status,
         requestUrl: response.config.url,
-        msg: 'network fetch error',
+        msg: response.statusText,
     };
 };
 

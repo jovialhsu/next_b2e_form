@@ -21,6 +21,6 @@ exports.mainWebApi = {
 };
 exports.b2eApi = {
     //member: `${MEMBER_API}member/rest/v1/b2e/registryB2eMain`,
-    member: `${MEMBER_API}member/rest/v1/b2e/registryB2e`,
-    //member: 'http://localhost:3005/member',
+    // member: `${MEMBER_API}member/rest/v1/b2e/registryB2e`,
+    member: 'http://localhost:3004/member',
 };

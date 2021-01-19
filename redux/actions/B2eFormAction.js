@@ -7,6 +7,9 @@ export const requestError = (err) => ({
     type: actionTypes.SENDB2E_REQUEST_FAILED,
     err,
 });
+export const requestSuccess = () => ({
+    type: actionTypes.SENDB2E_REQUEST_SUCCESS,
+});
 export const addB2eMemData = (member) => ({
     type: actionTypes.ADD_B2E_MEM_DATA,
     member,
