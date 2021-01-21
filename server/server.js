@@ -40,6 +40,7 @@ app.prepare().then(() => {
     router.get('(.*)', async (ctx, next) => {
         await handle(ctx.req, ctx.res);
         ctx.respond = false;
+        console.log('process pid =>', process.pid);
         await next;
     });
 
