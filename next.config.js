@@ -8,7 +8,11 @@ const config = require('./server/config');
 const nextConfig = {
     // 設定產出路徑為 /build 取代 /.next (for google cloud storage)
     distDir: 'build',
-
+    assetPrefix: '/join',
+    // basePath: '/join',
+    publicRuntimeConfig: {
+        basePath: '/join',
+    },
     module: {
         rules: [
             {

@@ -1,22 +1,24 @@
-version: '3'
+version: '3.8'
 services:
   nginx:
-    image: nginx
-    restart: always
-    command: ['yarn', 'start']
-    volumes:
-      - './:/workspace'
-      - './:/workspace/node_modules'
-    depends_on:
-      - website1
-      - website2
-      - website3
-    ports:
-      - 8888:80
-  website1:
-    build: ./
-    environment:
-      - PORT=3000
+        restart: always
+        build:
+            context: ./nginx
+        ports:
+            - "80:80"
+  koaserver:
+        build:
+            context: ./
+        expose:
+          - 3000
+        ports:
+          - "3000:3000"
+        command: ['yarn', 'server']
+        environment:
+          - PORT=3000
+        # volumes:
+        #   - './:/workspace'
+        #   - './:/workspace/node_modules'
   # server:
   #   restart: always
   #   expose:
