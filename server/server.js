@@ -24,8 +24,8 @@ app.prepare().then(() => {
   const server = new Koa();
   const router = new Router();
   server.use(koaConnect(compression()));
-  router.get("/join/api/header", mainWebControllers.header);
-  router.get("/join/api/footer", mainWebControllers.footer);
+  router.get("/api/header", mainWebControllers.header);
+  router.get("/api/footer", mainWebControllers.footer);
   router.get("/api/EzJsCss", mainWebControllers.EzJsCss);
   router.post("/api/b2eMember", b2eControllers.member);
   //router.get('/finish', b2eControllers.member);
@@ -40,6 +40,7 @@ app.prepare().then(() => {
   router.get("(.*)", async (ctx, next) => {
     await handle(ctx.req, ctx.res);
     ctx.respond = false;
+    console.log("process pid =>", process.pid);
     await next;
   });
 

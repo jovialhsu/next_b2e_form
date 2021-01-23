@@ -1,16 +1,36 @@
+version: '3.8'
 services:
-  server:
-    restart: always
-    expose:
-      - 3000
-    command: ['yarn', 'start']
-    build:
-      context: ./
-    environment:
-      - PORT=3000
-      # - NODE_ENV=production
-    volumes:
-      - './:/workspace'
-      - './:/workspace/node_modules'
-    ports:
-      - 3000:3000
+  nginx:
+        restart: always
+        build:
+            context: ./nginx
+        ports:
+            - "80:80"
+  koaserver:
+        build:
+            context: ./
+        expose:
+          - 3000
+        ports:
+          - "3000:3000"
+        command: ['yarn', 'server']
+        environment:
+          - PORT=3000
+        # volumes:
+        #   - './:/workspace'
+        #   - './:/workspace/node_modules'
+  # server:
+  #   restart: always
+  #   expose:
+  #     - 3000
+  #   command: ['yarn', 'start']
+  #   build:
+  #     context: ./
+  #   environment:
+  #     - PORT=3000
+  #     # - NODE_ENV=production
+  #   volumes:
+  #     - './:/workspace'
+  #     - './:/workspace/node_modules'
+  #   ports:
+  #     - 3000:3000

@@ -4,11 +4,11 @@
 //apiUri
 exports.mainApi = {
   header: "/join/api/header",
-  footer: "/api/footer",
-  EzJsCss: "/api/EzJsCss",
+  footer: "/join/api/footer",
+  EzJsCss: "/join/api/EzJsCss",
 };
 exports.b2e = {
-  member: "/api/b2eMember",
+  member: "/join/api/b2eMember",
 };
 
 //Endpoint & staticUrl
